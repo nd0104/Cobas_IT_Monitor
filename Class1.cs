@@ -12,7 +12,7 @@ using System.IO;
 namespace Tool_Class
 {
     #region DB
-
+    //如何不使用Oracle请注释掉
     class ReadOracleData
     {
         /// <summary>
