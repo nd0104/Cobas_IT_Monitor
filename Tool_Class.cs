@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using System.Data.OracleClient;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography;
 using System.IO;
+using System.Data.OleDb;
 
 namespace Tool_Class
 {
-    #region DB
+   /* #region DB
     //如何不使用Oracle请注释掉
     class ReadOracleData
     {
@@ -43,7 +43,7 @@ namespace Tool_Class
             return testDataSet;
         }
     }
-    #endregion
+    #endregion*/
     #region 加密解密
     public class CryptoHelpException : ApplicationException
     {
@@ -318,3 +318,71 @@ namespace Tool_Class
     }
 }
 #endregion
+#region access数据库操作类
+public class AccessDbClass1
+{
+
+
+    public OleDbConnection Conn;
+    public string ConnString;
+
+
+
+    /// <summary>
+    /// 打开 数据库 
+    /// </summary>
+    /// <param name="Dbpath">数据库路径</param>
+    public string AccessDbClass2(string Dbpath)
+    {
+        ConnString = "Provider=Microsoft.Jet.OleDb.4.0;Data Source=";
+        ConnString += Dbpath;
+        Conn = new OleDbConnection(ConnString);
+        Conn.Open();
+        string b = "true";
+        return b;
+    }
+
+
+    public OleDbConnection DbConn()
+    {
+        Conn.Open();
+        return Conn;
+    }
+
+
+    public void Close()
+    {
+        Conn.Close();
+    }
+    /// <summary>
+    /// sql查询
+    /// </summary>
+    /// <param name="SQL">sql语句</param>
+    public DataTable SelectToDataTable(string SQL)
+    {
+        OleDbDataAdapter adapter = new OleDbDataAdapter();
+        OleDbCommand command = new OleDbCommand(SQL, Conn);
+        adapter.SelectCommand = command;
+        DataTable Dt = new DataTable();
+        adapter.Fill(Dt);
+        return Dt;
+    }
+    /// <summary>
+    /// sql语句执行
+    /// </summary>
+    /// <param name="SQL">sql语句</param>
+    public bool ExecuteSQLNonquery(string SQL)
+    {
+        OleDbCommand cmd = new OleDbCommand(SQL, Conn);
+        try
+        {
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+#endregion
+} 
