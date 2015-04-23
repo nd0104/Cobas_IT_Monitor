@@ -12,7 +12,7 @@ using System.IO;
 namespace Tool_Class
 {
     #region DB
-    //如何不使用Oracle请注释掉
+
     class ReadOracleData
     {
         /// <summary>
@@ -314,6 +314,27 @@ namespace Tool_Class
                 DESFileClass.DecryptFile(inFile, outFile, password);//解密文件
             }
             //     File.Delete(inFile);
+        }
+        public string GetMD5FromFile(string fileName)
+        {
+            try
+            {
+                FileStream file = new FileStream(fileName, FileMode.Open);
+                System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                byte[] retVal = md5.ComputeHash(file);
+                file.Close();
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < retVal.Length; i++)
+                {
+                    sb.Append(retVal[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetMD5FromFile() fail,error:" + ex.Message);
+            }
         }
     }
 }
