@@ -315,6 +315,8 @@ namespace Tool_Class
             }
             //     File.Delete(inFile);
         }
+        //获取文件MD5值，入口为文件路径和文件名，返回MD5字符串
+        //                    string               string
         public string GetMD5FromFile(string fileName)
         {
             try
