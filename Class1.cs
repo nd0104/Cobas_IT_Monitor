@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-#using System.Data.OracleClient;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography;
 using System.IO;
+using System.Data.OleDb;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Tool_Class
 {
-    #region DB
-
+   /* #region DB
+    //如何不使用Oracle请注释掉
     class ReadOracleData
     {
         /// <summary>
@@ -43,8 +45,8 @@ namespace Tool_Class
             return testDataSet;
         }
     }
-    #endregion
-    #region 加密解密
+    #endregion*/
+   
     public class CryptoHelpException : ApplicationException
     {
         public CryptoHelpException(string msg) : base(msg) { }
@@ -255,7 +257,244 @@ namespace Tool_Class
             }
         }
     }
-    #endregion
+    //数据库操作
+    public class AccessDbClass1
+   {
+
+
+    public OleDbConnection Conn;
+    public string ConnString;
+
+
+
+    /// <summary>
+    /// 打开 数据库 
+    /// </summary>
+    /// <param name="Dbpath">数据库路径</param>
+    public string AccessDbClass2(string Dbpath)
+    {
+        ConnString = "Provider=Microsoft.Jet.OleDb.4.0;Data Source=";
+        ConnString += Dbpath;
+        Conn = new OleDbConnection(ConnString);
+        Conn.Open();
+        string b = "true";
+        return b;
+    }
+
+
+    public OleDbConnection DbConn()
+    {
+        Conn.Open();
+        return Conn;
+    }
+
+
+    public void Close()
+    {
+        Conn.Close();
+    }
+    /// <summary>
+    /// sql查询
+    /// </summary>
+    /// <param name="SQL">sql语句</param>
+    public DataTable SelectToDataTable(string SQL)
+    {
+        OleDbDataAdapter adapter = new OleDbDataAdapter();
+        OleDbCommand command = new OleDbCommand(SQL, Conn);
+        adapter.SelectCommand = command;
+        DataTable Dt = new DataTable();
+        adapter.Fill(Dt);
+        return Dt;
+    }
+    /// <summary>
+    /// sql语句执行
+    /// </summary>
+    /// <param name="SQL">sql语句</param>
+    public bool ExecuteSQLNonquery(string SQL)
+    {
+        OleDbCommand cmd = new OleDbCommand(SQL, Conn);
+        try
+        {
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
+
+    
+
+}
+    //配置文件操作
+    /// <summary>
+    /// 配置文件名为config.txt,路径在根目录Debug文件夹下
+    ///事例：
+    ///ip
+    ///P612=127.0.0.1;
+    ///C8K=192.168.1.1;
+    ///ip
+    ///mt
+    ///disk=60;
+    ///cpu=50;
+    ///nem=100;
+    ///mt
+    /// </summary>
+    public class config
+    {
+        /// <summary>
+        /// 周伟承ip配置专用
+        /// </summary>
+        public string[] readparameter(string jiedian)
+        {
+            Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
+            FileStream fs = new FileStream(@"345.txt", FileMode.Open);
+            Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
+            string w = dd.Readfile(fs);
+            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
+            string ee = s[1];
+            string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
+            string sourceDir = @"..\Debug";
+            string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
+            foreach (string f in txtList)
+            {
+                //File.Delete(f);
+            }
+            return ss;
+        }
+        public class eeeee
+        {
+            public string eee { get; set; }
+        }
+        eeeee bbb = new eeeee();
+        /// <summary>
+        /// 读取配置文件
+        /// </summary>
+        /// <param name="jiedian">大节点</param>
+        /// <param name="set">小节点</param>
+        public string readconfig(string jiedian, string set)
+        {
+            Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
+            FileStream fs = new FileStream(@"345.txt", FileMode.Open);
+            Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
+            string w = dd.Readfile(fs);
+            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
+            string ee = s[1];
+            string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
+            List<string> ipList = new List<string>();
+            foreach (string aa in ss)
+            {
+                ipList.Add(aa);
+            }
+            string ttttt = "\n" + set;
+            foreach (string ttt in ipList)
+            {
+                string[] ssss = Regex.Split(ttt, "=", RegexOptions.IgnoreCase);
+                string tttt = ttttt;
+
+                if (ssss[0].Substring(1).ToString() == tttt)
+                {
+
+                    bbb.eee = ssss[1];
+                }
+
+                //return ssss[0].Substring(1).ToString();
+
+            }
+            string sourceDir = @"..\Debug";
+            string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
+            foreach (string f in txtList)
+            {
+                File.Delete(f);
+            }
+            return bbb.eee;
+        }
+        /// <summary>
+        /// 修改配置文件
+        /// </summary>
+        /// <param name="jiedian">大节点</param>
+        /// <param name="set">小节点</param>
+        /// <param name="value">修改成value</param>
+        public void writeconfig(string jiedian, string set, string value)
+        {
+            Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
+            FileStream fs = new FileStream(@"345.txt", FileMode.Open);
+            Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
+            string w = dd.Readfile(fs);
+            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
+            string ee = s[1];
+            string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
+
+            List<string> ipList = new List<string>();
+            foreach (string aa in ss)
+            {
+                ipList.Add(aa);
+            }
+            string ttttt = "\n" + set;
+            foreach (string ttt in ipList)
+            {
+                string[] ssss = Regex.Split(ttt, "=", RegexOptions.IgnoreCase);
+                string tttt = ttttt;
+
+                if (ssss[0].Substring(1).ToString() == tttt)
+                {
+                    bbb.eee = ssss[1];
+                }
+
+            }
+            string values = bbb.eee;
+            string[] wt = Regex.Split(w, values, RegexOptions.IgnoreCase);
+            string total = wt[0] + value + wt[1];
+            string sourceDir = @"..\Debug";
+            string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
+            foreach (string f in txtList)
+            {
+                File.Delete(f);
+            }
+            dd.Write2file(@"345.txt", total);
+            string[] configList = Directory.GetFiles(sourceDir, "config.txt");
+            foreach (string f in configList)
+            {
+                File.Delete(f);
+            }
+            Tool_Class.DESFileClass.EncryptFile("345.txt", "config.txt", "123");
+            string[] txtList2 = Directory.GetFiles(sourceDir, "345.txt");
+            foreach (string f in txtList2)
+            {
+                File.Delete(f);
+            }
+        }
+        /// <summary>
+        /// 加密配置文件
+        /// </summary>
+        public void jiamiconfig()
+        {
+            Tool_Class.DESFileClass.EncryptFile("345.txt", "config.txt", "123");
+            string sourceDir = @"..\Debug";
+            string[] txtList2 = Directory.GetFiles(sourceDir, "345.txt");
+
+            foreach (string f in txtList2)
+            {
+                File.Delete(f);
+            }
+        }
+        /// <summary>
+        /// 解密配置文件
+        /// </summary>
+        public void jiemiconfig()
+        {
+            Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
+            string sourceDir = @"..\Debug";
+            string[] txtList2 = Directory.GetFiles(sourceDir, "config.txt");
+            foreach (string f in txtList2)
+            {
+                File.Delete(f);
+            }
+
+        }
+    }
 
     #region 文件操作/写日志/加密解密入口函数
     class IO_tool
@@ -315,29 +554,10 @@ namespace Tool_Class
             }
             //     File.Delete(inFile);
         }
-        //获取文件MD5值，入口为文件路径和文件名，返回MD5字符串
-        //                    string               string
-        public string GetMD5FromFile(string fileName)
-        {
-            try
-            {
-                FileStream file = new FileStream(fileName, FileMode.Open);
-                System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-                byte[] retVal = md5.ComputeHash(file);
-                file.Close();
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < retVal.Length; i++)
-                {
-                    sb.Append(retVal[i].ToString("x2"));
-                }
-                return sb.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("GetMD5FromFile() fail,error:" + ex.Message);
-            }
-        }
     }
 }
-#endregion
+    #endregion
+
+   
+
+   
