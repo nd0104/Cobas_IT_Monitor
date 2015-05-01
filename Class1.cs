@@ -271,14 +271,13 @@ namespace Tool_Class
     /// 打开 数据库 
     /// </summary>
     /// <param name="Dbpath">数据库路径</param>
-    public string AccessDbClass2(string Dbpath)
+    public void AccessDbClass2(string Dbpath)
     {
         ConnString = "Provider=Microsoft.Jet.OleDb.4.0;Data Source=";
         ConnString += Dbpath;
         Conn = new OleDbConnection(ConnString);
         Conn.Open();
-        string b = "true";
-        return b;
+        
     }
 
 
@@ -347,20 +346,20 @@ namespace Tool_Class
         /// <summary>
         /// 周伟承ip配置专用
         /// </summary>
-        public string[] readparameter(string jiedian)
+        public string[] readparameter(string node)
         {
             Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
             FileStream fs = new FileStream(@"345.txt", FileMode.Open);
             Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
             string w = dd.Readfile(fs);
-            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
+            string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
             string ee = s[1];
             string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
             string sourceDir = @"..\Debug";
             string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
             foreach (string f in txtList)
             {
-                //File.Delete(f);
+                File.Delete(f);
             }
             return ss;
         }
@@ -374,13 +373,13 @@ namespace Tool_Class
         /// </summary>
         /// <param name="jiedian">大节点</param>
         /// <param name="set">小节点</param>
-        public string readconfig(string jiedian, string set)
+        public string readconfig(string node, string set)
         {
             Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
             FileStream fs = new FileStream(@"345.txt", FileMode.Open);
             Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
             string w = dd.Readfile(fs);
-            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
+            string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
             string ee = s[1];
             string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
             List<string> ipList = new List<string>();
@@ -417,13 +416,13 @@ namespace Tool_Class
         /// <param name="jiedian">大节点</param>
         /// <param name="set">小节点</param>
         /// <param name="value">修改成value</param>
-        public void writeconfig(string jiedian, string set, string value)
+        public void writeconfig(string node, string set, string value)
         {
             Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
             FileStream fs = new FileStream(@"345.txt", FileMode.Open);
             Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
             string w = dd.Readfile(fs);
-            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
+            string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
             string ee = s[1];
             string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
 
@@ -469,7 +468,7 @@ namespace Tool_Class
         /// <summary>
         /// 加密配置文件
         /// </summary>
-        public void jiamiconfig()
+        public void Encryptconfig()
         {
             Tool_Class.DESFileClass.EncryptFile("345.txt", "config.txt", "123");
             string sourceDir = @"..\Debug";
@@ -483,7 +482,7 @@ namespace Tool_Class
         /// <summary>
         /// 解密配置文件
         /// </summary>
-        public void jiemiconfig()
+        public void Decryptconfig()
         {
             Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
             string sourceDir = @"..\Debug";
@@ -554,6 +553,87 @@ namespace Tool_Class
             }
             //     File.Delete(inFile);
         }
+        /// <summary>
+        /// 执行sql语句
+        /// </summary>
+        public void AccessDbclass(string sql)
+        {
+            string a = "E:\\111\\IT3000保养监控 - Copy\\IT3000保养监控\\db\\Database.mdb";
+            AccessDbClass1 db = new AccessDbClass1();
+            db.AccessDbClass2(a);
+            bool dd = db.ExecuteSQLNonquery(sql);
+            db.Close();
+
+        }
+        /// <summary>
+        /// 将查询结果返回给datatable
+        /// </summary>
+        public DataTable DbToDatatable(string sql)
+        {
+            string a = "E:\\111\\IT3000保养监控 - Copy\\IT3000保养监控\\db\\Database.mdb";
+            AccessDbClass1 db = new AccessDbClass1();
+            db.AccessDbClass2(a);
+            DataTable table = db.SelectToDataTable(sql);
+            db.Close();
+            return table;
+ 
+        }
+        /// <summary>
+        /// 配置文件名为config.txt,路径在根目录Debug文件夹下
+        ///事例：
+        ///ip
+        ///P612=127.0.0.1;
+        ///C8K=192.168.1.1;
+        ///ip
+        ///mt
+        ///disk=60;
+        ///cpu=50;
+        ///nem=100;
+        ///mt
+        /// </summary>
+        /// <summary>
+        /// 读取配置文件
+        /// </summary>
+        /// <param name="jiedian">大节点</param>
+        /// <param name="set">小节点</param>
+        public string readconfig(string node, string set)
+        {
+            config config1 = new config();
+            string value = config1.readconfig(node, set);
+            return value;
+
+        }
+        /// <summary>
+        /// 修改配置文件
+        /// </summary>
+        /// <param name="jiedian">大节点</param>
+        /// <param name="set">小节点</param>
+        /// <param name="value">修改成value</param>
+        public void writeconfig(string node, string set, string value)
+        {
+            config config1 = new config();
+            config1.writeconfig(node,set,value);
+            
+
+        }
+        /// <summary>
+        /// 加密配置文件
+        /// </summary>
+        public void Encryptconfig()
+        {
+            config config1 = new config();
+            config1.Encryptconfig();
+ 
+        }
+        /// <summary>
+        /// 解密配置文件
+        /// </summary>
+        public void Decryptconfig()
+        {
+            config config1 = new config();
+            config1.Decryptconfig();
+        }
+
     }
 }
     #endregion
