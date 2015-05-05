@@ -556,11 +556,10 @@ namespace Tool_Class
         /// <summary>
         /// 执行sql语句
         /// </summary>
-        public void AccessDbclass(string sql)
+        public void AccessDbclass(string sql,string file_dir)
         {
-            string a = "E:\\111\\IT3000保养监控 - Copy\\IT3000保养监控\\db\\Database.mdb";
             AccessDbClass1 db = new AccessDbClass1();
-            db.AccessDbClass2(a);
+            db.AccessDbClass2(file_dir);
             bool dd = db.ExecuteSQLNonquery(sql);
             db.Close();
 
@@ -568,11 +567,10 @@ namespace Tool_Class
         /// <summary>
         /// 将查询结果返回给datatable
         /// </summary>
-        public DataTable DbToDatatable(string sql)
+        public DataTable DbToDatatable(string sql,string file_dir)
         {
-            string a = "E:\\111\\IT3000保养监控 - Copy\\IT3000保养监控\\db\\Database.mdb";
             AccessDbClass1 db = new AccessDbClass1();
-            db.AccessDbClass2(a);
+            db.AccessDbClass2(file_dir);
             DataTable table = db.SelectToDataTable(sql);
             db.Close();
             return table;
