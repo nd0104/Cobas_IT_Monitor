@@ -10,10 +10,11 @@ using System.IO;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Data.OracleClient;
 
 namespace Tool_Class
 {
-   /* #region DB
+    #region DB
     //如何不使用Oracle请注释掉
     class ReadOracleData
     {
@@ -22,7 +23,8 @@ namespace Tool_Class
         /// </summary>
         IO_tool io = new IO_tool();
         private String connString =
-            @"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + Program.server_ip + ")(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=LIS)));User Id=datos_prj;Password=prj_bmg";
+          //  @"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + Program.server_ip + ")(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=LIS)));User Id=datos_prj;Password=prj_bmg";
+        @"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + "127.0.0.1" + ")(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=LIS)));User Id=datos_prj;Password=prj_bmg";
         public OracleConnection NewConn()
         {
             try
@@ -45,7 +47,7 @@ namespace Tool_Class
             return testDataSet;
         }
     }
-    #endregion*/
+    #endregion
    
     public class CryptoHelpException : ApplicationException
     {
@@ -273,11 +275,10 @@ namespace Tool_Class
     /// <param name="Dbpath">数据库路径</param>
     public void AccessDbClass2(string Dbpath)
     {
-        ConnString = "Provider=Microsoft.Jet.OleDb.4.0;Data Source=";
+        ConnString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=";
         ConnString += Dbpath;
         Conn = new OleDbConnection(ConnString);
         Conn.Open();
-        
     }
 
 
@@ -631,7 +632,27 @@ namespace Tool_Class
             config config1 = new config();
             config1.Decryptconfig();
         }
+        //
+        //判断输入是否是数字
+        //
+        public bool isNumberic(string message, out int result)
+        {
+            result = -1;   //result 定义为out 用来输出值
+            try
+            {
+                //当数字字符串的为是少于4时，以下三种都可以转换，任选一种
+                //如果位数超过4的话，请选用Convert.ToInt32() 和int.Parse()
 
+                //result = int.Parse(message);
+                //result = Convert.ToInt16(message);
+                result = Convert.ToInt32(message);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
     #endregion
