@@ -20,14 +20,17 @@ namespace CobasITMonitor
                                        "select para_value,flag from status_now where para_name = 'Table_Space_Size'"};
         
         IO_tool io = new IO_tool();
+        Work.Work worker = new Work.Work();
         string db_dir = @"E:\code\CobasITMonitor\CobasITMonitor\db.accdb";
         public Main()
         {
             InitializeComponent();
             Main.CheckForIllegalCrossThreadCalls = false;
-            Thread[] threads = new Thread[1];
+            Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
+            threads[1] = new Thread(new ThreadStart(monitor_thread));
             threads[0].Start();
+            threads[1].Start();
         }
         #region 主线程
         void main_thread()
@@ -51,7 +54,12 @@ namespace CobasITMonitor
                 Thread.Sleep(10000);
             }
         }
-        #endregion    
+        #endregion 
+        void monitor_thread()
+        {
+            worker.Check_database_para();
+            Thread.Sleep(10000);
+        }
        #region 根据返回值逐行改变灯的颜色，后期考虑用映射动态组成变量名来缩短代码量
         //
     private void Select_Light(int counter,char flag,string list_box_text)
@@ -59,7 +67,7 @@ namespace CobasITMonitor
         switch (counter)
                 {
                     case 0:
-                     //   listBox1.Items.Clear();
+                        listBox1.Items.Clear();
                         listBox1.Items.Add(list_box_text);
                         switch (flag)
                         {
@@ -77,7 +85,7 @@ namespace CobasITMonitor
                         };
                         break;
                     case 1:
-                      //  listBox2.Items.Clear();
+                        listBox2.Items.Clear();
                         listBox2.Items.Add(list_box_text);
                         switch (flag)
                         {
@@ -129,5 +137,11 @@ namespace CobasITMonitor
             pictureBox2.Image = CobasITMonitor.Properties.Resources.pause_;
         }
     }
+
+    private void Main_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        System.Environment.Exit(0);
+    }
+
     }
 }

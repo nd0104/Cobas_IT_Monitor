@@ -12,14 +12,12 @@ namespace Work
 {
     public class Work
     {
-        #region test
-         private string base_dir = "D:\\ini_diff\\";
-        private string ini_file = "ini.txt";
-        // private string log_file = "diff_log.txt";
-        private string result_file = "result_" + DateTime.Now.ToString("yyyy-MM-dd HH") + ".txt";
-        private string err_file = "err_" + DateTime.Now.ToString("yyyy-MM-dd HH") + ".txt";
+        string db_dir = @"E:\code\CobasITMonitor\CobasITMonitor\db.accdb";
         IO_tool io = new IO_tool();
         private ReadOracleData ROD = new ReadOracleData();
+        private string insert_sql = "";
+        private bool in_or_up;
+        private char show_flag = 'E';
         private string[] output_stat = { "Lis Message", "", "样本总量", "", "LOG\t", "", "Image\t", "", "无申请的样本" };
         private string[] SQL_stat = { "select trunc(sysdate) - trunc(min(createdate)) from lis_message",
                                     "select INHALT from datos_ini where item = 'DAYS_AFTER_DELETING_LIS_MESSAGES'",
@@ -34,14 +32,15 @@ namespace Work
                                      };
         private string[] SQL_stat2 = {"SELECT round(bytes / (1024 * 1024), 0) MB FROM dba_data_files where tablespace_name = 'TS_DATEN' ",
                                      };
-        public string Check_database()
+        public void Check_database_para()
         {
-            int ini_diff = 0, table_diff = 0;
-            string result = "False";
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
             #region 检查数据表是否和设置的参数一致
-            for (int i = 0; i < 9; i += 2)
+            int ini_diff = 0, table_diff = 0;
+            string result = "False", output = "";
+             OracleConnection conn = ROD.NewConn();
+            DataSet Table_DataSet;
+
+             for (int i = 0; i < 9; i += 2)
             {
                 Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat[i], "");
                 if ((i == 6 || i == 8) && Table_DataSet.Tables[0].Rows[0].ItemArray[0].ToString() == "")
@@ -57,122 +56,53 @@ namespace Work
                     ini_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
                 if (table_diff < ini_diff)
                     result = "True";
-                // public_output(output_stat[i] + "\t     " + ini_diff + "    \t\t\t\t\t" + table_diff + "    \t\t\t\t\t\t" + result);
-                io.Write2file(base_dir + result_file, output_stat[i] + "\t     " + ini_diff + "    \t\t\t\t\t" + table_diff + "    \t\t\t\t\t\t" + result);
+                output += output_stat[i] + "in talbe has " + table_diff + "days data, in parameter is " + ini_diff + "days, result:" + result + ". ";
                 Table_DataSet.Reset();
                 result = "Flase";
                 table_diff = ini_diff = 0;
             }
-            //   Table_DataSet.Dispose();
             conn.Close();
-            return base_dir + result_file;
-
+            if (output.Length > 255)
+                output = output.Substring(0, 254);
+            if(result == "True")
+                show_flag = 'N';
+            else
+                show_flag = 'E';
+            in_or_up = insert_or_update("para_check");
+            if (in_or_up)
+            {
+                insert_sql = "insert into status_now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('para_check','" + result + "','IT3K_Para','"+show_flag+"','','" + DateTime.Now.ToString() + "','IT3K_para','" + output + "')";
+                io.AccessDbclass(insert_sql, db_dir);
+            }
+            else
+            {
+                insert_sql = "insert into status_histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from status_now where para_name = 'para_check')";
+                io.AccessDbclass(insert_sql, db_dir);
+                insert_sql = "update status_now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'para_check'";
+                io.AccessDbclass(insert_sql, db_dir);
+            }
         }
             #endregion
-        public void ReadData2File()
+
+
+
+
+
+
+
+
+        public bool insert_or_update(string key)
         {
-            if (!Directory.Exists(base_dir))
-                Directory.CreateDirectory(base_dir);
-            // output.public_output("第一次运行程序将收集参数信息，但不会对比最近一次的更改。");
-            // io.Write2file("D:\\ini_diff\\result.txt", "第一次运行程序将收集参数信息，但不会对比最近一次的更改。");
-
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
-            FileStream fs = new FileStream(base_dir + ini_file, FileMode.Create);
-            fs.Close();
-            Table_DataSet = ROD.ReadDataToDataSet(conn, "select item,inhalt,objectid from datos_ini", "");
-            string item, inhalt, objectid;
-            foreach (DataRow ini_Row in Table_DataSet.Tables[0].Rows)
-            {
-                item = ini_Row["item"].ToString();
-                inhalt = ini_Row["inhalt"].ToString();
-                objectid = ini_Row["objectid"].ToString();
-
-                //objectid = ini_Rini_Row["inhalt"].ToString();ow["objectid"].ToString();
-                // Write2file("D:\\ini_diff\\ini.txt", item + "=" + inhalt + "#" + objectid);
-
-                io.Write2file(base_dir + ini_file, item + "=" + inhalt + objectid.ToString());
-            }
-            Table_DataSet.Dispose();
-            //output.public_output("参数配置已经写到文件ini.txt");
-            io.Write2log(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":    " + "参数配置已经写到文件ini.txt。");
+            string sql_temp = "select count(1) from status_now where para_name = '" + key + "'";
+            DataTable dt = io.DbToDatatable(sql_temp, db_dir);
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+            int flag = Convert.ToInt32(ds.Tables[0].Rows[0].ItemArray[0]);
+            if (flag == 0)
+                return true;
+            else
+                return false;
         }
-
-        public string CheckIniTable()
-        {
-            int counter = 0, flag = 0;//1匹配到，0未匹配到;
-            string item, inhalt, gruppe;
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet = ROD.ReadDataToDataSet(conn, "select item,inhalt,gruppe from datos_ini", "");
-            FileStream fs = new FileStream(base_dir + ini_file, FileMode.Open);
-            FileStream fs_err = new FileStream(base_dir + err_file, FileMode.Create);
-            fs_err.Close();
-            string content = io.Readfile(fs);
-            var lines = content.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            if (lines.Count() > 1)
-            {
-
-                foreach (DataRow ini_Row in Table_DataSet.Tables[0].Rows)
-                {
-                    item = ini_Row["item"].ToString();
-                    inhalt = ini_Row["inhalt"].ToString();
-                    gruppe = ini_Row["gruppe"].ToString();
-                    foreach (var line in lines)
-                    {
-                        var nameValue = line.Split('=');
-                        counter++;
-                        if (nameValue[0] != "")
-                        {
-                            if (item == nameValue[0])
-                            {
-                                flag = 1;
-                                if (nameValue[0] == "V_F_STAT_LIS_WHERE_CLAUSE" || nameValue[0] == "V_F_STAT_BLD_WHERE_CLAUSE")
-                                    nameValue[1] = nameValue[1] + "=" + nameValue[2];
-                                //   if (nameValue[0] == "CLEANUP")
-                                //       nameValue[1] = nameValue
-                                if (inhalt + gruppe == nameValue[1])
-                                    break;
-                                else
-                                {
-                                    io.Write2file(base_dir + err_file, "item:" + item + " in database is \r\n" + inhalt + "\r\nbut in ini.txt file is\r\n" + nameValue[1]);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (counter >= lines.Count() && flag == 0)
-                        io.Write2file(base_dir + err_file, "item:" + item + " in database is \r\n" + inhalt + "\r\nbut in ini.txt file is NOT EXIST");
-                    counter = 0;
-                    flag = 0;
-                }
-                if (Table_DataSet.Tables[0].Rows.Count < lines.Count())//数据库小于文件的参数个数说明数据库中参数有删除过
-                {
-                    foreach (var line in lines)
-                    {
-                        var nameValue = line.Split('=');
-                        foreach (DataRow ini_Row in Table_DataSet.Tables[0].Rows)
-                        {
-                            item = ini_Row["item"].ToString();
-                            inhalt = ini_Row["inhalt"].ToString();
-                            if (nameValue[0] != "")
-                            {
-                                if (item == nameValue[0])
-                                    flag = 1;
-                            }
-                        }
-                        if (flag == 0 && nameValue[0] != "")
-                            io.Write2file(base_dir + err_file, "item:" + nameValue[0] + " in ini file  is \r\n" + nameValue[1] + "\r\nbut in Database file is NOT EXIST");
-                        flag = 0;
-                    }
-                }
-            }
-            Table_DataSet.Dispose();
-            conn.Close();
-            fs.Close();
-            return base_dir + err_file;
-
-        }
-    }
-#endregion
-    
+    } 
+   
 }
