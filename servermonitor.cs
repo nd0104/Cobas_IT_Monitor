@@ -187,16 +187,9 @@ namespace CobasITMonitor
         {
             this.Hide();
             this.timer2.Enabled = true;
-            Main cpu = new Main();
-            cpu.ShowDialog();
-
-            bool oo = true;
-            if (oo == true)
-            {
-                this.timer1.Enabled = true;
-            }
+            this.timer1.Enabled = true;
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
-            disk = int.Parse(tool.readconfig("rf", "diskrefresh"))*60;
+            disk = int.Parse(tool.readconfig("rf", "diskrefresh")) * 60;
             syslog = int.Parse(tool.readconfig("rf", "syslogrefresh")) * 60;
             ip = int.Parse(tool.readconfig("rf", "netrefresh")) * 60;
             cpumem = int.Parse(tool.readconfig("rf", "cpumemrefresh")) * 60;
@@ -207,6 +200,8 @@ namespace CobasITMonitor
                 MessageBox.Show("程序已经打开");
                 Environment.Exit(0);
             }
+            Main cpu = new Main();
+            cpu.ShowDialog();
 
 
 
@@ -601,7 +596,7 @@ namespace CobasITMonitor
                 db.AccessDbClass2(a);
                 string error = "警告日志：" + eventlogWarnNum.ToString() + "个，错误日志：" + eventlogErrorNum.ToString() + "个";
                 string sql3 = "";
-                if (eventlogWarnNum == 0 && eventlogErrorNum == 0)
+                if (eventlogWarnNum == 0 && eventlogErrorNum == 0 && is_first== true)
                 {
                     sql3 = "update Status_Now set details ='无日志错误',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
