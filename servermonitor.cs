@@ -28,6 +28,9 @@ namespace CobasITMonitor
             threads[0].Start();
             threads[1] = new Thread(new ThreadStart(totalmonitor));
             threads[1].Start();
+            threads[2] = new Thread(new ThreadStart(totalmonitor2));
+            threads[2].Start();
+            
             //threads[2] = new Thread(new ThreadStart(totalmonitor2));
             //threads[2].Start();
         }
@@ -45,11 +48,11 @@ namespace CobasITMonitor
         {
             while (true)
             {
-                threadDisk();
-                threadCpu();
-                threadlog();
-                threadMem();
-                threadIp();
+                threadDisk(false);
+                threadCpu(false);
+                threadlog(false);
+                threadMem(false);
+                threadIp(false);
                 Thread.Sleep(10000);
             }
             
@@ -57,14 +60,11 @@ namespace CobasITMonitor
         }
         void totalmonitor2()
         {
-            while (true)
-            {
-                
-                threadIp();
-                Thread.Sleep(10000);
-            }
-
-
+                threadDisk(true);
+                threadCpu(true);
+                threadlog(true);
+                threadMem(true);
+                threadIp(true);
         }
         Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
         List<string> ipList = new List<string>();
@@ -218,10 +218,10 @@ namespace CobasITMonitor
             tool.login("softwareconfig");
         }
         //硬盘监控
-        private void threadDisk()
+        private void threadDisk(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("disk_size",db_dir,disk);
+            bool begin = tool.execute_or_not("disk_size", db_dir, disk, is_first);
             if (begin == true)
             {
                 monitor mtt = new monitor();
@@ -303,10 +303,10 @@ namespace CobasITMonitor
 
         }
         //cpu监控
-        private void threadCpu()
+        private void threadCpu(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem);
+            bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem, is_first);
             if (begin == true)
             {
                 monitor cpu = new monitor();
@@ -371,10 +371,10 @@ namespace CobasITMonitor
             }
         }
         //内存监控
-        private void threadMem()
+        private void threadMem(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("memory_running", db_dir, cpumem);
+            bool begin = tool.execute_or_not("memory_running", db_dir, cpumem, is_first);
             if (begin == true)
             {
                 monitor mem = new monitor();
@@ -582,10 +582,10 @@ namespace CobasITMonitor
 
         }
         //日志监控
-        private void threadlog()
+        private void threadlog(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("log_error", db_dir, syslog);
+            bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first);
             if (begin == true)
             {
                 threadWarnSyslog();
@@ -620,10 +620,10 @@ namespace CobasITMonitor
             }
         }
         //ip监控
-        private void threadIp()
+        private void threadIp(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("instrument_connection", db_dir, ip);
+            bool begin = tool.execute_or_not("instrument_connection", db_dir, ip,is_first);
             if (begin == true)
             {
                 monitor read = new monitor();
