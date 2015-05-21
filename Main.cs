@@ -10,31 +10,35 @@ using Work;
 using Tool_Class;
 using System.Reflection;
 using System.Threading;
-using IT3000保养监控;
 namespace CobasITMonitor
 {
     public partial class Main : Form
     {
-        public string[] sql_area_bak = {"select details,flag from status_now where para_name = 'db_size' ",
-                                       "select details,flag from status_now where para_name = 'table_count' ",
-                                       "select details,flag from status_now where para_name = 'db_backup'",
-                                        "select details,flag from status_now where para_name = 'para_check'",
-                                        "select details,flag from status_now where para_name = 'log_error'"};
-                                       /* "select para_value,flag from status_now where para_name = 'syslog_warn'",
-                                       "select para_value,flag from status_now where para_name = 'instrument_connection' ",
-                                        "select para_value,flag from status_now where para_name = 'disk_size'",
-                                       "select para_value,flag from status_now where para_name = 'cpu_running' ",
-                                        "select para_value,flag from status_now where para_name = 'memory_running'"*/
-        public string[] sql_area = {"select details,flag from status_now where para_name = 'db_size' ",
-                                       "select details,flag from status_now where para_name = 'table_count' ",
-                                       "select details,flag from status_now where para_name = 'db_backup'",
-                                        "select details,flag from status_now where para_name = 'para_check'",
-                                        "select details,flag from status_now where para_name = 'log_error'"};
+        public string[] sql_area_bak = {"select details,flag from Status_Now where para_name = 'db_size' ",
+                                       "select details,flag from Status_Now where para_name = 'table_count' ",
+                                       "select details,flag from Status_Now where para_name = 'db_backup'",
+                                        "select details,flag from Status_Now where para_name = 'para_check'",
+                                        "select details,flag from Status_Now where para_name = 'log_error'",
+                                        "select para_value,flag from Status_Now where para_name = 'syslog_warn'",
+                                       "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
+                                        "select para_value,flag from Status_Now where para_name = 'disk_size'",
+                                       "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
+                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+        public string[] sql_area = {"select details,flag from Status_Now where para_name = 'db_size' ",
+                                       "select details,flag from Status_Now where para_name = 'table_count' ",
+                                       "select details,flag from Status_Now where para_name = 'db_backup'",
+                                        "select details,flag from Status_Now where para_name = 'para_check'",
+                                        "select details,flag from Status_Now where para_name = 'log_error'",
+                                        "select para_value,flag from Status_Now where para_name = 'syslog_warn'",
+                                       "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
+                                        "select para_value,flag from Status_Now where para_name = 'disk_size'",
+                                       "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
+                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
 
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
-      //  string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-        string db_dir = @"E:\code\CobasITMonitor\CobasITMonitor\db.accdb";
+        string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
+        //string db_dir = @"E:\code\CobasITMonitor\CobasITMonitor\db.accdb";
         public Main()
         {
             InitializeComponent();
@@ -42,8 +46,8 @@ namespace CobasITMonitor
             Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
-            threads[0].Start();
             threads[1].Start();
+            threads[0].Start();
         }
         #region 主线程
         void main_thread()
@@ -51,7 +55,8 @@ namespace CobasITMonitor
             int counter = 0;
             while (true)
             {
-                for (; counter < 5; counter++)
+                Thread.Sleep(10000);
+                for (; counter < 10; counter++)
                 {
                     if (sql_area[counter] != null)
                     {
@@ -65,7 +70,7 @@ namespace CobasITMonitor
                     }
                 }
                 counter = 0;
-                Thread.Sleep(10000);
+
             }
         }
         #endregion
@@ -73,12 +78,13 @@ namespace CobasITMonitor
         {
             while (true)
             {
-                //worker.Check_database_para();
-                // worker.Check_database_tablespace_size();
-                //    worker.Check_database_db_backup();
-                //worker.Check_database_log_err();
-             //   worker.Check_database_table_num();
-                Thread.Sleep(10000);
+                worker.Check_database_para();
+                worker.Check_database_tablespace_size();
+                worker.Check_database_db_backup();
+                worker.Check_database_log_err();
+                worker.Check_database_table_num();
+
+            //    Thread.Sleep(10000);
             }
         }
         #region 根据返回值逐行改变灯的颜色，后期考虑用映射动态组成变量名来缩短代码量
@@ -88,8 +94,8 @@ namespace CobasITMonitor
             switch (counter)
             {
                 case 0:
-                     listBox1.Items.Clear();
-                    listBox1.Items.Add(list_box_text);
+                    textBox1.Clear();
+                    textBox1.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
@@ -106,8 +112,8 @@ namespace CobasITMonitor
                     };
                     break;
                 case 1:
-                       listBox2.Items.Clear();
-                    listBox2.Items.Add(list_box_text);
+                     textBox2.Clear();
+                    textBox2.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
@@ -124,8 +130,8 @@ namespace CobasITMonitor
                     };
                     break;
                 case 2:
-                       listBox3.Items.Clear();
-                    listBox3.Items.Add(list_box_text);
+                     textBox3.Clear();
+                    textBox3.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
@@ -142,8 +148,8 @@ namespace CobasITMonitor
                     };
                     break;
                 case 3:
-                       listBox4.Items.Clear();
-                    listBox4.Items.Add(list_box_text);
+                   textBox4.Clear();
+                    textBox4.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
@@ -160,8 +166,8 @@ namespace CobasITMonitor
                     };
                     break;
                 case 4:
-                       listBox5.Items.Clear();
-                    listBox5.Items.Add(list_box_text);
+                   textBox5.Clear();
+                    textBox5.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
@@ -177,9 +183,63 @@ namespace CobasITMonitor
                             break;
                     };
                     break;
-        /*        case 5:
-                    //   listBox2.Items.Clear();
-                    listBox14.Items.Add(list_box_text);
+                case 5:
+                    textBox6.Clear();
+                    textBox6.Text = list_box_text;
+                    switch (flag)
+                    {
+                        case 'E':
+                            pictureBox16.Image = CobasITMonitor.Properties.Resources.red;
+                            break;
+                        case 'N':
+                            pictureBox16.Image = CobasITMonitor.Properties.Resources.green;
+                            break;
+                        case 'W':
+                            pictureBox16.Image = CobasITMonitor.Properties.Resources.yellow;
+                            break;
+                        default:
+                            break;
+                    };
+                    break;
+                case 6:
+                    textBox7.Clear();
+                    textBox7.Text = list_box_text;
+                    switch (flag)
+                    {
+                        case 'E':
+                            pictureBox10.Image = CobasITMonitor.Properties.Resources.red;
+                            break;
+                        case 'N':
+                            pictureBox10.Image = CobasITMonitor.Properties.Resources.green;
+                            break;
+                        case 'W':
+                            pictureBox10.Image = CobasITMonitor.Properties.Resources.yellow;
+                            break;
+                        default:
+                            break;
+                    };
+                    break;
+                case 7:
+                    textBox8.Clear();
+                    textBox8.Text = list_box_text;
+                    switch (flag)
+                    {
+                        case 'E':
+                            pictureBox12.Image = CobasITMonitor.Properties.Resources.red;
+                            break;
+                        case 'N':
+                            pictureBox12.Image = CobasITMonitor.Properties.Resources.green;
+                            break;
+                        case 'W':
+                            pictureBox12.Image = CobasITMonitor.Properties.Resources.yellow;
+                            break;
+                        default:
+                            break;
+                    };
+                    break;
+                case 8:
+                    textBox9.Clear();
+                    textBox9.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
@@ -195,24 +255,24 @@ namespace CobasITMonitor
                             break;
                     };
                     break;
-                case 6:
-                    //   listBox2.Items.Clear();
-                    listBox5.Items.Add(list_box_text);
+                case 9:
+                    textBox10.Clear();
+                    textBox10.Text = list_box_text;
                     switch (flag)
                     {
                         case 'E':
-                            pictureBox5.Image = CobasITMonitor.Properties.Resources.red;
+                            pictureBox8.Image = CobasITMonitor.Properties.Resources.red;
                             break;
                         case 'N':
-                            pictureBox5.Image = CobasITMonitor.Properties.Resources.green;
+                            pictureBox8.Image = CobasITMonitor.Properties.Resources.green;
                             break;
                         case 'W':
-                            pictureBox5.Image = CobasITMonitor.Properties.Resources.yellow;
+                            pictureBox8.Image = CobasITMonitor.Properties.Resources.yellow;
                             break;
                         default:
                             break;
                     };
-                    break;*/
+                    break;
 
                 default: break;
             }
@@ -254,10 +314,10 @@ namespace CobasITMonitor
         private void checkBox16_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox16.Checked)
-                sql_area[2] = sql_area_bak[2];
+                sql_area[5] = sql_area_bak[5];
             else
             {
-                sql_area[2] = null;
+                sql_area[5] = null;
                 pictureBox16.Image = CobasITMonitor.Properties.Resources.pause_;
             }
         }
@@ -266,10 +326,10 @@ namespace CobasITMonitor
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox10.Checked)
-                sql_area[3] = sql_area_bak[3];
+                sql_area[6] = sql_area_bak[6];
             else
             {
-                sql_area[3] = null;
+                sql_area[6] = null;
                 pictureBox10.Image = CobasITMonitor.Properties.Resources.pause_;
             }
 
@@ -278,10 +338,10 @@ namespace CobasITMonitor
         private void checkBox12_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox12.Checked)
-                sql_area[4] = sql_area_bak[4];
+                sql_area[7] = sql_area_bak[7];
             else
             {
-                sql_area[4] = null;
+                sql_area[7] = null;
                 pictureBox12.Image = CobasITMonitor.Properties.Resources.pause_;
             }
 
@@ -290,10 +350,10 @@ namespace CobasITMonitor
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox14.Checked)
-                sql_area[5] = sql_area_bak[5];
+                sql_area[8] = sql_area_bak[8];
             else
             {
-                sql_area[5] = null;
+                sql_area[8] = null;
                 pictureBox14.Image = CobasITMonitor.Properties.Resources.pause_;
             }
 
@@ -302,11 +362,11 @@ namespace CobasITMonitor
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox5.Checked)
-                sql_area[6] = sql_area_bak[6];
+                sql_area[9] = sql_area_bak[9];
             else
             {
-                sql_area[6] = null;
-                pictureBox5.Image = CobasITMonitor.Properties.Resources.pause_;
+                sql_area[9] = null;
+                pictureBox8.Image = CobasITMonitor.Properties.Resources.pause_;
             }
 
         }
@@ -338,6 +398,67 @@ namespace CobasITMonitor
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Environment.Exit(0);
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox8.Checked)
+                sql_area[4] = sql_area_bak[4];
+            else
+            {
+                sql_area[4] = null;
+                pictureBox5.Image = CobasITMonitor.Properties.Resources.pause_;
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            syslogconfig dd = new syslogconfig();
+            dd.ShowDialog();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            IT3K_LOG it3k = new IT3K_LOG();
+            it3k.Show();
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+                sql_area[2] = sql_area_bak[2];
+            else
+            {
+                sql_area[2] = null;
+                pictureBox3.Image = CobasITMonitor.Properties.Resources.pause_;
+            }
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+                sql_area[3] = sql_area_bak[3];
+            else
+            {
+                sql_area[3] = null;
+                pictureBox4.Image = CobasITMonitor.Properties.Resources.pause_;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+                sql_area[1] = sql_area_bak[1];
+            else
+            {
+                sql_area[1] = null;
+                pictureBox2.Image = CobasITMonitor.Properties.Resources.pause_;
+            }
         }
     }
 }

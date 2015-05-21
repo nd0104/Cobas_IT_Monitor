@@ -12,7 +12,7 @@ namespace Work
 {
     public class Work
     {
-        string db_dir = @"E:\code\CobasITMonitor\CobasITMonitor\db.accdb";
+        string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
         IO_tool io = new IO_tool();
         private ReadOracleData ROD = new ReadOracleData();
         private string insert_sql = "";
@@ -40,231 +40,246 @@ namespace Work
         #region 检查数据表是否和设置的参数一致
         public void Check_database_para()
         {
-            
-            int ini_diff = 0, table_diff = 0;
-            string result = "False", output = "";
-             OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
-
-             for (int i = 0; i < 9; i += 2)
+           if (io.execute_or_not("para_check", db_dir, 43200))
             {
-                Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat[i], "");
-                if ((i == 6 || i == 8) && Table_DataSet.Tables[0].Rows[0].ItemArray[0].ToString() == "")
-                    table_diff = -1;
+                int ini_diff = 0, table_diff = 0;
+                string result = "False", output = "";
+                OracleConnection conn = ROD.NewConn();
+                DataSet Table_DataSet;
+
+                for (int i = 0; i < 9; i += 2)
+                {
+                    Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat[i], "");
+                    if ((i == 6 || i == 8) && Table_DataSet.Tables[0].Rows[0].ItemArray[0].ToString() == "")
+                        table_diff = -1;
+                    else
+                    {
+                        if (Table_DataSet != null && !Table_DataSet.HasErrors && Table_DataSet.Tables.Count == 1)
+                            table_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                    }
+                    Table_DataSet.Reset();
+                    Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat[i + 1], "");
+                    if (Table_DataSet != null && !Table_DataSet.HasErrors && Table_DataSet.Tables.Count == 1)
+                        ini_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                    if (table_diff < ini_diff)
+                        result = "True";
+                    output += output_stat[i] + "in talbe has " + table_diff + "days data, in parameter is " + ini_diff + "days, result:" + result + ". ";
+                    Table_DataSet.Reset();
+                    result = "Flase";
+                    table_diff = ini_diff = 0;
+                }
+                conn.Close();
+                if (output.Length > 255)
+                    output = output.Substring(0, 254);
+                if (result == "True")
+                    show_flag = 'N';
+                else
+                    show_flag = 'E';
+                in_or_up = insert_or_update("para_check");
+                if (in_or_up)
+                {
+                    insert_sql = "insert into Status_Now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('para_check','" + result + "','IT3K_Para','" + show_flag + "','','" + DateTime.Now.ToString() + "','IT3K_para','" + output + "')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
                 else
                 {
-                    if (Table_DataSet != null && !Table_DataSet.HasErrors && Table_DataSet.Tables.Count == 1)
-                        table_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'para_check')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                    insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'para_check'";
+                    io.AccessDbclass(insert_sql, db_dir);
                 }
-                Table_DataSet.Reset();
-                Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat[i + 1], "");
-                if (Table_DataSet != null && !Table_DataSet.HasErrors && Table_DataSet.Tables.Count == 1)
-                    ini_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-                if (table_diff < ini_diff)
-                    result = "True";
-                output += output_stat[i] + "in talbe has " + table_diff + "days data, in parameter is " + ini_diff + "days, result:" + result + ". ";
-                Table_DataSet.Reset();
-                result = "Flase";
-                table_diff = ini_diff = 0;
-            }
-            conn.Close();
-            if (output.Length > 255)
-                output = output.Substring(0, 254);
-            if(result == "True")
-                show_flag = 'N';
-            else
-                show_flag = 'E';
-            in_or_up = insert_or_update("para_check");
-            if (in_or_up)
-            {
-                insert_sql = "insert into status_now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('para_check','" + result + "','IT3K_Para','"+show_flag+"','','" + DateTime.Now.ToString() + "','IT3K_para','" + output + "')";
-                io.AccessDbclass(insert_sql, db_dir);
-            }
-            else
-            {
-                insert_sql = "insert into status_histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from status_now where para_name = 'para_check')";
-                io.AccessDbclass(insert_sql, db_dir);
-                insert_sql = "update status_now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'para_check'";
-                io.AccessDbclass(insert_sql, db_dir);
             }
         }
             #endregion
         #region 检查数据文件大小
         public void Check_database_tablespace_size()
         {
-            string result = "False", output = "The size of dababase check is";
-            float size_para = 31;
-            float size_db = 32;
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
-            Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat2, "");
-            size_db = Convert.ToSingle(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-            conn.Close();
-            if (size_db < size_para)
+            if (io.execute_or_not("db_size", db_dir, 43200))
             {
-                result = "True";
-                output += result + "in parameter is:" + size_para + "is" + size_db + "while checked the db.";
-                show_flag = 'N';
-            }
-            else
-            {
-                result = "Flase";
-                output += result + "in parameter is:" + size_para + "but is" + size_db + "while checked the db.";
-                show_flag = 'E';
-            }
-            in_or_up = insert_or_update("db_size");
-            if (in_or_up)
-            {
-                insert_sql = "insert into status_now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('db_size','" + result + "','Oracle','" + show_flag + "','','" + DateTime.Now.ToString() + "','Oracle','" + output + "')";
-                io.AccessDbclass(insert_sql, db_dir);
-            }
-            else
-            {
-                insert_sql = "insert into status_histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from status_now where para_name = 'db_size')";
-                io.AccessDbclass(insert_sql, db_dir);
-                insert_sql = "update status_now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'db_size'";
-                io.AccessDbclass(insert_sql, db_dir);
+                string result = "False", output = "The size of dababase check is:";
+                float size_para = 31;
+                float size_db = 32;
+                OracleConnection conn = ROD.NewConn();
+                DataSet Table_DataSet;
+                Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat2, "");
+                size_db = Convert.ToSingle(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                conn.Close();
+                if (size_db < size_para)
+                {
+                    result = "True";
+                    output += result + "in parameter is:" + size_para + "GB and " + size_db + "GB while checked the db.";
+                    show_flag = 'N';
+                }
+                else
+                {
+                    result = "Flase";
+                    output += result + "in parameter is:" + size_para + "but is" + size_db + "while checked the db.";
+                    show_flag = 'E';
+                }
+                in_or_up = insert_or_update("db_size");
+                if (in_or_up)
+                {
+                    insert_sql = "insert into Status_Now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('db_size','" + result + "','Oracle','" + show_flag + "','','" + DateTime.Now.ToString() + "','Oracle','" + output + "')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
+                else
+                {
+                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'db_size')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                    insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'db_size'";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
             }
         }
         #endregion
         #region 检查数据备份
         public void Check_database_db_backup()
         {
-            string result = "False", output = "The back up of db is:";
-            string db_back_para = "SUCCEEDED";
-            string db_back = "";
-            string log_time = "";
-            int error_num = 0;
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
-            Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat3, "");
-            log_time = Table_DataSet.Tables[0].Rows[0].ItemArray[0].ToString();
-            db_back = Table_DataSet.Tables[0].Rows[0].ItemArray[1].ToString();
-            error_num = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[2]);
-            conn.Close();
-            if (db_back_para == db_back)
+            if (io.execute_or_not("db_backup", db_dir, 43200))
             {
-                result = "True";
-                output += result + "  backup executed succeeded in " + log_time;
-                show_flag = 'N';
-            }
-            else
-            {
-                result = "Flase";
-                output += result + " there is" + error_num + " errors; executed in " + log_time;
-                show_flag = 'E';
-            }
-            in_or_up = insert_or_update("db_backup");
-            if (in_or_up)
-            {
-                insert_sql = "insert into status_now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('db_backup','" + result + "','Oracle','" + show_flag + "','','" + DateTime.Now.ToString() + "','Oracle','" + output + "')";
-                io.AccessDbclass(insert_sql, db_dir);
-            }
-            else
-            {
-                insert_sql = "insert into status_histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from status_now where para_name = 'db_backup')";
-                io.AccessDbclass(insert_sql, db_dir);
-                insert_sql = "update status_now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'db_backup'";
-                io.AccessDbclass(insert_sql, db_dir);
+                string result = "False", output = "The back up of db is:";
+                string db_back_para = "SUCCEEDED";
+                string db_back = "";
+                string log_time = "";
+                int error_num = 0;
+                OracleConnection conn = ROD.NewConn();
+                DataSet Table_DataSet;
+                Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat3, "");
+                log_time = Table_DataSet.Tables[0].Rows[0].ItemArray[0].ToString();
+                db_back = Table_DataSet.Tables[0].Rows[0].ItemArray[1].ToString();
+                error_num = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[2]);
+                conn.Close();
+                if (db_back_para == db_back)
+                {
+                    result = "True";
+                    output += result + "  backup executed succeeded in " + log_time;
+                    show_flag = 'N';
+                }
+                else
+                {
+                    result = "Flase";
+                    output += result + " there is" + error_num + " errors; executed in " + log_time;
+                    show_flag = 'E';
+                }
+                in_or_up = insert_or_update("db_backup");
+                if (in_or_up)
+                {
+                    insert_sql = "insert into Status_Now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('db_backup','" + result + "','Oracle','" + show_flag + "','','" + DateTime.Now.ToString() + "','Oracle','" + output + "')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
+                else
+                {
+                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'db_backup')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                    insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'db_backup'";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
             }
         }
         #endregion
-        #region 检查Log日志报错否
+        #region 检查Log日志报错否 3600
         public void Check_database_log_err()
         {
-            string result = "False", output = "The result of check error(warning) is ";
-            int diff_num = 3;
-            int error_num = 5,error_num2 = 5;
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
-            Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat4, "");
-            if (Table_DataSet.Tables[0].Rows.Count == 2)
+            if (io.execute_or_not("log_error", db_dir, 43200))
             {
-                error_num = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-                error_num2 = Convert.ToInt32(Table_DataSet.Tables[0].Rows[1].ItemArray[0]);
-            }
-            if (Table_DataSet.Tables[0].Rows.Count == 1)
-            {
-                error_num = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-                error_num2 = 0;
-            }
-            conn.Close();
-            if (error_num == 0 && error_num2 < diff_num)
-            {
-                result = "True";
-                output += result + "there is  " + error_num + " errors and " + error_num2 + " warnings.";
-                show_flag = 'N';
-            }
-            else
-            {
-                result = "Flase";
-                output += result + "there is  " + error_num + " errors and " + error_num2 + " warnings.";
-                show_flag = 'E';
-            }
-            in_or_up = insert_or_update("log_error");
-            if (in_or_up)
-            {
-                insert_sql = "insert into status_now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('log_error','" + result + "','Log','" + show_flag + "','','" + DateTime.Now.ToString() + "','Log','" + output + "')";
-                io.AccessDbclass(insert_sql, db_dir);
-            }
-            else
-            {
-                insert_sql = "insert into status_histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from status_now where para_name = 'log_error')";
-                io.AccessDbclass(insert_sql, db_dir);
-                insert_sql = "update status_now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'log_error'";
-                io.AccessDbclass(insert_sql, db_dir);
+                string result = "False", output = "The result of check error(warning) is ";
+                int diff_num = 3;
+                int error_num = 5, error_num2 = 5;
+                OracleConnection conn = ROD.NewConn();
+                DataSet Table_DataSet;
+                Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat4, "");
+                if (Table_DataSet.Tables[0].Rows.Count == 2)
+                {
+                    error_num = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                    error_num2 = Convert.ToInt32(Table_DataSet.Tables[0].Rows[1].ItemArray[0]);
+                }
+                if (Table_DataSet.Tables[0].Rows.Count == 1)
+                {
+                    error_num = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                    error_num2 = 0;
+                }
+                conn.Close();
+                if (error_num == 0 && error_num2 < diff_num)
+                {
+                    result = "True";
+                    output += result + "there is  " + error_num + " errors and " + error_num2 + " warnings.";
+                    show_flag = 'N';
+                }
+                else
+                {
+                    result = "Flase";
+                    output += result + "there is  " + error_num + " errors and " + error_num2 + " warnings.";
+                    show_flag = 'E';
+                }
+                in_or_up = insert_or_update("log_error");
+                if (in_or_up)
+                {
+                    insert_sql = "insert into Status_Now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('log_error','" + result + "','Log','" + show_flag + "','','" + DateTime.Now.ToString() + "','Log','" + output + "')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
+                else
+                {
+                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'log_error')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                    insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'log_error'";
+                    io.AccessDbclass(insert_sql, db_dir);
+                }
             }
         }
         #endregion
         #region 检查关键表数量是否超出
         public void Check_database_table_num()
         {
-            string result = "False", output = "The result of checking key tables is: ";
-            int num_count = 50000001;
-            OracleConnection conn = ROD.NewConn();
-            DataSet Table_DataSet;
-            for (int i = 0; i < 7; i++)
+            if(io.execute_or_not("table_count", db_dir, 43200))
             {
-                Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat5[i], "");
-                num_count = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-                output += output_stat2[i] + ": " + num_count + "./n";
-                if (num_count < SQL5_refrence[i])
+                string result = "False", output = "The result of checking key tables is: ";
+                int num_count = 50000001;
+                OracleConnection conn = ROD.NewConn();
+                DataSet Table_DataSet;
+                for (int i = 0; i < 7; i++)
                 {
-                    result = "True";
-                    show_flag = 'N';
+                    Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat5[i], "");
+                    num_count = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
+                    output += output_stat2[i] + ": " + num_count + "./n";
+                    if (num_count < SQL5_refrence[i])
+                    {
+                        result = "True";
+                        show_flag = 'N';
+                    }
+                    if (num_count > SQL5_refrence[i] && num_count < SQL5_refrence[7 + i])
+                    {
+                        result = "True";
+                        show_flag = 'W';
+                    }
+                    if (num_count > SQL5_refrence[7 + i])
+                    {
+                        result = "False";
+                        show_flag = 'E';
+                    }
                 }
-                if (num_count > SQL5_refrence[i] && num_count < SQL5_refrence[7 + i])
+                conn.Close();
+                in_or_up = insert_or_update("table_count");
+                if (in_or_up)
                 {
-                    result = "True";
-                    show_flag = 'W';
+                    insert_sql = "insert into Status_Now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('table_count','" + result + "','Oracle','" + show_flag + "','','" + DateTime.Now.ToString() + "','Oracle','" + output + "')";
+                    io.AccessDbclass(insert_sql, db_dir);
                 }
-                if (num_count > SQL5_refrence[7 + i])
+                else
                 {
-                    result = "False";
-                    show_flag = 'E';
+                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'table_count')";
+                    io.AccessDbclass(insert_sql, db_dir);
+                    insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'table_count'";
+                    io.AccessDbclass(insert_sql, db_dir);
                 }
             }
-            conn.Close();
-            if (output.Length > 255)
-                output = output.Substring(0, 254);
-            in_or_up = insert_or_update("table_count");
-            if (in_or_up)
-            {
-                insert_sql = "insert into status_now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('table_count','" + result + "','Oracle','" + show_flag + "','','" + DateTime.Now.ToString() + "','Oracle','" + output + "')";
-                io.AccessDbclass(insert_sql, db_dir);
-            }
-            else
-            {
-                insert_sql = "insert into status_histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from status_now where para_name = 'table_count')";
-                io.AccessDbclass(insert_sql, db_dir);
-                insert_sql = "update status_now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'table_count'";
-                io.AccessDbclass(insert_sql, db_dir);
-            }
+            
         }
         #endregion
+
+
         public bool insert_or_update(string key)
         {
-            string sql_temp = "select count(1) from status_now where para_name = '" + key + "'";
+            string sql_temp = "select count(1) from Status_Now where para_name = '" + key + "'";
             DataTable dt = io.DbToDatatable(sql_temp, db_dir);
             DataSet ds = new DataSet();
             ds.Tables.Add(dt);

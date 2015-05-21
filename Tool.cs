@@ -10,11 +10,17 @@ using System.IO;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using CobasITMonitor;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using Excel;
+using Microsoft.Win32;
 using System.Data.OracleClient;
 
 namespace Tool_Class
 {
-    #region DB
+   #region DB
     //如何不使用Oracle请注释掉
     class ReadOracleData
     {
@@ -22,11 +28,11 @@ namespace Tool_Class
         /// Oracle 的数据库连接字符串.
         /// </summary>
         IO_tool io = new IO_tool();
-        private String connString =
-          //  @"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + Program.server_ip + ")(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=LIS)));User Id=datos_prj;Password=prj_bmg";
-        @"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + "127.0.0.1" + ")(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=LIS)));User Id=datos_prj;Password=prj_bmg";
+       
         public OracleConnection NewConn()
         {
+            string db_ip = io.readconfig("CORE", "DB_IP");
+            String connString = @"Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" + db_ip + ")(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=LIS)));User Id=datos_prj;Password=prj_bmg";
             try
             {
                 OracleConnection conn = new OracleConnection(connString);
@@ -78,7 +84,7 @@ namespace Tool_Class
         }
 
         /// <summary>
-        /// 创建DebugLZQ ,http://www.cnblogs.com/DebugLZQ
+        /// 创建DebugLZQ 
         /// </summary>
         /// <param name="password">密码</param>
         /// <param name="salt"></param>
@@ -110,6 +116,8 @@ namespace Tool_Class
             rand.GetBytes(bytes);
             return bytes;
         }
+
+
 
         /// <summary>
         /// 加密文件
@@ -173,6 +181,7 @@ namespace Tool_Class
                 }
             }
         }
+        
 
         /// <summary>
         /// 解密文件
@@ -258,7 +267,133 @@ namespace Tool_Class
                     throw new CryptoHelpException("文件大小不匹配");
             }
         }
+
     }
+    public class dtToexcel
+    {
+            #region 导出DataTable到Excel中
+    /// <summary>
+    /// 把DataTable中的数据导出到Excel
+    /// </summary>
+    /// <param name="dt"></param>
+    public static void DataTableToExcel(System.Data.DataTable srcDt,string savename)
+    {
+        System.Data.DataTable dt = new System.Data.DataTable();
+        dt = srcDt;
+
+        if (dt == null) return;
+
+        string saveFileName = "";
+        bool fileSaved = false;
+        /*SaveFileDialog saveDialog = new SaveFileDialog();
+        saveDialog.DefaultExt = "xlsx";
+        saveDialog.Filter = "Excel文件|*.xlsx";
+        saveDialog.FileName = "导出文件";
+        saveDialog.ShowDialog();
+        saveFileName = saveDialog.FileName;
+        if (saveFileName.IndexOf(":") < 0) return; //被点了取消 */
+        Excel.Application xlApp = new Excel.Application();
+        if (xlApp == null)
+        {
+            MessageBox.Show("无法创建Excel对象，可能您的机子未安装Excel");
+            return;
+        } 
+        Excel.Workbooks workbooks = xlApp.Workbooks;
+        Excel.Workbook workbook = workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
+
+
+        Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets[1];//取得sheet1
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 8]).Font.ColorIndex = 9;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 8]).ColumnWidth = 40;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[8, 1]).RowHeight = 50;
+        
+        //worksheet.get_Range(worksheet.Cells[3, 1], worksheet.Cells[3, 6]).Interior.ColorIndex = 6;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[8, 8]).Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[8, 8]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
+        //worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 1]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
+        for (int i = 2; i < 7; i++)
+        {
+
+            if (dt.Rows[i-2][3].ToString() == "E")
+            {
+                worksheet.get_Range(worksheet.Cells[i, 1], worksheet.Cells[i, 8]).Interior.ColorIndex = 3;
+
+            }
+            if (dt.Rows[i - 2][3].ToString() == "W")
+            {
+                worksheet.get_Range(worksheet.Cells[i, 1], worksheet.Cells[i, 8]).Interior.ColorIndex = 6;
+
+            }
+
+        }
+        //写入字段 
+        
+        worksheet.Cells[1, 1] = "参数名称";
+        worksheet.Cells[1, 2] = "参数值";
+        worksheet.Cells[1, 3] = "推荐值";
+        worksheet.Cells[1, 4] = "报警值";
+        worksheet.Cells[1, 5] = "详情";
+        worksheet.Cells[1, 6] = "参数类型";
+        worksheet.Cells[1, 7] = "重要级别";
+        worksheet.Cells[1, 8] = "历史变化";
+
+        
+        //写入数值 
+
+        for (int r = 0; r < dt.Rows.Count; r++)
+        {
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                worksheet.Cells[r + 2, i + 1] = dt.Rows[r][i];
+            }
+            System.Windows.Forms.Application.DoEvents();
+        }
+        //worksheet.Columns.EntireColumn.AutoFit();//列宽自适应。
+        /*string md5 = "";
+        for (int r = 0; r < 5; r++)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                md5 += dt.Rows[r][i].ToString();
+                worksheet.Cells[2, 9] = md5;
+            }
+            
+        }
+        */
+
+        //worksheet.Cells.Width = 39;
+        //if (saveFileName != "")
+        //{
+            try
+            {
+                workbook.Saved = true;
+                saveFileName = savename;
+                workbook.SaveCopyAs(saveFileName);
+                fileSaved = true;
+                MessageBox.Show("导出完成！");
+            }
+            catch (Exception ex)
+            {
+                fileSaved = false;
+                MessageBox.Show("导出文件时出错,文件可能正被打开！\n" + ex.Message);
+            }
+        //}
+        //else
+        //{
+           // fileSaved = false;
+        //}
+
+        xlApp.Quit();
+        GC.Collect();//强行销毁 
+        if (fileSaved && System.IO.File.Exists(saveFileName))
+        {
+            System.Diagnostics.Process.Start(saveFileName); //打开EXCEL
+        }
+
+    }
+    #endregion
+    }
+    
     //数据库操作
     public class AccessDbClass1
    {
@@ -279,6 +414,7 @@ namespace Tool_Class
         ConnString += Dbpath;
         Conn = new OleDbConnection(ConnString);
         Conn.Open();
+        
     }
 
 
@@ -297,15 +433,16 @@ namespace Tool_Class
     /// sql查询
     /// </summary>
     /// <param name="SQL">sql语句</param>
-    public DataTable SelectToDataTable(string SQL)
+    public System.Data.DataTable SelectToDataTable(string SQL)
     {
         OleDbDataAdapter adapter = new OleDbDataAdapter();
         OleDbCommand command = new OleDbCommand(SQL, Conn);
         adapter.SelectCommand = command;
-        DataTable Dt = new DataTable();
+        System.Data.DataTable Dt = new System.Data.DataTable();
         adapter.Fill(Dt);
         return Dt;
     }
+
     /// <summary>
     /// sql语句执行
     /// </summary>
@@ -356,7 +493,8 @@ namespace Tool_Class
             string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
             string ee = s[1];
             string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
-            string sourceDir = @"..\Debug";
+            string str5 = System.Windows.Forms.Application.StartupPath;
+            string sourceDir = @str5;
             string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
             foreach (string f in txtList)
             {
@@ -369,6 +507,7 @@ namespace Tool_Class
             public string eee { get; set; }
         }
         eeeee bbb = new eeeee();
+        eeeee ddd = new eeeee();
         /// <summary>
         /// 读取配置文件
         /// </summary>
@@ -403,7 +542,8 @@ namespace Tool_Class
                 //return ssss[0].Substring(1).ToString();
 
             }
-            string sourceDir = @"..\Debug";
+            string str5 = System.Windows.Forms.Application.StartupPath;
+            string sourceDir = @str5;
             string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
             foreach (string f in txtList)
             {
@@ -417,13 +557,13 @@ namespace Tool_Class
         /// <param name="jiedian">大节点</param>
         /// <param name="set">小节点</param>
         /// <param name="value">修改成value</param>
-        public void writeconfig(string node, string set, string value)
+        public void writeconfig(string jiedian, string set, string value)
         {
             Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
             FileStream fs = new FileStream(@"345.txt", FileMode.Open);
             Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
             string w = dd.Readfile(fs);
-            string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
+            string[] s = Regex.Split(w, jiedian, RegexOptions.IgnoreCase);
             string ee = s[1];
             string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
 
@@ -440,14 +580,23 @@ namespace Tool_Class
 
                 if (ssss[0].Substring(1).ToString() == tttt)
                 {
-                    bbb.eee = ssss[1];
+
+                    bbb.eee = ssss[0] + "=" + ssss[1];
+                    ddd.eee = ssss[0] + "=";
+
+
                 }
 
+                //return ssss[0].Substring(1).ToString();
+
             }
+
             string values = bbb.eee;
             string[] wt = Regex.Split(w, values, RegexOptions.IgnoreCase);
-            string total = wt[0] + value + wt[1];
-            string sourceDir = @"..\Debug";
+            string valuee = ddd.eee + value;
+            string total = wt[0] + valuee + wt[1];
+            string str5 = System.Windows.Forms.Application.StartupPath;
+            string sourceDir = @str5;
             string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
             foreach (string f in txtList)
             {
@@ -465,14 +614,18 @@ namespace Tool_Class
             {
                 File.Delete(f);
             }
+
+
+
         }
         /// <summary>
         /// 加密配置文件
         /// </summary>
         public void Encryptconfig()
         {
+            string str5 = System.Windows.Forms.Application.StartupPath;
             Tool_Class.DESFileClass.EncryptFile("345.txt", "config.txt", "123");
-            string sourceDir = @"..\Debug";
+            string sourceDir = @str5;
             string[] txtList2 = Directory.GetFiles(sourceDir, "345.txt");
 
             foreach (string f in txtList2)
@@ -485,8 +638,9 @@ namespace Tool_Class
         /// </summary>
         public void Decryptconfig()
         {
+            string str5 = System.Windows.Forms.Application.StartupPath;
             Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
-            string sourceDir = @"..\Debug";
+            string sourceDir = @str5;
             string[] txtList2 = Directory.GetFiles(sourceDir, "config.txt");
             foreach (string f in txtList2)
             {
@@ -499,6 +653,14 @@ namespace Tool_Class
     #region 文件操作/写日志/加密解密入口函数
     class IO_tool
     {
+        public void DataTableToExcel(System.Data.DataTable srcDt,string savename)
+        {
+             dtToexcel.DataTableToExcel(srcDt,savename);
+        }
+        public void sendmail()
+        {
+            
+        }
         public void Write2file(string fname, string details)
         {
             FileStream fs = new FileStream(fname, FileMode.Append);
@@ -509,6 +671,7 @@ namespace Tool_Class
             fs.Close();
             fs.Dispose();
         }
+
         public string Readfile(FileStream fs)
         {
             try
@@ -557,7 +720,17 @@ namespace Tool_Class
         /// <summary>
         /// 执行sql语句
         /// </summary>
-        public void AccessDbclass(string sql,string file_dir)
+        public void AccessDbclass(string sql)
+        {
+            string str5 = System.Windows.Forms.Application.StartupPath;
+            string a = str5 +"\\db.accdb";
+            AccessDbClass1 db = new AccessDbClass1();
+            db.AccessDbClass2(a);
+            bool dd = db.ExecuteSQLNonquery(sql);
+            db.Close();
+
+        }
+        public void AccessDbclass(string sql, string file_dir)
         {
             AccessDbClass1 db = new AccessDbClass1();
             db.AccessDbClass2(file_dir);
@@ -568,14 +741,25 @@ namespace Tool_Class
         /// <summary>
         /// 将查询结果返回给datatable
         /// </summary>
-        public DataTable DbToDatatable(string sql,string file_dir)
+        public System.Data.DataTable DbToDatatable(string sql)
         {
+            string str5 = System.Windows.Forms.Application.StartupPath;
+            string a = str5 + "\\db.accdb";
             AccessDbClass1 db = new AccessDbClass1();
-            db.AccessDbClass2(file_dir);
-            DataTable table = db.SelectToDataTable(sql);
+            db.AccessDbClass2(a);
+            System.Data.DataTable table = db.SelectToDataTable(sql);
             db.Close();
             return table;
  
+        }
+        public System.Data.DataTable DbToDatatable(string sql, string file_dir)
+        {
+            AccessDbClass1 db = new AccessDbClass1();
+            db.AccessDbClass2(file_dir);
+            System.Data.DataTable table = db.SelectToDataTable(sql);
+            db.Close();
+            return table;
+
         }
         /// <summary>
         /// 配置文件名为config.txt,路径在根目录Debug文件夹下
@@ -599,6 +783,13 @@ namespace Tool_Class
         {
             config config1 = new config();
             string value = config1.readconfig(node, set);
+            return value;
+
+        }
+        public string[] readconfig(string node)
+        {
+            config config1 = new config();
+            string[] value = config1.readparameter(node);
             return value;
 
         }
@@ -632,9 +823,6 @@ namespace Tool_Class
             config config1 = new config();
             config1.Decryptconfig();
         }
-        //
-        //判断输入是否是数字
-        //
         public bool isNumberic(string message, out int result)
         {
             result = -1;   //result 定义为out 用来输出值
@@ -653,6 +841,37 @@ namespace Tool_Class
                 return false;
             }
         }
+        public void login(string windowsname)
+        {
+            Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
+            tool.writeconfig("lg", "wname", windowsname);
+            CobasITMonitor.login lg = new login();
+            lg.ShowDialog();
+        }
+        /// <summary>
+        /// 根据时间判断判断是否执行该检查
+        /// </summary>
+        /// <param name="para_name"></param>
+        /// <param name="db_dir"></param>
+        /// <param name="diff_num"></param>
+        /// <returns></returns>
+        public bool execute_or_not(string para_name,string db_dir,int diff_num)
+        {
+            string SQL = "select create_date from Status_Now where para_name = '" + para_name + "'";
+            System.Data.DataTable dt = DbToDatatable(SQL, db_dir);
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+            string data_time_string = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+            DateTime d1 = DateTime.Parse(data_time_string);
+            DateTime d2 = DateTime.Now;
+            System.TimeSpan ND = d2 - d1;
+            int ss = Convert.ToInt32(ND.TotalSeconds);
+            if (ss > diff_num)
+                return true;
+            else
+                return false;
+        }
+
     }
 }
     #endregion
