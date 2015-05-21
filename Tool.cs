@@ -59,6 +59,44 @@ namespace Tool_Class
     {
         public CryptoHelpException(string msg) : base(msg) { }
     }
+    public class ini
+    {
+
+        // 声明INI文件的写操作函数 WritePrivateProfileString()  
+
+        [System.Runtime.InteropServices.DllImport("kernel32")]
+
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+
+        // 声明INI文件的读操作函数 GetPrivateProfileString()  
+
+        [System.Runtime.InteropServices.DllImport("kernel32")]
+
+        private static extern int GetPrivateProfileString(string section, string key, string def, System.Text.StringBuilder retVal, int size, string filePath);
+
+
+        private string sPath = null;
+        public void Ini(string path)
+        {
+            this.sPath = path;
+        }
+
+        public void WriteValue(string section, string key, string value)
+        {
+            // section=配置节，key=键名，value=键值，path=路径  
+            WritePrivateProfileString(section, key, value, sPath);
+        }
+        public string ReadValue(string section, string key)
+        {
+
+            // 每次从ini中读取多少字节  
+            System.Text.StringBuilder temp = new System.Text.StringBuilder(255);
+            // section=配置节，key=键名，temp=上面，path=路径  
+            GetPrivateProfileString(section, key, "", temp, 255, sPath);
+            return temp.ToString();
+
+        }
+    }
     public class DESFileClass
     {
         private const ulong FC_TAG = 0xFC010203040506CF;
@@ -394,6 +432,7 @@ namespace Tool_Class
     }
     #endregion
     }
+
     
     //数据库操作
     public class AccessDbClass1
@@ -487,20 +526,21 @@ namespace Tool_Class
         /// </summary>
         public string[] readparameter(string node)
         {
-            Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
+
+            //Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
             FileStream fs = new FileStream(@"345.txt", FileMode.Open);
             Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
             string w = dd.Readfile(fs);
             string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
             string ee = s[1];
             string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
-            string str5 = System.Windows.Forms.Application.StartupPath;
+            /*string str5 = System.Windows.Forms.Application.StartupPath;
             string sourceDir = @str5;
             string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
             foreach (string f in txtList)
             {
                 File.Delete(f);
-            }
+            }*/
             return ss;
         }
         public class eeeee
@@ -782,8 +822,12 @@ namespace Tool_Class
         /// <param name="set">小节点</param>
         public string readconfig(string node, string set)
         {
-            config config1 = new config();
-            string value = config1.readconfig(node, set);
+           //string str5 = System.Windows.Forms.Application.StartupPath;
+            string iniPath = System.Windows.Forms.Application.StartupPath + "\\config.ini";
+            ini ini = new ini();
+            ini.Ini(iniPath);
+
+            string value = ini.ReadValue(node, set);
             return value;
 
         }
@@ -802,8 +846,14 @@ namespace Tool_Class
         /// <param name="value">修改成value</param>
         public void writeconfig(string node, string set, string value)
         {
-            config config1 = new config();
-            config1.writeconfig(node,set,value);
+            //config config1 = new config();
+            //config1.writeconfig(node,set,value);
+           // string str5 = System.Windows.Forms.Application.StartupPath;
+            string iniPath = System.Windows.Forms.Application.StartupPath + "\\config.ini";
+            ini ini = new ini();
+            ini.Ini(iniPath);
+
+            ini.WriteValue(node, set, value);
             
 
         }
