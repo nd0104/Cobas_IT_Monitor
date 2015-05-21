@@ -305,13 +305,14 @@ namespace Tool_Class
         Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets[1];//取得sheet1
         worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 8]).Font.ColorIndex = 9;
         worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 8]).ColumnWidth = 40;
-        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[8, 1]).RowHeight = 50;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[11, 1]).RowHeight = 50;
         
         //worksheet.get_Range(worksheet.Cells[3, 1], worksheet.Cells[3, 6]).Interior.ColorIndex = 6;
-        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[8, 8]).Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[8, 8]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[11, 8]).Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[11, 8]).WrapText = true;
+        worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[11, 8]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
         //worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 1]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
-        for (int i = 2; i < 7; i++)
+        for (int i = 2; i < 10; i++)
         {
 
             if (dt.Rows[i-2][3].ToString() == "E")
