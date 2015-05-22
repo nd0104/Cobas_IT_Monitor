@@ -28,8 +28,8 @@ namespace CobasITMonitor
             threads[0].Start();
             threads[1] = new Thread(new ThreadStart(totalmonitor));
             threads[1].Start();
-            threads[2] = new Thread(new ThreadStart(totalmonitor2));
-            threads[2].Start();
+            //threads[2] = new Thread(new ThreadStart(totalmonitor2));
+            //threads[2].Start();
             
             //threads[2] = new Thread(new ThreadStart(totalmonitor2));
             //threads[2].Start();
@@ -46,6 +46,11 @@ namespace CobasITMonitor
         }
         void totalmonitor()
         {
+            threadDisk(true);
+            threadCpu(true);
+            threadlog(true);
+            threadMem(true);
+            threadIp(true);
             while (true)
             {
                 threadDisk(false);
