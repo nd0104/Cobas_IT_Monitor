@@ -38,9 +38,9 @@ namespace Work
         private string[] output_stat2 = { "LIS_RESULTS", "RESULTATE", "LIS_MESSAGE", "HIST_SAMPLES", "SAMPLE_TEST_ASSIGNMENTS",  "SAMPLE_IMAGES",  "TEST_REQUESTS" };
         private int[] SQL5_refrence = { 30000000, 30000000, 1000000, 30000000, 30000000, 100000, 30000000, 50000000, 50000000, 2000000, 50000000, 50000000, 2000000, 50000000 };
         #region 检查数据表是否和设置的参数一致
-        public void Check_database_para(bool is_first)
+        public void Check_database_para()
         {
-           if (io.execute_or_not("para_check", db_dir, 43200,is_first))
+           if (io.execute_or_not("para_check", db_dir, 43200))
             {
                 int ini_diff = 0, table_diff = 0;
                 string result = "False", output = "";
@@ -92,9 +92,9 @@ namespace Work
         }
             #endregion
         #region 检查数据文件大小
-        public void Check_database_tablespace_size(bool is_first)
+        public void Check_database_tablespace_size()
         {
-            if (io.execute_or_not("db_size", db_dir, 43200,is_first))
+            if (io.execute_or_not("db_size", db_dir, 43200))
             {
                 string result = "False", output = "The size of dababase check is:";
                 float size_para = 31;
@@ -106,8 +106,8 @@ namespace Work
                 conn.Close();
                 if (size_db < size_para)
                 {
-                    result = "True.";
-                    output += result + " in parameter is:" + size_para + "GB and " + size_db + "GB while checked the db.";
+                    result = "True";
+                    output += result + "in parameter is:" + size_para + "GB and " + size_db + "GB while checked the db.";
                     show_flag = 'N';
                 }
                 else
@@ -133,9 +133,9 @@ namespace Work
         }
         #endregion
         #region 检查数据备份
-        public void Check_database_db_backup(bool is_first)
+        public void Check_database_db_backup()
         {
-            if (io.execute_or_not("db_backup", db_dir, 43200,is_first))
+            if (io.execute_or_not("db_backup", db_dir, 43200))
             {
                 string result = "False", output = "The back up of db is:";
                 string db_back_para = "SUCCEEDED";
@@ -178,9 +178,9 @@ namespace Work
         }
         #endregion
         #region 检查Log日志报错否 3600
-        public void Check_database_log_err(bool is_first)
+        public void Check_database_log_err()
         {
-            if (io.execute_or_not("log_error", db_dir, 43200,is_first))
+            if (io.execute_or_not("log_error", db_dir, 43200))
             {
                 string result = "False", output = "The result of check error(warning) is ";
                 int diff_num = 3;
@@ -228,9 +228,9 @@ namespace Work
         }
         #endregion
         #region 检查关键表数量是否超出
-        public void Check_database_table_num(bool is_first)
+        public void Check_database_table_num()
         {
-            if(io.execute_or_not("table_count", db_dir, 43200,is_first))
+            if(io.execute_or_not("table_count", db_dir, 43200))
             {
                 string result = "False", output = "The result of checking key tables is: ";
                 int num_count = 50000001;
