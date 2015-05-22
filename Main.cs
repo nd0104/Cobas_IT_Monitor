@@ -19,21 +19,21 @@ namespace CobasITMonitor
                                        "select details,flag from Status_Now where para_name = 'db_backup'",
                                         "select details,flag from Status_Now where para_name = 'para_check'",
                                         "select details,flag from Status_Now where para_name = 'log_error'",
-                                        "select para_value,flag from Status_Now where para_name = 'syslog_warn'",
-                                       "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
-                                        "select para_value,flag from Status_Now where para_name = 'disk_size'",
-                                       "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
-                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+                                        "select details,flag from Status_Now where para_name = 'syslog_warn'",
+                                       "select details,flag from Status_Now where para_name = 'instrument_connection' ",
+                                        "select details,flag from Status_Now where para_name = 'disk_size'",
+                                       "select details,flag from Status_Now where para_name = 'cpu_running' ",
+                                        "select details,flag from Status_Now where para_name = 'memory_running'"};
         public string[] sql_area = {"select details,flag from Status_Now where para_name = 'db_size' ",
                                        "select details,flag from Status_Now where para_name = 'table_count' ",
                                        "select details,flag from Status_Now where para_name = 'db_backup'",
                                         "select details,flag from Status_Now where para_name = 'para_check'",
                                         "select details,flag from Status_Now where para_name = 'log_error'",
-                                        "select para_value,flag from Status_Now where para_name = 'syslog_warn'",
-                                       "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
-                                        "select para_value,flag from Status_Now where para_name = 'disk_size'",
-                                       "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
-                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+                                        "select details,flag from Status_Now where para_name = 'syslog_warn'",
+                                       "select details,flag from Status_Now where para_name = 'instrument_connection' ",
+                                        "select details,flag from Status_Now where para_name = 'disk_size'",
+                                       "select details,flag from Status_Now where para_name = 'cpu_running' ",
+                                        "select details,flag from Status_Now where para_name = 'memory_running'"};
 
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
@@ -46,6 +46,11 @@ namespace CobasITMonitor
             Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
+                worker.Check_database_para(true);
+                worker.Check_database_tablespace_size(true);
+                worker.Check_database_db_backup(true);
+                worker.Check_database_log_err(true);
+                worker.Check_database_table_num(true);
             threads[1].Start();
             threads[0].Start();
         }
@@ -55,7 +60,7 @@ namespace CobasITMonitor
             int counter = 0;
             while (true)
             {
-                Thread.Sleep(10000);
+                
                 for (; counter < 10; counter++)
                 {
                     if (sql_area[counter] != null)
@@ -70,21 +75,21 @@ namespace CobasITMonitor
                     }
                 }
                 counter = 0;
-
+                Thread.Sleep(10000);
             }
         }
         #endregion
         void monitor_thread()
         {
+
             while (true)
             {
-                worker.Check_database_para();
-                worker.Check_database_tablespace_size();
-                worker.Check_database_db_backup();
-                worker.Check_database_log_err();
-                worker.Check_database_table_num();
-
-            //    Thread.Sleep(10000);
+                worker.Check_database_para(false);
+                worker.Check_database_tablespace_size(false);
+                worker.Check_database_db_backup(false);
+                worker.Check_database_log_err(false);
+                worker.Check_database_table_num(false);
+                Thread.Sleep(10000);
             }
         }
         #region 根据返回值逐行改变灯的颜色，后期考虑用映射动态组成变量名来缩短代码量
