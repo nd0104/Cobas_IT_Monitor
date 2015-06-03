@@ -36,11 +36,11 @@ namespace Work
         private string[] SQL_stat5 = { "select count(1) from LIS_RESULTS", "select count(1) from RESULTATE", "select count(1) from LIS_MESSAGE", "select count(1) from HIST_SAMPLES" 
                                          ,"select count(1) from SAMPLE_TEST_ASSIGNMENTS","select count(1) from SAMPLE_IMAGES","select count(1) from TEST_REQUESTS" };
         private string[] output_stat2 = { "LIS_RESULTS", "RESULTATE", "LIS_MESSAGE", "HIST_SAMPLES", "SAMPLE_TEST_ASSIGNMENTS",  "SAMPLE_IMAGES",  "TEST_REQUESTS" };
-        private int[] SQL5_refrence = { 30000000, 30000000, 1000000, 30000000, 30000000, 100000, 30000000, 50000000, 50000000, 2000000, 50000000, 50000000, 2000000, 50000000 };
+        
         #region 检查数据表是否和设置的参数一致
         public void Check_database_para(bool is_first)
         {
-           if (io.execute_or_not("para_check", db_dir, 43200,is_first))
+            if (io.execute_or_not("para_check", db_dir, Convert.ToInt32(io.readconfig("IT3K_OPTION", "OPTION_CHECK")), is_first))
             {
                 int ini_diff = 0, table_diff = 0;
                 string result = "False", output = "";
@@ -94,10 +94,10 @@ namespace Work
         #region 检查数据文件大小
         public void Check_database_tablespace_size(bool is_first)
         {
-            if (io.execute_or_not("db_size", db_dir, 43200,is_first))
+            if (io.execute_or_not("db_size", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "DB_CHECK")), is_first))
             {
                 string result = "False", output = "The size of dababase check is:";
-                float size_para = 31;
+                float size_para = Convert.ToInt32(io.readconfig("DATABASE", "DB_SIZE"));
                 float size_db = 32;
                 OracleConnection conn = ROD.NewConn();
                 DataSet Table_DataSet;
@@ -135,7 +135,7 @@ namespace Work
         #region 检查数据备份
         public void Check_database_db_backup(bool is_first)
         {
-            if (io.execute_or_not("db_backup", db_dir, 43200,is_first))
+            if (io.execute_or_not("db_backup", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "BACKUP_CHECK")), is_first))
             {
                 string result = "False", output = "The back up of db is:";
                 string db_back_para = "SUCCEEDED";
@@ -177,13 +177,13 @@ namespace Work
             }
         }
         #endregion
-        #region 检查Log日志报错否 3600
+        #region 检查Log日志报错否 
         public void Check_database_log_err(bool is_first)
         {
-            if (io.execute_or_not("log_error", db_dir, 43200,is_first))
+            if (io.execute_or_not("log_error", db_dir, Convert.ToInt32(io.readconfig("IT3K_LOG", "LOG_CHECK")), is_first))
             {
                 string result = "False", output = "The result of check error(warning) is ";
-                int diff_num = 3;
+                int diff_num = Convert.ToInt32(io.readconfig("IT3K_LOG", "WARNING")), error_diff_num = Convert.ToInt32(io.readconfig("IT3K_LOG", "ERROR"));
                 int error_num = 5, error_num2 = 5;
                 OracleConnection conn = ROD.NewConn();
                 DataSet Table_DataSet;
@@ -230,7 +230,9 @@ namespace Work
         #region 检查关键表数量是否超出
         public void Check_database_table_num(bool is_first)
         {
-            if(io.execute_or_not("table_count", db_dir, 43200,is_first))
+            io.readconfig("CORE", "DB_IP");
+            int[] SQL5_refrence = { Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_1")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_3")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_5")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_7")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_9")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_11")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_13")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_2")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_4")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_6")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_8")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_10")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_12")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_14")) };
+            if (io.execute_or_not("table_count", db_dir, Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_CHECK")), is_first))
             {
                 string result = "False", output = "The result of checking key tables is: ";
                 int num_count = 50000001;
@@ -240,7 +242,7 @@ namespace Work
                 {
                     Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat5[i], "");
                     num_count = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-                    output += output_stat2[i] + ": " + num_count + "./n";
+                    output += output_stat2[i] + ": " + num_count+"  ";
                     if (num_count < SQL5_refrence[i])
                     {
                         result = "True";

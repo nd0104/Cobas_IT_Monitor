@@ -14,43 +14,45 @@ namespace CobasITMonitor
 {
     public partial class Main : Form
     {
-        public string[] sql_area_bak = {"select details,flag from Status_Now where para_name = 'db_size' ",
-                                       "select details,flag from Status_Now where para_name = 'table_count' ",
-                                       "select details,flag from Status_Now where para_name = 'db_backup'",
-                                        "select details,flag from Status_Now where para_name = 'para_check'",
-                                        "select details,flag from Status_Now where para_name = 'log_error'",
-                                        "select details,flag from Status_Now where para_name = 'syslog_warn'",
-                                       "select details,flag from Status_Now where para_name = 'instrument_connection' ",
-                                        "select details,flag from Status_Now where para_name = 'disk_size'",
-                                       "select details,flag from Status_Now where para_name = 'cpu_running' ",
-                                        "select details,flag from Status_Now where para_name = 'memory_running'"};
-        public string[] sql_area = {"select details,flag from Status_Now where para_name = 'db_size' ",
-                                       "select details,flag from Status_Now where para_name = 'table_count' ",
-                                       "select details,flag from Status_Now where para_name = 'db_backup'",
-                                        "select details,flag from Status_Now where para_name = 'para_check'",
-                                        "select details,flag from Status_Now where para_name = 'log_error'",
-                                        "select details,flag from Status_Now where para_name = 'syslog_warn'",
-                                       "select details,flag from Status_Now where para_name = 'instrument_connection' ",
-                                        "select details,flag from Status_Now where para_name = 'disk_size'",
-                                       "select details,flag from Status_Now where para_name = 'cpu_running' ",
-                                        "select details,flag from Status_Now where para_name = 'memory_running'"};
-
+        public string[] sql_area_bak = {"select para_value,flag from Status_Now where para_name = 'db_size' ",
+                                       "select para_value,flag from Status_Now where para_name = 'table_count' ",
+                                       "select para_value,flag from Status_Now where para_name = 'db_backup'",
+                                        "select para_value,flag from Status_Now where para_name = 'para_check'",
+                                        "select para_value,flag from Status_Now where para_name = 'log_error'",
+                                        "select para_value,flag from Status_Now where para_name = 'syslog_warn'",
+                                       "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
+                                        "select para_value,flag from Status_Now where para_name = 'disk_size'",
+                                       "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
+                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+        public string[] sql_area = {"select para_value,flag from Status_Now where para_name = 'db_size' ",
+                                       "select para_value,flag from Status_Now where para_name = 'table_count' ",
+                                       "select para_value,flag from Status_Now where para_name = 'db_backup'",
+                                        "select para_value,flag from Status_Now where para_name = 'para_check'",
+                                        "select para_value,flag from Status_Now where para_name = 'log_error'",
+                                        "select para_value,flag from Status_Now where para_name = 'syslog_warn'",
+                                       "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
+                                        "select para_value,flag from Status_Now where para_name = 'disk_size'",
+                                       "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
+                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+        progresser process_form = new progresser();
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
         string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-        //string db_dir = @"E:\code\CobasITMonitor\CobasITMonitor\db.accdb";
         public Main()
         {
             InitializeComponent();
-            Main.CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = false;
+
+            process_form.Show();
             Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
-                worker.Check_database_para(true);
-                worker.Check_database_tablespace_size(true);
-                worker.Check_database_db_backup(true);
-                worker.Check_database_log_err(true);
-                worker.Check_database_table_num(true);
+            worker.Check_database_para(true);
+            worker.Check_database_tablespace_size(true);
+            worker.Check_database_db_backup(true);
+            worker.Check_database_log_err(true);
+            worker.Check_database_table_num(true);
+            process_form.Close();
             threads[1].Start();
             threads[0].Start();
         }
@@ -465,5 +467,50 @@ namespace CobasITMonitor
                 pictureBox2.Image = CobasITMonitor.Properties.Resources.pause_;
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            backup back_up = new backup();
+            back_up.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            IT3KOPTION it3k_option = new IT3KOPTION();
+            it3k_option.Show();
+        }
+
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("para_check");
+            details_windows.Show();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("db_size");
+            details_windows.Show();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("table_count");
+            details_windows.Show();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("db_backup");
+            details_windows.Show();
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("log_error");
+            details_windows.Show();
+        }
+          
     }
+
 }
