@@ -34,7 +34,7 @@ namespace CobasITMonitor
                                         "select para_value,flag from Status_Now where para_name = 'disk_size'",
                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
                                         "select para_value,flag from Status_Now where para_name = 'memory_running'"};
-
+        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9,exec_10 = 0;
         progresser process_form = new progresser();
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
@@ -50,15 +50,15 @@ namespace CobasITMonitor
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
             process_form.SetProgressValue(10);
-            worker.Check_database_para(true);
+            worker.Check_database_para(true,exec_4);
             process_form.SetProgressValue(20);
-            worker.Check_database_tablespace_size(true);
+            worker.Check_database_tablespace_size(true, exec_1);
             process_form.SetProgressValue(40);
-            worker.Check_database_db_backup(true);
+            worker.Check_database_db_backup(true,exec_3);
             process_form.SetProgressValue(60);
-            worker.Check_database_log_err(true);
+            worker.Check_database_log_err(true, exec_8);
             process_form.SetProgressValue(80);
-            worker.Check_database_table_num(true);
+            worker.Check_database_table_num(true,exec_2);
             process_form.SetProgressValue(85);
             ServerMonitor.threadDisk(true);
             process_form.SetProgressValue(95);
@@ -96,11 +96,11 @@ namespace CobasITMonitor
             recommeded_value();
             while (true)
             {
-                worker.Check_database_para(false);
-                worker.Check_database_tablespace_size(false);
-                worker.Check_database_db_backup(false);
-                worker.Check_database_log_err(false);
-                worker.Check_database_table_num(false);
+                worker.Check_database_para(false, exec_4);
+                worker.Check_database_tablespace_size(false, exec_1);
+                worker.Check_database_db_backup(false, exec_3);
+                worker.Check_database_log_err(false, exec_8);
+                worker.Check_database_table_num(false, exec_2);
                 ServerMonitor.threadDisk(false);
                 ServerMonitor.threadCpu(false);
                 ServerMonitor.threadlog(false);
@@ -330,23 +330,18 @@ namespace CobasITMonitor
         private void checkbox1_changed(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
+            {
                 sql_area[0] = sql_area_bak[0];
+                exec_1 = 0;
+            }
             else
             {
                 sql_area[0] = null;
                 pictureBox1.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_1 = 1;
             }
         }
-        private void checkbox2_changed(object sender, EventArgs e)
-        {
-            if (checkBox2.Checked)
-                sql_area[1] = sql_area_bak[1];
-            else
-            {
-                sql_area[1] = null;
-                pictureBox2.Image = CobasITMonitor.Properties.Resources.pause_;
-            }
-        }
+      
 
 
         private void checkBox16_CheckedChanged(object sender, EventArgs e)
@@ -437,17 +432,16 @@ namespace CobasITMonitor
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox8.Checked)
+            {
                 sql_area[4] = sql_area_bak[4];
+                exec_8 = 0;
+            }
             else
             {
                 sql_area[4] = null;
                 pictureBox5.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_8 = 1;
             }
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void button16_Click(object sender, EventArgs e)
@@ -465,33 +459,46 @@ namespace CobasITMonitor
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox3.Checked)
+            {
                 sql_area[2] = sql_area_bak[2];
+                exec_3 = 0;
+            }
             else
             {
                 sql_area[2] = null;
                 pictureBox3.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_3 = 1;
             }
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox4.Checked)
+            {
                 sql_area[3] = sql_area_bak[3];
+                exec_4 = 0;
+            }
             else
             {
                 sql_area[3] = null;
                 pictureBox4.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_4 = 1;
             }
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
+            {
                 sql_area[1] = sql_area_bak[1];
+                exec_2 = 0;
+            }
+
             else
             {
                 sql_area[1] = null;
                 pictureBox2.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_2 = 1;
             }
         }
 
