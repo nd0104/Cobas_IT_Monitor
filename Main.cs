@@ -34,24 +34,34 @@ namespace CobasITMonitor
                                         "select para_value,flag from Status_Now where para_name = 'disk_size'",
                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
                                         "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+
         progresser process_form = new progresser();
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
         string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
+        servermonitor ServerMonitor = new servermonitor();
         public Main()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
 
             process_form.Show();
-            Thread[] threads = new Thread[2];
+            Thread[] threads = new Thread[3];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
+            process_form.SetProgressValue(10);
             worker.Check_database_para(true);
+            process_form.SetProgressValue(20);
             worker.Check_database_tablespace_size(true);
+            process_form.SetProgressValue(40);
             worker.Check_database_db_backup(true);
+            process_form.SetProgressValue(60);
             worker.Check_database_log_err(true);
+            process_form.SetProgressValue(80);
             worker.Check_database_table_num(true);
+            process_form.SetProgressValue(85);
+            ServerMonitor.threadDisk(true);
+            process_form.SetProgressValue(95);
             process_form.Close();
             threads[1].Start();
             threads[0].Start();
@@ -83,7 +93,7 @@ namespace CobasITMonitor
         #endregion
         void monitor_thread()
         {
-
+            recommeded_value();
             while (true)
             {
                 worker.Check_database_para(false);
@@ -91,6 +101,11 @@ namespace CobasITMonitor
                 worker.Check_database_db_backup(false);
                 worker.Check_database_log_err(false);
                 worker.Check_database_table_num(false);
+                ServerMonitor.threadDisk(false);
+                ServerMonitor.threadCpu(false);
+                ServerMonitor.threadlog(false);
+                ServerMonitor.threadMem(false);
+                ServerMonitor.threadIp(false);
                 Thread.Sleep(10000);
             }
         }
@@ -285,6 +300,22 @@ namespace CobasITMonitor
             }
         }
         #endregion
+        void recommeded_value()
+        {
+            Tool_Class.IO_tool tool = new IO_tool();
+            string l61 = tool.readconfig("jb", "netwarn");
+            string disk_c = tool.readconfig("jb", "Cwarn");
+            string disk_d = tool.readconfig("jb", "Dwarn");
+            string disk_e = tool.readconfig("jb", "Ewarn");
+            string disk_f = tool.readconfig("jb", "Fwarn");
+            string cpu = tool.readconfig("jb", "cpuwarnvalue");
+            string memery = tool.readconfig("jb", "memwarnvalue");
+            label61.Text = "连通不通次数少于" + l61 + "次";
+            label62.Text = "C>" + disk_c + "G;" + "D>" + disk_d + "G;" + "\n\r" + "E>" + disk_e + "G;" + "F>" + disk_f + "G;";
+            label63.Text = "使用率低于" + cpu + "%";
+            label64.Text = "使用率低于" + memery + "%";
+
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -398,13 +429,9 @@ namespace CobasITMonitor
 
         private void button10_Click(object sender, EventArgs e)
         {
-            连通性参数配置 ip = new 连通性参数配置();
+            netconfig ip = new netconfig();
             ip.ShowDialog();
 
-        }
-        private void Main_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            System.Environment.Exit(0);
         }
 
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
@@ -510,7 +537,90 @@ namespace CobasITMonitor
             Show_details details_windows = new Show_details("log_error");
             details_windows.Show();
         }
-          
+
+        private void pictureBox16_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("syslog_warn");
+            details_windows.Show();
+        }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("instrument_connection");
+            details_windows.Show();
+        }
+
+        private void pictureBox12_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("disk_size");
+            details_windows.Show();
+        }
+
+        private void pictureBox14_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("cpu_running");
+            details_windows.Show();
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("memory_running");
+            details_windows.Show();
+        }
+
+
+        Tool_Class.IO_tool tool = new IO_tool();
+        private void 客户信息设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tool.login("customerconfig");
+        }
+
+        private void 显示状态监控界面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Visible = true;
+        }
+
+        private void 软件设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tool.login("softwareconfig");
+        }
+
+        private void 硬盘监控参数ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            diskconfig ip = new diskconfig();
+            ip.ShowDialog();
+        }
+
+        private void cpu内存监控参数ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            CPUMEM ip = new CPUMEM();
+            ip.ShowDialog();
+        }
+
+        private void 网络监控参数ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            netconfig ip = new netconfig();
+            ip.ShowDialog();
+        }
+
+        private void 生成服务器状态报告ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            excelout excel = new excelout();
+            excel.ShowDialog();
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tool.login("exsit");
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Visible = false;
+            e.Cancel = true;
+            System.Environment.Exit(0);
+        }
+     
     }
 
 }

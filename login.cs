@@ -38,6 +38,11 @@ namespace CobasITMonitor
                     df.ShowDialog();
 
                 }
+                if (wname == "exsit")
+                {
+                    System.Environment.Exit(0);
+
+                }
 
             }
             else

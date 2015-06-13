@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -38,6 +40,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -47,6 +51,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -55,6 +60,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -62,6 +68,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -72,11 +79,13 @@
             this.label64 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.listBox6 = new System.Windows.Forms.ListBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.button6 = new System.Windows.Forms.Button();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.button5 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -86,11 +95,13 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.listBox7 = new System.Windows.Forms.ListBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.button7 = new System.Windows.Forms.Button();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.button8 = new System.Windows.Forms.Button();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.label33 = new System.Windows.Forms.Label();
@@ -101,11 +112,13 @@
             this.label61 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.listBox9 = new System.Windows.Forms.ListBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.button9 = new System.Windows.Forms.Button();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.button10 = new System.Windows.Forms.Button();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.label39 = new System.Windows.Forms.Label();
@@ -116,11 +129,13 @@
             this.label62 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.listBox11 = new System.Windows.Forms.ListBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.button11 = new System.Windows.Forms.Button();
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.button12 = new System.Windows.Forms.Button();
             this.checkBox12 = new System.Windows.Forms.CheckBox();
             this.label45 = new System.Windows.Forms.Label();
@@ -131,11 +146,13 @@
             this.label63 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
             this.listBox13 = new System.Windows.Forms.ListBox();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.button13 = new System.Windows.Forms.Button();
             this.checkBox13 = new System.Windows.Forms.CheckBox();
             this.label48 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
             this.button14 = new System.Windows.Forms.Button();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.label51 = new System.Windows.Forms.Label();
@@ -146,66 +163,63 @@
             this.label60 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
             this.listBox15 = new System.Windows.Forms.ListBox();
+            this.pictureBox15 = new System.Windows.Forms.PictureBox();
             this.button15 = new System.Windows.Forms.Button();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.label54 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
             this.button16 = new System.Windows.Forms.Button();
             this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.label57 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
-            this.pictureBox15 = new System.Windows.Forms.PictureBox();
-            this.pictureBox16 = new System.Windows.Forms.PictureBox();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.显示状态监控界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.软件设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.客户信息设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.监控参数设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.硬盘监控参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cpu内存监控参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.网络监控参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.生成服务器状态报告ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             this.panel12.SuspendLayout();
             this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             this.panel14.SuspendLayout();
             this.panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
             this.panel16.SuspendLayout();
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -320,6 +334,22 @@
             this.panel2.Size = new System.Drawing.Size(950, 86);
             this.panel2.TabIndex = 9;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(131, 36);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 16;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(388, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(850, 29);
@@ -421,6 +451,15 @@
             this.label17.TabIndex = 16;
             this.label17.Text = "<1000000";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(389, 5);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox2.TabIndex = 15;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(851, 27);
@@ -480,7 +519,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(16, 30);
+            this.label16.Location = new System.Drawing.Point(13, 30);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(74, 21);
             this.label16.TabIndex = 8;
@@ -510,6 +549,15 @@
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox3.Size = new System.Drawing.Size(100, 21);
             this.textBox3.TabIndex = 17;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(388, 7);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox3.TabIndex = 15;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // button3
             // 
@@ -589,6 +637,15 @@
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox4.Size = new System.Drawing.Size(100, 21);
             this.textBox4.TabIndex = 17;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Location = new System.Drawing.Point(386, 6);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox4.TabIndex = 15;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // button4
             // 
@@ -706,6 +763,14 @@
             this.listBox6.Size = new System.Drawing.Size(120, 124);
             this.listBox6.TabIndex = 17;
             // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox6.TabIndex = 15;
+            this.pictureBox6.TabStop = false;
+            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(852, 52);
@@ -757,6 +822,15 @@
             this.label29.Size = new System.Drawing.Size(75, 21);
             this.label29.TabIndex = 8;
             this.label29.Text = "IT3K日志";
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Location = new System.Drawing.Point(388, 9);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox8.TabIndex = 15;
+            this.pictureBox8.TabStop = false;
+            this.pictureBox8.Click += new System.EventHandler(this.pictureBox8_Click);
             // 
             // button5
             // 
@@ -863,6 +937,14 @@
             this.listBox7.Size = new System.Drawing.Size(120, 124);
             this.listBox7.TabIndex = 17;
             // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox7.TabIndex = 15;
+            this.pictureBox7.TabStop = false;
+            // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(852, 52);
@@ -914,6 +996,15 @@
             this.label32.Size = new System.Drawing.Size(75, 21);
             this.label32.TabIndex = 8;
             this.label32.Text = "IT3K日志";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Location = new System.Drawing.Point(388, 8);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox5.TabIndex = 15;
+            this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
             // 
             // button8
             // 
@@ -1031,6 +1122,14 @@
             this.listBox9.Size = new System.Drawing.Size(120, 124);
             this.listBox9.TabIndex = 17;
             // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox9.TabIndex = 15;
+            this.pictureBox9.TabStop = false;
+            // 
             // button9
             // 
             this.button9.Location = new System.Drawing.Point(852, 52);
@@ -1082,6 +1181,15 @@
             this.label38.Size = new System.Drawing.Size(75, 21);
             this.label38.TabIndex = 8;
             this.label38.Text = "IT3K日志";
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Location = new System.Drawing.Point(390, 5);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox10.TabIndex = 15;
+            this.pictureBox10.TabStop = false;
+            this.pictureBox10.Click += new System.EventHandler(this.pictureBox10_Click);
             // 
             // button10
             // 
@@ -1168,7 +1276,7 @@
             // 
             this.label62.AutoSize = true;
             this.label62.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label62.Location = new System.Drawing.Point(262, 28);
+            this.label62.Location = new System.Drawing.Point(247, 28);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(105, 19);
             this.label62.TabIndex = 23;
@@ -1198,6 +1306,14 @@
             this.listBox11.Name = "listBox11";
             this.listBox11.Size = new System.Drawing.Size(120, 124);
             this.listBox11.TabIndex = 17;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox11.TabIndex = 15;
+            this.pictureBox11.TabStop = false;
             // 
             // button11
             // 
@@ -1250,6 +1366,15 @@
             this.label44.Size = new System.Drawing.Size(75, 21);
             this.label44.TabIndex = 8;
             this.label44.Text = "IT3K日志";
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Location = new System.Drawing.Point(388, 4);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox12.TabIndex = 15;
+            this.pictureBox12.TabStop = false;
+            this.pictureBox12.Click += new System.EventHandler(this.pictureBox12_Click);
             // 
             // button12
             // 
@@ -1367,6 +1492,14 @@
             this.listBox13.Size = new System.Drawing.Size(120, 124);
             this.listBox13.TabIndex = 17;
             // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox13.TabIndex = 15;
+            this.pictureBox13.TabStop = false;
+            // 
             // button13
             // 
             this.button13.Location = new System.Drawing.Point(852, 52);
@@ -1418,6 +1551,15 @@
             this.label50.Size = new System.Drawing.Size(75, 21);
             this.label50.TabIndex = 8;
             this.label50.Text = "IT3K日志";
+            // 
+            // pictureBox14
+            // 
+            this.pictureBox14.Location = new System.Drawing.Point(388, 5);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox14.TabIndex = 15;
+            this.pictureBox14.TabStop = false;
+            this.pictureBox14.Click += new System.EventHandler(this.pictureBox14_Click);
             // 
             // button14
             // 
@@ -1535,6 +1677,14 @@
             this.listBox15.Size = new System.Drawing.Size(120, 124);
             this.listBox15.TabIndex = 17;
             // 
+            // pictureBox15
+            // 
+            this.pictureBox15.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox15.Name = "pictureBox15";
+            this.pictureBox15.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox15.TabIndex = 15;
+            this.pictureBox15.TabStop = false;
+            // 
             // button15
             // 
             this.button15.Location = new System.Drawing.Point(852, 52);
@@ -1586,6 +1736,15 @@
             this.label56.Size = new System.Drawing.Size(75, 21);
             this.label56.TabIndex = 8;
             this.label56.Text = "IT3K日志";
+            // 
+            // pictureBox16
+            // 
+            this.pictureBox16.Location = new System.Drawing.Point(388, 4);
+            this.pictureBox16.Name = "pictureBox16";
+            this.pictureBox16.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox16.TabIndex = 15;
+            this.pictureBox16.TabStop = false;
+            this.pictureBox16.Click += new System.EventHandler(this.pictureBox16_Click);
             // 
             // button16
             // 
@@ -1641,145 +1800,90 @@
             this.label59.TabIndex = 8;
             this.label59.Text = "系统日志报警";
             // 
-            // pictureBox15
+            // notifyIcon1
             // 
-            this.pictureBox15.Location = new System.Drawing.Point(390, 30);
-            this.pictureBox15.Name = "pictureBox15";
-            this.pictureBox15.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox15.TabIndex = 15;
-            this.pictureBox15.TabStop = false;
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
-            // pictureBox16
+            // contextMenuStrip1
             // 
-            this.pictureBox16.Location = new System.Drawing.Point(388, 4);
-            this.pictureBox16.Name = "pictureBox16";
-            this.pictureBox16.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox16.TabIndex = 15;
-            this.pictureBox16.TabStop = false;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.显示状态监控界面ToolStripMenuItem,
+            this.软件设置ToolStripMenuItem,
+            this.客户信息设置ToolStripMenuItem,
+            this.监控参数设置ToolStripMenuItem,
+            this.生成服务器状态报告ToolStripMenuItem,
+            this.退出ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 136);
             // 
-            // pictureBox13
+            // 显示状态监控界面ToolStripMenuItem
             // 
-            this.pictureBox13.Location = new System.Drawing.Point(390, 30);
-            this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox13.TabIndex = 15;
-            this.pictureBox13.TabStop = false;
+            this.显示状态监控界面ToolStripMenuItem.Name = "显示状态监控界面ToolStripMenuItem";
+            this.显示状态监控界面ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.显示状态监控界面ToolStripMenuItem.Text = "显示状态监控界面";
+            this.显示状态监控界面ToolStripMenuItem.Click += new System.EventHandler(this.显示状态监控界面ToolStripMenuItem_Click);
             // 
-            // pictureBox14
+            // 软件设置ToolStripMenuItem
             // 
-            this.pictureBox14.Location = new System.Drawing.Point(388, 5);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox14.TabIndex = 15;
-            this.pictureBox14.TabStop = false;
+            this.软件设置ToolStripMenuItem.Name = "软件设置ToolStripMenuItem";
+            this.软件设置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.软件设置ToolStripMenuItem.Text = "软件设置";
+            this.软件设置ToolStripMenuItem.Click += new System.EventHandler(this.软件设置ToolStripMenuItem_Click);
             // 
-            // pictureBox11
+            // 客户信息设置ToolStripMenuItem
             // 
-            this.pictureBox11.Location = new System.Drawing.Point(390, 30);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox11.TabIndex = 15;
-            this.pictureBox11.TabStop = false;
+            this.客户信息设置ToolStripMenuItem.Name = "客户信息设置ToolStripMenuItem";
+            this.客户信息设置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.客户信息设置ToolStripMenuItem.Text = "客户信息设置";
+            this.客户信息设置ToolStripMenuItem.Click += new System.EventHandler(this.客户信息设置ToolStripMenuItem_Click);
             // 
-            // pictureBox12
+            // 监控参数设置ToolStripMenuItem
             // 
-            this.pictureBox12.Location = new System.Drawing.Point(388, 4);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox12.TabIndex = 15;
-            this.pictureBox12.TabStop = false;
+            this.监控参数设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.硬盘监控参数ToolStripMenuItem,
+            this.cpu内存监控参数ToolStripMenuItem,
+            this.网络监控参数ToolStripMenuItem});
+            this.监控参数设置ToolStripMenuItem.Name = "监控参数设置ToolStripMenuItem";
+            this.监控参数设置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.监控参数设置ToolStripMenuItem.Text = "监控参数设置";
             // 
-            // pictureBox9
+            // 硬盘监控参数ToolStripMenuItem
             // 
-            this.pictureBox9.Location = new System.Drawing.Point(390, 30);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox9.TabIndex = 15;
-            this.pictureBox9.TabStop = false;
+            this.硬盘监控参数ToolStripMenuItem.Name = "硬盘监控参数ToolStripMenuItem";
+            this.硬盘监控参数ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.硬盘监控参数ToolStripMenuItem.Text = "硬盘监控参数";
+            this.硬盘监控参数ToolStripMenuItem.Click += new System.EventHandler(this.硬盘监控参数ToolStripMenuItem_Click_1);
             // 
-            // pictureBox10
+            // cpu内存监控参数ToolStripMenuItem
             // 
-            this.pictureBox10.Location = new System.Drawing.Point(390, 5);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox10.TabIndex = 15;
-            this.pictureBox10.TabStop = false;
+            this.cpu内存监控参数ToolStripMenuItem.Name = "cpu内存监控参数ToolStripMenuItem";
+            this.cpu内存监控参数ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.cpu内存监控参数ToolStripMenuItem.Text = "cpu/内存监控参数";
+            this.cpu内存监控参数ToolStripMenuItem.Click += new System.EventHandler(this.cpu内存监控参数ToolStripMenuItem_Click_1);
             // 
-            // pictureBox7
+            // 网络监控参数ToolStripMenuItem
             // 
-            this.pictureBox7.Location = new System.Drawing.Point(390, 30);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox7.TabIndex = 15;
-            this.pictureBox7.TabStop = false;
+            this.网络监控参数ToolStripMenuItem.Name = "网络监控参数ToolStripMenuItem";
+            this.网络监控参数ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.网络监控参数ToolStripMenuItem.Text = "网络监控参数";
+            this.网络监控参数ToolStripMenuItem.Click += new System.EventHandler(this.网络监控参数ToolStripMenuItem_Click_1);
             // 
-            // pictureBox5
+            // 生成服务器状态报告ToolStripMenuItem
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(388, 8);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox5.TabIndex = 15;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
+            this.生成服务器状态报告ToolStripMenuItem.Name = "生成服务器状态报告ToolStripMenuItem";
+            this.生成服务器状态报告ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.生成服务器状态报告ToolStripMenuItem.Text = "生成服务器状态报告";
+            this.生成服务器状态报告ToolStripMenuItem.Click += new System.EventHandler(this.生成服务器状态报告ToolStripMenuItem_Click_1);
             // 
-            // pictureBox6
+            // 退出ToolStripMenuItem
             // 
-            this.pictureBox6.Location = new System.Drawing.Point(390, 30);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox6.TabIndex = 15;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Location = new System.Drawing.Point(388, 9);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox8.TabIndex = 15;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Location = new System.Drawing.Point(386, 6);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox4.TabIndex = 15;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Location = new System.Drawing.Point(388, 7);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox3.TabIndex = 15;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(389, 5);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox2.TabIndex = 15;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(388, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(68, 66);
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(131, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 16;
+            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -1800,58 +1904,59 @@
             this.Controls.Add(this.panel1);
             this.Name = "Main";
             this.Text = "Main";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             this.panel13.ResumeLayout(false);
             this.panel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2003,6 +2108,17 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 显示状态监控界面ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 软件设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 客户信息设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 监控参数设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 硬盘监控参数ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cpu内存监控参数ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 网络监控参数ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 生成服务器状态报告ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
 
     }
 }

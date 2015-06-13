@@ -18,40 +18,24 @@ using CobasITMonitor;
 
 namespace CobasITMonitor
 {
-    public partial class 主界面 : Form
+    public partial class servermonitor : Form
     {
-        public 主界面()
+        public servermonitor()
         {
             InitializeComponent();
-            Thread[] threads = new Thread[3];
-            threads[0] = new Thread(new ThreadStart(start));
+            Thread[] threads = new Thread[1];
+            threads[0] = new Thread(new ThreadStart(ServerTotalMonitor));
             threads[0].Start();
-            threads[1] = new Thread(new ThreadStart(totalmonitor));
-            threads[1].Start();
-            //threads[2] = new Thread(new ThreadStart(totalmonitor2));
-            //threads[2].Start();
             
             //threads[2] = new Thread(new ThreadStart(totalmonitor2));
             //threads[2].Start();
         }
-        void start()
+        
+        public void ServerTotalMonitor()
         {
-            string sql3 = "update Status_Histroy set sign = '1'";
-            string sql4 = "update Status_Now set flag = 'N',details = '正常' where para_name = 'disk_size'";
-
-            Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
-            tool.AccessDbclass(sql3);
-            tool.AccessDbclass(sql4);
-            
-        }
-        void totalmonitor()
-        {
-            threadDisk(true);
-            threadCpu(true);
-            threadlog(true);
-            threadMem(true);
-            threadIp(true);
-            while (true)
+            start();
+            //threadlog(true);
+            /*while (true)
             {
                 threadDisk(false);
                 threadCpu(false);
@@ -59,17 +43,23 @@ namespace CobasITMonitor
                 threadMem(false);
                 threadIp(false);
                 Thread.Sleep(10000);
-            }
+            }*/
             
  
         }
-        void totalmonitor2()
+        public void start()
         {
-                threadDisk(true);
-                threadCpu(true);
-                threadlog(true);
-                threadMem(true);
-                threadIp(true);
+            string sql3 = "update Status_Histroy set sign = '1'";
+            string sql4 = "update Status_Now set flag = 'N',details = 'normal' where para_name = 'disk_size'";
+            string value = "net normal";
+            string sql5 = "update Status_Now set para_value='true',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'instrument_connection'";
+
+
+            Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
+            tool.AccessDbclass(sql3);
+            tool.AccessDbclass(sql4);
+            tool.AccessDbclass(sql5);
+
         }
         Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
         List<string> ipList = new List<string>();
@@ -161,9 +151,9 @@ namespace CobasITMonitor
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            this.Hide();
-            this.notifyIcon1.Visible = true;
+            //e.Cancel = true;
+            //this.Hide();
+            
 
         }
 
@@ -182,43 +172,48 @@ namespace CobasITMonitor
         int syslog;
         int ip;
         int cpumem;
-
+        
         private void 主界面_Load(object sender, EventArgs e)
         {
             this.Hide();
             this.timer2.Enabled = true;
             this.timer1.Enabled = true;
+            //this.notifyIcon1.Visible = true;
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
             disk = int.Parse(tool.readconfig("rf", "diskrefresh")) * 60;
             syslog = int.Parse(tool.readconfig("rf", "syslogrefresh")) * 60;
             ip = int.Parse(tool.readconfig("rf", "netrefresh")) * 60;
             cpumem = int.Parse(tool.readconfig("rf", "cpumemrefresh")) * 60;
             //单实例运行
-            Process[] p = Process.GetProcessesByName("IT3000保养监控");
+            Process[] p = Process.GetProcessesByName("CobasITMonitor");
             if (p.Length > 1)
             {
                 MessageBox.Show("程序已经打开");
                 Environment.Exit(0);
             }
-            Main cpu = new Main();
-            cpu.ShowDialog();
 
+            Main main = new Main();
+            main.ShowDialog();
+            
 
 
         }
-
+        
         private void 显示状态监控界面ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            主界面 dd = new 主界面();
-            dd.ShowDialog();
+
+           
+            
+            
         }
 
         private void 软件设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            tool.login("softwareconfig");
+            
         }
         //硬盘监控
-        private void threadDisk(bool is_first)
+
+        public void threadDisk(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
             bool begin = tool.execute_or_not("disk_size", db_dir, disk, is_first);
@@ -275,21 +270,21 @@ namespace CobasITMonitor
                 if (WarningListWarnOfDisk.Count == 0 && WarningListErrorOfDisk.Count == 0) //正常
                 {
                     fgg = "N";
-                    string sql4 = "update Status_Now set flag ='N' where para_name = 'disk_size'";
+                    string sql4 = "update Status_Now set para_value='true',flag ='N' where para_name = 'disk_size'";
                     bool cc = db.ExecuteSQLNonquery(sql4);
                     //////textBox3.Text = cc.ToString();
                 }
                 if (WarningListWarnOfDisk.Count > 0) //大于设置警告值
                 {
                     fgg = "W";
-                    string sql4 = "update Status_Now set flag ='W' where para_name = 'disk_size'";
+                    string sql4 = "update Status_Now set para_value='false',flag ='W' where para_name = 'disk_size'";
                     bool cc = db.ExecuteSQLNonquery(sql4);
                     //////textBox3.Text = cc.ToString();
                 }
                 if (WarningListErrorOfDisk.Count > 0) //大于设置错误值
                 {
                     fgg = "E";
-                    string sql4 = "update Status_Now set flag ='E' where para_name = 'disk_size'";
+                    string sql4 = "update Status_Now set para_value='false',flag ='E' where para_name = 'disk_size'";
                     bool cc = db.ExecuteSQLNonquery(sql4);
                     //////textBox3.Text = cc.ToString();
                 }
@@ -303,7 +298,7 @@ namespace CobasITMonitor
 
         }
         //cpu监控
-        private void threadCpu(bool is_first)
+        public void threadCpu(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
             bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem, is_first);
@@ -347,22 +342,22 @@ namespace CobasITMonitor
                     }
                     if (numcpu < cpuwarntime)
                     {
-                        string value = "正常";
-                        string sql4 = "update Status_Now set flag ='N',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                        string value = "normal";
+                        string sql4 = "update Status_Now set para_value='true',flag ='N',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
                         tool.AccessDbclass(sql4);
 
                     }
                     if (numcpu > cpuwarntime)
                     {
-                        string value = "CPU大于" + cpuwarnvalue + "%共" + numcpu + "次";
-                        string sql4 = "update Status_Now set flag ='W',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                        string value = "CPU>" + cpuwarnvalue + "% count:" + numcpu + ";";
+                        string sql4 = "update Status_Now set para_value='false',flag ='W',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
                         tool.AccessDbclass(sql4);
 
                     }
                     if (errornumcpu > cpuerrortime)
                     {
-                        string value = "CPU大于" + cpuerrorvalue + "%共" + errornumcpu + "次";
-                        string sql4 = "update Status_Now set flag ='E',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                        string value = "CPU>" + cpuerrorvalue + "% count:" + errornumcpu + ";";
+                        string sql4 = "update Status_Now set para_value='false',flag ='E',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
                         tool.AccessDbclass(sql4);
 
                     }
@@ -371,7 +366,7 @@ namespace CobasITMonitor
             }
         }
         //内存监控
-        private void threadMem(bool is_first)
+        public void threadMem(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
             bool begin = tool.execute_or_not("memory_running", db_dir, cpumem, is_first);
@@ -415,29 +410,29 @@ namespace CobasITMonitor
                     }
                     if (num < memwarntime)
                     {
-                        string value = "正常";
-                        string sql4 = "update Status_Now set flag ='N',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
+                        string value = "normal";
+                        string sql4 = "update Status_Now set para_value='true',flag ='N',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
                         tool.AccessDbclass(sql4);
 
                     }
                     if (num > memwarntime)
                     {
-                        string value = "内存大于" + memwarnvalue + "%共" + num + "次";
-                        string sql4 = "update Status_Now set flag ='W',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
+                        string value = "memory>" + memwarnvalue + "% count:" + num + ";";
+                        string sql4 = "update Status_Now set para_value='false',flag ='W',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
                         tool.AccessDbclass(sql4);
 
                     }
                     if (errornum > memerrortime)
                     {
-                        string value = "内存大于" + memerrorvalue + "%共" + errornum + "次";
-                        string sql4 = "update Status_Now set flag ='E',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
+                        string value = "memory>" + memerrorvalue + "% count:" + errornum + ";";
+                        string sql4 = "update Status_Now set para_value='false',flag ='E',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
                         tool.AccessDbclass(sql4);
 
                     }
                 }
             }
         }
-        private void threadErrorSyslog()
+        public void threadErrorSyslog()
         {
 
 
@@ -509,7 +504,7 @@ namespace CobasITMonitor
 
 
         }
-        private void threadWarnSyslog()
+        public void threadWarnSyslog()
         {
 
 
@@ -582,7 +577,7 @@ namespace CobasITMonitor
 
         }
         //日志监控
-        private void threadlog(bool is_first)
+        public void threadlog(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
             bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first);
@@ -594,23 +589,23 @@ namespace CobasITMonitor
                 string str5 = System.Windows.Forms.Application.StartupPath;
                 string a = str5 + "\\db.accdb";
                 db.AccessDbClass2(a);
-                string error = "警告日志：" + eventlogWarnNum.ToString() + "个，错误日志：" + eventlogErrorNum.ToString() + "个";
+                string error = "warn_log：" + eventlogWarnNum.ToString() + "，error_log：" + eventlogErrorNum.ToString() + ";";
                 string sql3 = "";
                 if (eventlogWarnNum == 0 && eventlogErrorNum == 0 && is_first== true)
                 {
-                    sql3 = "update Status_Now set details ='无日志错误',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'syslog_warn'";
+                    sql3 = "update Status_Now set para_value='true',details ='normal',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
 
                 }
                 if (eventlogWarnNum > 0)
                 {
-                    sql3 = "update Status_Now set details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'syslog_warn'";
+                    sql3 = "update Status_Now set para_value='false',details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
 
                 }
                 if (eventlogErrorNum > 0)
                 {
-                    sql3 = "update Status_Now set details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'syslog_warn'";
+                    sql3 = "update Status_Now set para_value='false',details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
 
                 }
@@ -620,7 +615,7 @@ namespace CobasITMonitor
             }
         }
         //ip监控
-        private void threadIp(bool is_first)
+        public void threadIp(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
             bool begin = tool.execute_or_not("instrument_connection", db_dir, ip,is_first);
@@ -669,24 +664,17 @@ namespace CobasITMonitor
                             int num = int.Parse(count.Rows[0][0].ToString());
                             int warntime = int.Parse(tool.readconfig("jb", "netwarn"));
                             int errortime = int.Parse(tool.readconfig("bj", "neterror"));
-                            if (num < warntime)
-                            {
-                                string value = "网络正常";
-                                string sql3 = "update Status_Now set details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'instrument_connection'";
-                                tool.AccessDbclass(sql3);
-
-                            }
                             if (num > warntime)
                             {
                                 string value = dd[0] + "的ip" + dd[1] + "有" + num + "次连接不通";
-                                string sql3 = "update Status_Now set details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'instrument_connection'";
+                                string sql3 = "update Status_Now set para_value='false',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'instrument_connection'";
                                 tool.AccessDbclass(sql3);
 
                             }
                             if (num > errortime)
                             {
                                 string value = dd[0] + "的ip" + dd[1] + "有" + num + "次连接不通";
-                                string sql3 = "update Status_Now set details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'instrument_connection'";
+                                string sql3 = "update Status_Now set para_value='false',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'instrument_connection'";
                                 tool.AccessDbclass(sql3);
 
                             }
@@ -772,16 +760,16 @@ namespace CobasITMonitor
             string areaad = "";
             switch (area)
             {
-                case "东区":
+                case "east":
                     areaad = eastad;
                     break;
-                case "西区":
+                case "west":
                     areaad = westad;
                     break;
-                case "北区":
+                case "north":
                     areaad = northad;
                     break;
-                case "南区":
+                case "south":
                     areaad = southad;
                     break;
 
@@ -845,7 +833,7 @@ namespace CobasITMonitor
 
 
 
-        private void button2_Click(object sender, EventArgs e)
+        /*private void button2_Click(object sender, EventArgs e)
         {
             //excelout();
 
@@ -893,7 +881,7 @@ namespace CobasITMonitor
 
 
 
-        }
+        }*/
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -920,29 +908,7 @@ namespace CobasITMonitor
 
        
 
-        private void 网络监控参数ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            连通性参数配置 ip = new 连通性参数配置();
-            ip.ShowDialog();
-        }
-
-        private void cpu内存监控参数ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CPUMEM ip = new CPUMEM();
-            ip.ShowDialog();
-        }
-
-        private void 硬盘监控参数ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            diskconfig ip = new diskconfig();
-            ip.ShowDialog();
-        }
-
-        private void 生成服务器状态报告ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            excelout excel = new excelout();
-            excel.ShowDialog();
-        }
+     
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -976,8 +942,13 @@ namespace CobasITMonitor
 
         private void 客户信息设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            tool.login("customerconfig");
             
+            
+        }
+
+        private void 显示状态监控界面ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
         }
 
     }

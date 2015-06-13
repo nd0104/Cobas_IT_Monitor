@@ -15,7 +15,7 @@ namespace CobasITMonitor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new 主界面());
+            Application.Run(new servermonitor());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CobasITMonitor
 {
-    partial class 连通性参数配置
+    partial class netconfig
     {
         /// <summary>
         /// Required designer variable.
@@ -68,46 +68,54 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(152, 69);
+            this.textBox3.Location = new System.Drawing.Point(152, 71);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 2;
             // 
             // iplist
             // 
+            this.iplist.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.iplist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.iplist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.yq,
             this.ip,
             this.kjsj,
             this.gjsj});
-            this.iplist.Location = new System.Drawing.Point(40, 168);
+            this.iplist.Enabled = false;
+            this.iplist.Location = new System.Drawing.Point(40, 207);
             this.iplist.Name = "iplist";
+            this.iplist.ReadOnly = true;
             this.iplist.Size = new System.Drawing.Size(442, 150);
             this.iplist.TabIndex = 3;
+            this.iplist.UseWaitCursor = true;
             // 
             // yq
             // 
             this.yq.Frozen = true;
             this.yq.HeaderText = "仪器或电脑";
             this.yq.Name = "yq";
+            this.yq.ReadOnly = true;
             // 
             // ip
             // 
             this.ip.Frozen = true;
             this.ip.HeaderText = "IP";
             this.ip.Name = "ip";
+            this.ip.ReadOnly = true;
             // 
             // kjsj
             // 
             this.kjsj.Frozen = true;
             this.kjsj.HeaderText = "开机时间";
             this.kjsj.Name = "kjsj";
+            this.kjsj.ReadOnly = true;
             // 
             // gjsj
             // 
             this.gjsj.HeaderText = "关机时间";
             this.gjsj.Name = "gjsj";
+            this.gjsj.ReadOnly = true;
             // 
             // textBox4
             // 
@@ -119,7 +127,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(100, 340);
+            this.button1.Location = new System.Drawing.Point(101, 162);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -133,7 +141,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(294, 340);
+            this.button2.Location = new System.Drawing.Point(274, 163);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -153,7 +161,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(270, 33);
+            this.label2.Location = new System.Drawing.Point(270, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(139, 13);
             this.label2.TabIndex = 8;
@@ -162,7 +170,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(63, 76);
+            this.label3.Location = new System.Drawing.Point(63, 75);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 9;
@@ -171,7 +179,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(270, 76);
+            this.label4.Location = new System.Drawing.Point(270, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 10;
@@ -180,7 +188,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(63, 116);
+            this.label5.Location = new System.Drawing.Point(63, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 13);
             this.label5.TabIndex = 11;
@@ -189,13 +197,13 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(270, 120);
+            this.label6.Location = new System.Drawing.Point(270, 116);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(99, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "次触发“错误”警报";
             // 
-            // 连通性参数配置
+            // netconfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -213,7 +221,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Name = "连通性参数配置";
+            this.Name = "netconfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "连通性参数配置";
             this.Load += new System.EventHandler(this.ipconfig_Load);

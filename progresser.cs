@@ -21,6 +21,11 @@ namespace CobasITMonitor
             this.label1.Text = "Progress :" + value.ToString() + "%";
  
             if (value == this.progressBar1.Maximum - 1) this.Close();
+        }
+
+        private void progresser_Load(object sender, EventArgs e)
+        {
+
         }  
     }
 }

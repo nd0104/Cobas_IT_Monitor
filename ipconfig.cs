@@ -15,9 +15,9 @@ using System.IO;
 
 namespace CobasITMonitor
 {
-    public partial class 连通性参数配置 : Form
+    public partial class netconfig : Form
     {
-        public 连通性参数配置()
+        public netconfig()
         {
             InitializeComponent();
         }
@@ -65,8 +65,8 @@ namespace CobasITMonitor
         {
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
             string time = textBox1.Text;
-            string jb = textBox2.Text;
-            string bj = textBox3.Text;
+            string jb = textBox3.Text;
+            string bj = textBox2.Text;
             
             int t = int.Parse(iplist.Rows.Count.ToString());
             textBox4.Text = t.ToString();
@@ -96,8 +96,8 @@ namespace CobasITMonitor
                 l++;
                 Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
                 textBox1.Text = tool.readconfig("rf", "netrefresh");
-                textBox2.Text = tool.readconfig("jb", "netwarn");
-                textBox3.Text = tool.readconfig("bj", "neterror");
+                textBox3.Text = tool.readconfig("jb", "netwarn");
+                textBox2.Text = tool.readconfig("bj", "neterror");
                 this.timer1.Interval = 1000; //1秒1次
                 
                 List<string> ipList = new List<string>();

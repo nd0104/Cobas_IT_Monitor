@@ -197,13 +197,14 @@ namespace CobasITMonitor
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string sql3 = "update Status_Histroy set sign = '1'";
+            /*string sql3 = "update Status_Histroy set sign = '1'";
             string sql4 = "update Status_Now set flag = 'N',para_value = '正常' where para_name = 'disk_size'";
 
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
             tool.AccessDbclass(sql3);
             tool.AccessDbclass(sql4);
-            MessageBox.Show("修改成功");
+            MessageBox.Show("修改成功");*/
+            //for 
         }
 
         private void button4_Click(object sender, EventArgs e)

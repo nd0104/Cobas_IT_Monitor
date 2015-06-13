@@ -60,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 49);
+            this.label1.Location = new System.Drawing.Point(20, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 13);
             this.label1.TabIndex = 0;
@@ -68,21 +68,21 @@
             // 
             // time
             // 
-            this.time.Location = new System.Drawing.Point(84, 46);
+            this.time.Location = new System.Drawing.Point(66, 49);
             this.time.Name = "time";
             this.time.Size = new System.Drawing.Size(100, 20);
             this.time.TabIndex = 1;
             // 
             // cpuwarntime
             // 
-            this.cpuwarntime.Location = new System.Drawing.Point(66, 113);
+            this.cpuwarntime.Location = new System.Drawing.Point(66, 90);
             this.cpuwarntime.Name = "cpuwarntime";
             this.cpuwarntime.Size = new System.Drawing.Size(100, 20);
             this.cpuwarntime.TabIndex = 2;
             // 
             // cpuerrortime
             // 
-            this.cpuerrortime.Location = new System.Drawing.Point(66, 139);
+            this.cpuerrortime.Location = new System.Drawing.Point(66, 128);
             this.cpuerrortime.Name = "cpuerrortime";
             this.cpuerrortime.Size = new System.Drawing.Size(100, 20);
             this.cpuerrortime.TabIndex = 3;
@@ -96,14 +96,14 @@
             // 
             // memerrortime
             // 
-            this.memerrortime.Location = new System.Drawing.Point(66, 191);
+            this.memerrortime.Location = new System.Drawing.Point(66, 202);
             this.memerrortime.Name = "memerrortime";
             this.memerrortime.Size = new System.Drawing.Size(100, 20);
             this.memerrortime.TabIndex = 5;
             // 
             // memerrorvalue
             // 
-            this.memerrorvalue.Location = new System.Drawing.Point(308, 187);
+            this.memerrorvalue.Location = new System.Drawing.Point(308, 198);
             this.memerrorvalue.Name = "memerrorvalue";
             this.memerrorvalue.Size = new System.Drawing.Size(100, 20);
             this.memerrorvalue.TabIndex = 9;
@@ -117,14 +117,14 @@
             // 
             // cpuerrorvalue
             // 
-            this.cpuerrorvalue.Location = new System.Drawing.Point(308, 135);
+            this.cpuerrorvalue.Location = new System.Drawing.Point(308, 124);
             this.cpuerrorvalue.Name = "cpuerrorvalue";
             this.cpuerrorvalue.Size = new System.Drawing.Size(100, 20);
             this.cpuerrorvalue.TabIndex = 7;
             // 
             // cpuwarnvalue
             // 
-            this.cpuwarnvalue.Location = new System.Drawing.Point(308, 109);
+            this.cpuwarnvalue.Location = new System.Drawing.Point(308, 86);
             this.cpuwarnvalue.Name = "cpuwarnvalue";
             this.cpuwarnvalue.Size = new System.Drawing.Size(100, 20);
             this.cpuwarnvalue.TabIndex = 6;
@@ -132,7 +132,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(202, 49);
+            this.label2.Location = new System.Drawing.Point(175, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 10;
@@ -141,7 +141,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 113);
+            this.label3.Location = new System.Drawing.Point(22, 90);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 11;
@@ -150,7 +150,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(29, 139);
+            this.label4.Location = new System.Drawing.Point(22, 128);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 12;
@@ -159,7 +159,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 165);
+            this.label5.Location = new System.Drawing.Point(22, 165);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 13;
@@ -168,7 +168,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 195);
+            this.label6.Location = new System.Drawing.Point(22, 206);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 14;
@@ -177,7 +177,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(172, 116);
+            this.label7.Location = new System.Drawing.Point(172, 93);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(125, 13);
             this.label7.TabIndex = 15;
@@ -186,7 +186,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(172, 142);
+            this.label8.Location = new System.Drawing.Point(172, 131);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(125, 13);
             this.label8.TabIndex = 16;
@@ -204,7 +204,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(172, 194);
+            this.label10.Location = new System.Drawing.Point(172, 205);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(127, 13);
             this.label10.TabIndex = 18;
@@ -213,7 +213,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(414, 112);
+            this.label11.Location = new System.Drawing.Point(414, 89);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(97, 13);
             this.label11.TabIndex = 19;
@@ -222,7 +222,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(414, 138);
+            this.label12.Location = new System.Drawing.Point(414, 127);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(97, 13);
             this.label12.TabIndex = 20;
@@ -240,7 +240,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(414, 194);
+            this.label14.Location = new System.Drawing.Point(414, 205);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(97, 13);
             this.label14.TabIndex = 22;
@@ -248,7 +248,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(109, 238);
+            this.button1.Location = new System.Drawing.Point(109, 244);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
@@ -258,7 +258,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(269, 238);
+            this.button2.Location = new System.Drawing.Point(269, 244);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 24;

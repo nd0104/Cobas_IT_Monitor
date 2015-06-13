@@ -25,4 +25,59 @@ C:\123\c#\code\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.syslogconfig.resour
 C:\123\c#\code\Cobas_IT_Monitor\obj\x86\Debug\Cobas_IT_Monitor.csproj.GenerateResource.Cache
 C:\123\c#\code\Cobas_IT_Monitor\obj\x86\Debug\IT3000保养监控.exe
 C:\123\c#\code\Cobas_IT_Monitor\obj\x86\Debug\IT3000保养监控.pdb
-C:\Users\ND\Desktop\code\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.exe.config
+C:\123\c#\code (2)\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.exe.config
+C:\123\c#\code (2)\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.exe
+C:\123\c#\code (2)\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.pdb
+C:\123\c#\code (2)\Cobas_IT_Monitor\bin\Debug\COM.Excel.dll
+C:\123\c#\code (2)\Cobas_IT_Monitor\bin\Debug\Excel.dll
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\Cobas_IT_Monitor.csprojResolveAssemblyReference.cache
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.backup.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.CPUMEM.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.customerconfig.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.diskconfig.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.excelout.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.IT3KOPTION.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.IT3K_LOG.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.login.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Main.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Numoftable.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.progresser.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Resource1.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Show_details.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.sizeofdb.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.softwareconfig.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Properties.Resources.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.syslogconfig.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\Cobas_IT_Monitor.csproj.GenerateResource.Cache
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.exe
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.pdb
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.servermonitor.resources
+C:\123\c#\code (2)\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.netconfig.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.exe.config
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.exe
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\bin\Debug\CobasITMonitor.pdb
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\bin\Debug\COM.Excel.dll
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\bin\Debug\Excel.dll
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\Cobas_IT_Monitor.csprojResolveAssemblyReference.cache
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.backup.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.CPUMEM.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.customerconfig.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.diskconfig.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.excelout.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.netconfig.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.IT3KOPTION.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.IT3K_LOG.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.login.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Main.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Numoftable.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.progresser.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Resource1.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Show_details.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.sizeofdb.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.softwareconfig.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.servermonitor.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.Properties.Resources.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.syslogconfig.resources
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\Cobas_IT_Monitor.csproj.GenerateResource.Cache
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.exe
+E:\code\Cobas_IT_Monitor\Cobas_IT_Monitor\obj\x86\Debug\CobasITMonitor.pdb

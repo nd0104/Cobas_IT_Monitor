@@ -34,29 +34,30 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(27, 100);
+            this.progressBar1.Location = new System.Drawing.Point(27, 108);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(405, 23);
+            this.progressBar1.Size = new System.Drawing.Size(405, 25);
             this.progressBar1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 55);
+            this.label1.Location = new System.Drawing.Point(24, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 12);
+            this.label1.Size = new System.Drawing.Size(103, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "正在执行启动操作";
             // 
             // progresser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 176);
+            this.ClientSize = new System.Drawing.Size(470, 191);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Name = "progresser";
             this.Text = "progresser";
+            this.Load += new System.EventHandler(this.progresser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
