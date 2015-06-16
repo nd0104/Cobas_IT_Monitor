@@ -906,28 +906,33 @@ namespace Tool_Class
         /// <param name="db_dir"></param>
         /// <param name="diff_num"></param>
         /// <returns></returns>
-        public bool execute_or_not(string para_name,string db_dir,int diff_num, bool is_first)
+        public bool execute_or_not(string para_name,string db_dir,int diff_num, bool is_first,int exec)
         {
-            if (is_first)
+            if (exec == 0)
             {
-                return true;
+                if (is_first)
+                {
+                    return true;
+                }
+                else
+                {
+                    string SQL = "select create_date from Status_Now where para_name = '" + para_name + "'";
+                    System.Data.DataTable dt = DbToDatatable(SQL, db_dir);
+                    DataSet ds = new DataSet();
+                    ds.Tables.Add(dt);
+                    string data_time_string = ds.Tables[0].Rows[0].ItemArray[0].ToString();
+                    DateTime d1 = DateTime.Parse(data_time_string);
+                    DateTime d2 = DateTime.Now;
+                    System.TimeSpan ND = d2 - d1;
+                    int ss = Convert.ToInt32(ND.TotalSeconds);
+                    if (ss > diff_num)
+                        return true;
+                    else
+                        return false;
+                }
             }
             else
-            {
-                string SQL = "select create_date from Status_Now where para_name = '" + para_name + "'";
-                System.Data.DataTable dt = DbToDatatable(SQL, db_dir);
-                DataSet ds = new DataSet();
-                ds.Tables.Add(dt);
-                string data_time_string = ds.Tables[0].Rows[0].ItemArray[0].ToString();
-                DateTime d1 = DateTime.Parse(data_time_string);
-                DateTime d2 = DateTime.Now;
-                System.TimeSpan ND = d2 - d1;
-                int ss = Convert.ToInt32(ND.TotalSeconds);
-                if (ss > diff_num)
-                    return true;
-                else
-                    return false;
-            }
+                return false;
         }
         private static string GetMD5HashFromFile(string fileName)
         {

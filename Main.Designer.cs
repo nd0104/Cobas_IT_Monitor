@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -175,17 +173,23 @@
             this.label57 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.显示状态监控界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.软件设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.客户信息设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.监控参数设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.硬盘监控参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cpu内存监控参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.网络监控参数ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.生成服务器状态报告ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.pictureBox17 = new System.Windows.Forms.PictureBox();
+            this.button17 = new System.Windows.Forms.Button();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.pictureBox18 = new System.Windows.Forms.PictureBox();
+            this.button18 = new System.Windows.Forms.Button();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -219,7 +223,10 @@
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
+            this.panel18.SuspendLayout();
+            this.panel19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -242,6 +249,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
             this.label8.Location = new System.Drawing.Point(846, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 28);
@@ -252,6 +260,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(734, 24);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 28);
@@ -262,6 +271,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(623, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 28);
@@ -272,6 +282,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(499, 24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 28);
@@ -282,6 +293,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(376, 24);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 28);
@@ -292,6 +304,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(255, 24);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 28);
@@ -302,6 +315,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(126, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 28);
@@ -312,6 +326,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(17, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 28);
@@ -376,6 +391,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(644, 32);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(42, 21);
@@ -388,6 +404,7 @@
             this.label11.AutoEllipsis = true;
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(520, 32);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(59, 21);
@@ -398,6 +415,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(254, 32);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 21);
@@ -408,6 +426,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(1, 32);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(106, 21);
@@ -445,6 +464,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.ForeColor = System.Drawing.Color.Black;
             this.label17.Location = new System.Drawing.Point(284, 50);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(85, 21);
@@ -481,12 +501,12 @@
             this.checkBox2.TabIndex = 13;
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            this.checkBox2.Click += new System.EventHandler(this.checkbox2_changed);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(645, 30);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(42, 21);
@@ -499,6 +519,7 @@
             this.label14.AutoEllipsis = true;
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.ForeColor = System.Drawing.Color.Black;
             this.label14.Location = new System.Drawing.Point(521, 30);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(59, 21);
@@ -509,6 +530,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.ForeColor = System.Drawing.Color.Black;
             this.label15.Location = new System.Drawing.Point(255, 25);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(114, 21);
@@ -519,6 +541,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.ForeColor = System.Drawing.Color.Black;
             this.label16.Location = new System.Drawing.Point(13, 30);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(74, 21);
@@ -607,6 +630,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.ForeColor = System.Drawing.Color.Black;
             this.label22.Location = new System.Drawing.Point(1, 32);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(90, 21);
@@ -673,6 +697,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.ForeColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(642, 31);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(42, 21);
@@ -685,6 +710,7 @@
             this.label21.AutoEllipsis = true;
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.ForeColor = System.Drawing.Color.Black;
             this.label21.Location = new System.Drawing.Point(518, 31);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(43, 21);
@@ -714,9 +740,9 @@
             this.panel6.Controls.Add(this.label25);
             this.panel6.Controls.Add(this.label26);
             this.panel6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel6.Location = new System.Drawing.Point(10, 925);
+            this.panel6.Location = new System.Drawing.Point(7, 1043);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(950, 96);
+            this.panel6.Size = new System.Drawing.Size(950, 89);
             this.panel6.TabIndex = 20;
             // 
             // textBox10
@@ -732,6 +758,7 @@
             // 
             this.label64.AutoSize = true;
             this.label64.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label64.ForeColor = System.Drawing.Color.Black;
             this.label64.Location = new System.Drawing.Point(266, 34);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(102, 19);
@@ -858,6 +885,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.ForeColor = System.Drawing.Color.Black;
             this.label24.Location = new System.Drawing.Point(644, 34);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(42, 21);
@@ -870,6 +898,7 @@
             this.label25.AutoEllipsis = true;
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.ForeColor = System.Drawing.Color.Black;
             this.label25.Location = new System.Drawing.Point(520, 34);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(58, 21);
@@ -880,6 +909,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.ForeColor = System.Drawing.Color.Black;
             this.label26.Location = new System.Drawing.Point(1, 34);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(90, 21);
@@ -1032,6 +1062,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.ForeColor = System.Drawing.Color.Black;
             this.label33.Location = new System.Drawing.Point(644, 33);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(42, 21);
@@ -1044,6 +1075,7 @@
             this.label34.AutoEllipsis = true;
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label34.ForeColor = System.Drawing.Color.Black;
             this.label34.Location = new System.Drawing.Point(520, 33);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(43, 21);
@@ -1054,6 +1086,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label35.ForeColor = System.Drawing.Color.Black;
             this.label35.Location = new System.Drawing.Point(1, 33);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(75, 21);
@@ -1073,7 +1106,7 @@
             this.panel10.Controls.Add(this.label40);
             this.panel10.Controls.Add(this.label41);
             this.panel10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel10.Location = new System.Drawing.Point(10, 643);
+            this.panel10.Location = new System.Drawing.Point(7, 761);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(950, 93);
             this.panel10.TabIndex = 22;
@@ -1091,6 +1124,7 @@
             // 
             this.label61.AutoSize = true;
             this.label61.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label61.ForeColor = System.Drawing.Color.Black;
             this.label61.Location = new System.Drawing.Point(250, 29);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(134, 19);
@@ -1217,6 +1251,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label39.ForeColor = System.Drawing.Color.Black;
             this.label39.Location = new System.Drawing.Point(646, 30);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(42, 21);
@@ -1229,6 +1264,7 @@
             this.label40.AutoEllipsis = true;
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label40.ForeColor = System.Drawing.Color.Black;
             this.label40.Location = new System.Drawing.Point(522, 30);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(42, 21);
@@ -1239,6 +1275,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label41.ForeColor = System.Drawing.Color.Black;
             this.label41.Location = new System.Drawing.Point(3, 30);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(73, 21);
@@ -1258,7 +1295,7 @@
             this.panel12.Controls.Add(this.label46);
             this.panel12.Controls.Add(this.label47);
             this.panel12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel12.Location = new System.Drawing.Point(10, 742);
+            this.panel12.Location = new System.Drawing.Point(7, 860);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(950, 86);
             this.panel12.TabIndex = 23;
@@ -1276,6 +1313,7 @@
             // 
             this.label62.AutoSize = true;
             this.label62.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label62.ForeColor = System.Drawing.Color.Black;
             this.label62.Location = new System.Drawing.Point(247, 28);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(105, 19);
@@ -1402,6 +1440,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label45.ForeColor = System.Drawing.Color.Black;
             this.label45.Location = new System.Drawing.Point(644, 29);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(42, 21);
@@ -1414,6 +1453,7 @@
             this.label46.AutoEllipsis = true;
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label46.ForeColor = System.Drawing.Color.Black;
             this.label46.Location = new System.Drawing.Point(520, 29);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(58, 21);
@@ -1424,6 +1464,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label47.ForeColor = System.Drawing.Color.Black;
             this.label47.Location = new System.Drawing.Point(1, 29);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(106, 21);
@@ -1443,7 +1484,7 @@
             this.panel14.Controls.Add(this.label52);
             this.panel14.Controls.Add(this.label53);
             this.panel14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel14.Location = new System.Drawing.Point(10, 834);
+            this.panel14.Location = new System.Drawing.Point(7, 952);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(950, 85);
             this.panel14.TabIndex = 24;
@@ -1461,6 +1502,7 @@
             // 
             this.label63.AutoSize = true;
             this.label63.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label63.ForeColor = System.Drawing.Color.Black;
             this.label63.Location = new System.Drawing.Point(264, 34);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(102, 19);
@@ -1587,6 +1629,7 @@
             // 
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label51.ForeColor = System.Drawing.Color.Black;
             this.label51.Location = new System.Drawing.Point(644, 30);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(42, 21);
@@ -1599,6 +1642,7 @@
             this.label52.AutoEllipsis = true;
             this.label52.AutoSize = true;
             this.label52.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label52.ForeColor = System.Drawing.Color.Black;
             this.label52.Location = new System.Drawing.Point(520, 30);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(58, 21);
@@ -1609,6 +1653,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label53.ForeColor = System.Drawing.Color.Black;
             this.label53.Location = new System.Drawing.Point(1, 30);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(86, 21);
@@ -1628,7 +1673,7 @@
             this.panel16.Controls.Add(this.label58);
             this.panel16.Controls.Add(this.label59);
             this.panel16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel16.Location = new System.Drawing.Point(10, 554);
+            this.panel16.Location = new System.Drawing.Point(7, 672);
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(950, 83);
             this.panel16.TabIndex = 24;
@@ -1646,6 +1691,7 @@
             // 
             this.label60.AutoSize = true;
             this.label60.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label60.ForeColor = System.Drawing.Color.Black;
             this.label60.Location = new System.Drawing.Point(266, 33);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(90, 21);
@@ -1772,6 +1818,7 @@
             // 
             this.label57.AutoSize = true;
             this.label57.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label57.ForeColor = System.Drawing.Color.Black;
             this.label57.Location = new System.Drawing.Point(644, 29);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(42, 21);
@@ -1784,6 +1831,7 @@
             this.label58.AutoEllipsis = true;
             this.label58.AutoSize = true;
             this.label58.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label58.ForeColor = System.Drawing.Color.Black;
             this.label58.Location = new System.Drawing.Point(520, 29);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(77, 21);
@@ -1794,103 +1842,206 @@
             // 
             this.label59.AutoSize = true;
             this.label59.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label59.ForeColor = System.Drawing.Color.Black;
             this.label59.Location = new System.Drawing.Point(1, 29);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(106, 21);
             this.label59.TabIndex = 8;
             this.label59.Text = "系统日志报警";
             // 
-            // notifyIcon1
+            // panel18
             // 
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
+            this.panel18.AutoScroll = true;
+            this.panel18.Controls.Add(this.textBox11);
+            this.panel18.Controls.Add(this.label65);
+            this.panel18.Controls.Add(this.panel19);
+            this.panel18.Controls.Add(this.pictureBox18);
+            this.panel18.Controls.Add(this.button18);
+            this.panel18.Controls.Add(this.checkBox18);
+            this.panel18.Controls.Add(this.label69);
+            this.panel18.Controls.Add(this.label70);
+            this.panel18.Controls.Add(this.label71);
+            this.panel18.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel18.Location = new System.Drawing.Point(7, 558);
+            this.panel18.Name = "panel18";
+            this.panel18.Size = new System.Drawing.Size(950, 96);
+            this.panel18.TabIndex = 27;
             // 
-            // contextMenuStrip1
+            // textBox11
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.显示状态监控界面ToolStripMenuItem,
-            this.软件设置ToolStripMenuItem,
-            this.客户信息设置ToolStripMenuItem,
-            this.监控参数设置ToolStripMenuItem,
-            this.生成服务器状态报告ToolStripMenuItem,
-            this.退出ToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(185, 136);
+            this.textBox11.Location = new System.Drawing.Point(126, 38);
+            this.textBox11.Multiline = true;
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.textBox11.Size = new System.Drawing.Size(100, 21);
+            this.textBox11.TabIndex = 26;
             // 
-            // 显示状态监控界面ToolStripMenuItem
+            // label65
             // 
-            this.显示状态监控界面ToolStripMenuItem.Name = "显示状态监控界面ToolStripMenuItem";
-            this.显示状态监控界面ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.显示状态监控界面ToolStripMenuItem.Text = "显示状态监控界面";
-            this.显示状态监控界面ToolStripMenuItem.Click += new System.EventHandler(this.显示状态监控界面ToolStripMenuItem_Click);
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label65.ForeColor = System.Drawing.Color.Black;
+            this.label65.Location = new System.Drawing.Point(266, 34);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(0, 19);
+            this.label65.TabIndex = 25;
             // 
-            // 软件设置ToolStripMenuItem
+            // panel19
             // 
-            this.软件设置ToolStripMenuItem.Name = "软件设置ToolStripMenuItem";
-            this.软件设置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.软件设置ToolStripMenuItem.Text = "软件设置";
-            this.软件设置ToolStripMenuItem.Click += new System.EventHandler(this.软件设置ToolStripMenuItem_Click);
+            this.panel19.AutoScroll = true;
+            this.panel19.Controls.Add(this.listBox1);
+            this.panel19.Controls.Add(this.pictureBox17);
+            this.panel19.Controls.Add(this.button17);
+            this.panel19.Controls.Add(this.checkBox17);
+            this.panel19.Controls.Add(this.label66);
+            this.panel19.Controls.Add(this.label67);
+            this.panel19.Controls.Add(this.label68);
+            this.panel19.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel19.Location = new System.Drawing.Point(-1, -151);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(950, 141);
+            this.panel19.TabIndex = 21;
             // 
-            // 客户信息设置ToolStripMenuItem
+            // listBox1
             // 
-            this.客户信息设置ToolStripMenuItem.Name = "客户信息设置ToolStripMenuItem";
-            this.客户信息设置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.客户信息设置ToolStripMenuItem.Text = "客户信息设置";
-            this.客户信息设置ToolStripMenuItem.Click += new System.EventHandler(this.客户信息设置ToolStripMenuItem_Click);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(115, 8);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(120, 124);
+            this.listBox1.TabIndex = 17;
             // 
-            // 监控参数设置ToolStripMenuItem
+            // pictureBox17
             // 
-            this.监控参数设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.硬盘监控参数ToolStripMenuItem,
-            this.cpu内存监控参数ToolStripMenuItem,
-            this.网络监控参数ToolStripMenuItem});
-            this.监控参数设置ToolStripMenuItem.Name = "监控参数设置ToolStripMenuItem";
-            this.监控参数设置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.监控参数设置ToolStripMenuItem.Text = "监控参数设置";
+            this.pictureBox17.Location = new System.Drawing.Point(390, 30);
+            this.pictureBox17.Name = "pictureBox17";
+            this.pictureBox17.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox17.TabIndex = 15;
+            this.pictureBox17.TabStop = false;
             // 
-            // 硬盘监控参数ToolStripMenuItem
+            // button17
             // 
-            this.硬盘监控参数ToolStripMenuItem.Name = "硬盘监控参数ToolStripMenuItem";
-            this.硬盘监控参数ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.硬盘监控参数ToolStripMenuItem.Text = "硬盘监控参数";
-            this.硬盘监控参数ToolStripMenuItem.Click += new System.EventHandler(this.硬盘监控参数ToolStripMenuItem_Click_1);
+            this.button17.Location = new System.Drawing.Point(852, 52);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(75, 23);
+            this.button17.TabIndex = 14;
+            this.button17.Text = "设置";
+            this.button17.UseVisualStyleBackColor = true;
             // 
-            // cpu内存监控参数ToolStripMenuItem
+            // checkBox17
             // 
-            this.cpu内存监控参数ToolStripMenuItem.Name = "cpu内存监控参数ToolStripMenuItem";
-            this.cpu内存监控参数ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.cpu内存监控参数ToolStripMenuItem.Text = "cpu/内存监控参数";
-            this.cpu内存监控参数ToolStripMenuItem.Click += new System.EventHandler(this.cpu内存监控参数ToolStripMenuItem_Click_1);
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.Checked = true;
+            this.checkBox17.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox17.Location = new System.Drawing.Point(768, 59);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(15, 14);
+            this.checkBox17.TabIndex = 13;
+            this.checkBox17.UseVisualStyleBackColor = true;
             // 
-            // 网络监控参数ToolStripMenuItem
+            // label66
             // 
-            this.网络监控参数ToolStripMenuItem.Name = "网络监控参数ToolStripMenuItem";
-            this.网络监控参数ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.网络监控参数ToolStripMenuItem.Text = "网络监控参数";
-            this.网络监控参数ToolStripMenuItem.Click += new System.EventHandler(this.网络监控参数ToolStripMenuItem_Click_1);
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label66.Location = new System.Drawing.Point(646, 55);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(42, 21);
+            this.label66.TabIndex = 12;
+            this.label66.Text = "重要";
             // 
-            // 生成服务器状态报告ToolStripMenuItem
+            // label67
             // 
-            this.生成服务器状态报告ToolStripMenuItem.Name = "生成服务器状态报告ToolStripMenuItem";
-            this.生成服务器状态报告ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.生成服务器状态报告ToolStripMenuItem.Text = "生成服务器状态报告";
-            this.生成服务器状态报告ToolStripMenuItem.Click += new System.EventHandler(this.生成服务器状态报告ToolStripMenuItem_Click_1);
+            this.label67.AllowDrop = true;
+            this.label67.AutoEllipsis = true;
+            this.label67.AutoSize = true;
+            this.label67.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label67.Location = new System.Drawing.Point(522, 55);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(43, 21);
+            this.label67.TabIndex = 11;
+            this.label67.Text = "IT3K";
             // 
-            // 退出ToolStripMenuItem
+            // label68
             // 
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.退出ToolStripMenuItem.Text = "退出";
-            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
+            this.label68.AutoSize = true;
+            this.label68.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label68.Location = new System.Drawing.Point(3, 55);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(75, 21);
+            this.label68.TabIndex = 8;
+            this.label68.Text = "IT3K日志";
+            // 
+            // pictureBox18
+            // 
+            this.pictureBox18.Location = new System.Drawing.Point(388, 9);
+            this.pictureBox18.Name = "pictureBox18";
+            this.pictureBox18.Size = new System.Drawing.Size(68, 66);
+            this.pictureBox18.TabIndex = 15;
+            this.pictureBox18.TabStop = false;
+            // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(850, 31);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(75, 23);
+            this.button18.TabIndex = 14;
+            this.button18.Text = "设置";
+            this.button18.UseVisualStyleBackColor = true;
+            // 
+            // checkBox18
+            // 
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.Checked = true;
+            this.checkBox18.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox18.Location = new System.Drawing.Point(766, 38);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(15, 14);
+            this.checkBox18.TabIndex = 13;
+            this.checkBox18.UseVisualStyleBackColor = true;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label69.ForeColor = System.Drawing.Color.Black;
+            this.label69.Location = new System.Drawing.Point(644, 34);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(42, 21);
+            this.label69.TabIndex = 12;
+            this.label69.Text = "重要";
+            // 
+            // label70
+            // 
+            this.label70.AllowDrop = true;
+            this.label70.AutoEllipsis = true;
+            this.label70.AutoSize = true;
+            this.label70.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label70.ForeColor = System.Drawing.Color.Black;
+            this.label70.Location = new System.Drawing.Point(520, 34);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(111, 21);
+            this.label70.TabIndex = 11;
+            this.label70.Text = "IT3K OPTION";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label71.ForeColor = System.Drawing.Color.Black;
+            this.label71.Location = new System.Drawing.Point(1, 34);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(74, 21);
+            this.label71.TabIndex = 8;
+            this.label71.Text = "参数变化";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(980, 692);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ClientSize = new System.Drawing.Size(963, 709);
+            this.Controls.Add(this.panel18);
             this.Controls.Add(this.panel16);
             this.Controls.Add(this.panel14);
             this.Controls.Add(this.panel12);
@@ -1902,10 +2053,12 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "主界面";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
-            this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1956,7 +2109,12 @@
             this.panel17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.panel18.ResumeLayout(false);
+            this.panel18.PerformLayout();
+            this.panel19.ResumeLayout(false);
+            this.panel19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2108,17 +2266,23 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 显示状态监控界面ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 软件设置ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 客户信息设置ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 监控参数设置ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 硬盘监控参数ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cpu内存监控参数ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 网络监控参数ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 生成服务器状态报告ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.PictureBox pictureBox17;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.CheckBox checkBox17;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.PictureBox pictureBox18;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.CheckBox checkBox18;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label71;
 
     }
 }

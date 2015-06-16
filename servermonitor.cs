@@ -216,7 +216,7 @@ namespace CobasITMonitor
         public void threadDisk(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("disk_size", db_dir, disk, is_first);
+            bool begin = tool.execute_or_not("disk_size", db_dir, disk, is_first,0);
             if (begin == true)
             {
                 monitor mtt = new monitor();
@@ -301,7 +301,7 @@ namespace CobasITMonitor
         public void threadCpu(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem, is_first);
+            bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem, is_first,1);
             if (begin == true)
             {
                 monitor cpu = new monitor();
@@ -369,7 +369,7 @@ namespace CobasITMonitor
         public void threadMem(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("memory_running", db_dir, cpumem, is_first);
+            bool begin = tool.execute_or_not("memory_running", db_dir, cpumem, is_first,1);
             if (begin == true)
             {
                 monitor mem = new monitor();
@@ -580,7 +580,7 @@ namespace CobasITMonitor
         public void threadlog(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first);
+            bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first,1);
             if (begin == true)
             {
                 threadWarnSyslog();
@@ -618,7 +618,7 @@ namespace CobasITMonitor
         public void threadIp(bool is_first)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("instrument_connection", db_dir, ip,is_first);
+            bool begin = tool.execute_or_not("instrument_connection", db_dir, ip,is_first,1);
             if (begin == true)
             {
                 monitor read = new monitor();

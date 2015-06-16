@@ -34,7 +34,7 @@ namespace CobasITMonitor
                                         "select para_value,flag from Status_Now where para_name = 'disk_size'",
                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
                                         "select para_value,flag from Status_Now where para_name = 'memory_running'"};
-        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9,exec_10 = 0;
+        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9,exec_10 = 0; 
         progresser process_form = new progresser();
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
@@ -44,12 +44,12 @@ namespace CobasITMonitor
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-
-            process_form.Show();
-            Thread[] threads = new Thread[3];
+            
+      //      process_form.Show();
+            Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
-            process_form.SetProgressValue(10);
+         /*   process_form.SetProgressValue(10);
             worker.Check_database_para(true,exec_4);
             process_form.SetProgressValue(20);
             worker.Check_database_tablespace_size(true, exec_1);
@@ -62,7 +62,7 @@ namespace CobasITMonitor
             process_form.SetProgressValue(85);
             ServerMonitor.threadDisk(true);
             process_form.SetProgressValue(95);
-            process_form.Close();
+            process_form.Close();*/
             threads[1].Start();
             threads[0].Start();
         }

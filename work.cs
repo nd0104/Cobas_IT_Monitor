@@ -38,12 +38,12 @@ namespace Work
         private string[] output_stat2 = { "LIS_RESULTS", "RESULTATE", "LIS_MESSAGE", "HIST_SAMPLES", "SAMPLE_TEST_ASSIGNMENTS",  "SAMPLE_IMAGES",  "TEST_REQUESTS" };
         
         #region 检查数据表是否和设置的参数一致
-        public void Check_database_para(bool is_first)
+        public void Check_database_para(bool is_first,int exec)
         {
-            if (io.execute_or_not("para_check", db_dir, Convert.ToInt32(io.readconfig("IT3K_OPTION", "OPTION_CHECK")), is_first))
+            if (io.execute_or_not("para_check", db_dir, Convert.ToInt32(io.readconfig("IT3K_OPTION", "OPTION_CHECK")), is_first,exec))
             {
                 int ini_diff = 0, table_diff = 0;
-                string result = "False", output = "";
+                string result = "错误", output = "";
                 OracleConnection conn = ROD.NewConn();
                 DataSet Table_DataSet;
 
@@ -62,16 +62,16 @@ namespace Work
                     if (Table_DataSet != null && !Table_DataSet.HasErrors && Table_DataSet.Tables.Count == 1)
                         ini_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
                     if (table_diff < ini_diff)
-                        result = "True";
-                    output += output_stat[i] + "in talbe has " + table_diff + "days data, in parameter is " + ini_diff + "days, result:" + result + ". ";
+                        result = "正确";
+                    output += output_stat[i] + "在数据表中存在" + table_diff + "天的数据,但参数设置的是小于" + ini_diff + "天, 检测结果:" + result + ". ";
                     Table_DataSet.Reset();
-                    result = "Flase";
+                    result = "错误";
                     table_diff = ini_diff = 0;
                 }
                 conn.Close();
                 if (output.Length > 255)
                     output = output.Substring(0, 254);
-                if (result == "True")
+                if (result == "正确")
                     show_flag = 'N';
                 else
                     show_flag = 'E';
@@ -92,11 +92,11 @@ namespace Work
         }
             #endregion
         #region 检查数据文件大小
-        public void Check_database_tablespace_size(bool is_first)
+        public void Check_database_tablespace_size(bool is_first,int exec)
         {
-            if (io.execute_or_not("db_size", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "DB_CHECK")), is_first))
+            if (io.execute_or_not("db_size", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "DB_CHECK")), is_first, exec))
             {
-                string result = "False", output = "The size of dababase check is:";
+                string result = "错误", output = "数据文件大小检测结果为";
                 float size_para = Convert.ToInt32(io.readconfig("DATABASE", "DB_SIZE"));
                 float size_db = 32;
                 OracleConnection conn = ROD.NewConn();
@@ -106,14 +106,14 @@ namespace Work
                 conn.Close();
                 if (size_db < size_para)
                 {
-                    result = "True.";
-                    output += result + " in parameter is:" + size_para + "GB and " + size_db + "GB while checked the db.";
+                    result = "正确.";
+                    output += result  + "。参数设置为:"+ size_para + "GB，实际大小为 " + size_db + "GB.";
                     show_flag = 'N';
                 }
                 else
                 {
-                    result = "Flase";
-                    output += result + "in parameter is:" + size_para + "but is" + size_db + "while checked the db.";
+                    result = "错误";
+                    output += result + "。参数设置为:" + size_para + "GB，实际大小为" + size_db + "GB.";
                     show_flag = 'E';
                 }
                 in_or_up = insert_or_update("db_size");
@@ -133,11 +133,11 @@ namespace Work
         }
         #endregion
         #region 检查数据备份
-        public void Check_database_db_backup(bool is_first)
+        public void Check_database_db_backup(bool is_first,int exec)
         {
-            if (io.execute_or_not("db_backup", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "BACKUP_CHECK")), is_first))
+            if (io.execute_or_not("db_backup", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "BACKUP_CHECK")), is_first, exec))
             {
-                string result = "False", output = "The back up of db is:";
+                string result = "错误", output = "数据备份检测结果为:";
                 string db_back_para = "SUCCEEDED";
                 string db_back = "";
                 string log_time = "";
@@ -151,14 +151,14 @@ namespace Work
                 conn.Close();
                 if (db_back_para == db_back)
                 {
-                    result = "True";
-                    output += result + "  backup executed succeeded in " + log_time;
+                    result = "正确";
+                    output += result + "。数据备份在" + log_time +"完成备份";
                     show_flag = 'N';
                 }
                 else
                 {
-                    result = "Flase";
-                    output += result + " there is" + error_num + " errors; executed in " + log_time;
+                    result = "错误";
+                    output += result + "。检查出" + error_num + " 个错误。 executed in " + log_time;
                     show_flag = 'E';
                 }
                 in_or_up = insert_or_update("db_backup");
@@ -178,11 +178,11 @@ namespace Work
         }
         #endregion
         #region 检查Log日志报错否 
-        public void Check_database_log_err(bool is_first)
+        public void Check_database_log_err(bool is_first,int exec)
         {
-            if (io.execute_or_not("log_error", db_dir, Convert.ToInt32(io.readconfig("IT3K_LOG", "LOG_CHECK")), is_first))
+            if (io.execute_or_not("log_error", db_dir, Convert.ToInt32(io.readconfig("IT3K_LOG", "LOG_CHECK")), is_first, exec))
             {
-                string result = "False", output = "The result of check error(warning) is ";
+                string result = "错误", output = "IT3k报错、警告检测结果为： ";
                 int diff_num = Convert.ToInt32(io.readconfig("IT3K_LOG", "WARNING")), error_diff_num = Convert.ToInt32(io.readconfig("IT3K_LOG", "ERROR"));
                 int error_num = 5, error_num2 = 5;
                 OracleConnection conn = ROD.NewConn();
@@ -201,14 +201,14 @@ namespace Work
                 conn.Close();
                 if (error_num == 0 && error_num2 < diff_num)
                 {
-                    result = "True";
-                    output += result + "there is  " + error_num + " errors and " + error_num2 + " warnings.";
+                    result = "正确";
+                    output += result + "。共计有" + error_num + " 个Errors； " + error_num2 + "个warnings.";
                     show_flag = 'N';
                 }
                 else
                 {
-                    result = "Flase";
-                    output += result + "there is  " + error_num + " errors and " + error_num2 + " warnings.";
+                    result = "错误";
+                    output += result + "。共计有" + error_num + " 个Errors； " + error_num2 + "个warnings.";
                     show_flag = 'E';
                 }
                 in_or_up = insert_or_update("log_error");
@@ -228,13 +228,13 @@ namespace Work
         }
         #endregion
         #region 检查关键表数量是否超出
-        public void Check_database_table_num(bool is_first)
+        public void Check_database_table_num(bool is_first,int exec)
         {
             io.readconfig("CORE", "DB_IP");
             int[] SQL5_refrence = { Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_1")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_3")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_5")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_7")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_9")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_11")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_13")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_2")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_4")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_6")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_8")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_10")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_12")), Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_14")) };
-            if (io.execute_or_not("table_count", db_dir, Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_CHECK")), is_first))
+            if (io.execute_or_not("table_count", db_dir, Convert.ToInt32(io.readconfig("TABLE_CHECK", "TABLE_NUM_CHECK")), is_first, exec))
             {
-                string result = "False", output = "The result of checking key tables is: ";
+                string result = "错误", output = "关键表count检测结果为: ";
                 int num_count = 50000001;
                 OracleConnection conn = ROD.NewConn();
                 DataSet Table_DataSet;
@@ -245,21 +245,22 @@ namespace Work
                     output += output_stat2[i] + ": " + num_count+"  ";
                     if (num_count < SQL5_refrence[i])
                     {
-                        result = "True";
+                        result = "正确";
                         show_flag = 'N';
                     }
                     if (num_count > SQL5_refrence[i] && num_count < SQL5_refrence[7 + i])
                     {
-                        result = "True";
+                        result = "正确";
                         show_flag = 'W';
                     }
                     if (num_count > SQL5_refrence[7 + i])
                     {
-                        result = "False";
+                        result = "错误";
                         show_flag = 'E';
                     }
                 }
                 conn.Close();
+                output += result + ".";
                 in_or_up = insert_or_update("table_count");
                 if (in_or_up)
                 {
