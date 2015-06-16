@@ -86,14 +86,17 @@ namespace CobasITMonitor
             tool.writeconfig("customernode", "phone", textBox3.Text);
             tool.writeconfig("customernode", "emailaddress", textBox4.Text);
             tool.writeconfig("customernode", "customerarea", comboBox1.Text);
+            tool.writeconfig("ip", null, null);
             int t = int.Parse(iplist.Rows.Count.ToString());
-            textBox4.Text = t.ToString();
-            string ip = "";
+            //textBox4.Text = t.ToString();
+            
+
             for (int i = 0; i < t - 1; i++)
             {
-
-                ip += iplist.Rows[i].Cells[0].Value.ToString() + "=" + iplist.Rows[i].Cells[1].Value.ToString() + "=" + iplist.Rows[i].Cells[2].Value.ToString() + "=" + iplist.Rows[i].Cells[3].Value.ToString() + ";\r\n";
-                writeip("ip", ip);
+                string ipvalue = "";
+                string l = (i+1).ToString();
+                ipvalue += iplist.Rows[i].Cells[0].Value.ToString() + "#" + iplist.Rows[i].Cells[1].Value.ToString() + "#" + iplist.Rows[i].Cells[2].Value.ToString() + "#" + iplist.Rows[i].Cells[3].Value.ToString();
+                tool.writeconfig("ip", l, ipvalue);
 
             }
             MessageBox.Show("修改成功");
@@ -127,11 +130,14 @@ namespace CobasITMonitor
 
                 foreach (string aa in dt)
                 {
-                    ipList.Add(aa);
+                    if (aa != "")
+                    {
+                        ipList.Add(aa);
+                    }
                 }
-                for (int i = 0; i < ipList.Count - 1; i++)
+                for (int i = 1; i < ipList.Count; i++)
                 {
-                    string[] dd = Regex.Split(ipList[i], "=", RegexOptions.IgnoreCase);
+                    string[] dd = Regex.Split(ipList[i], "#", RegexOptions.IgnoreCase);
                     //textBox4.Text = dd[0];
                     //ddtt.Rows.Add(dd[0],dd[1],dd[2],dd[3]);
                     iplist.Rows.Add(dd[0], dd[1], dd[2], dd[3]);

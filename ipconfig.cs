@@ -108,11 +108,14 @@ namespace CobasITMonitor
                 
                 foreach (string aa in dt)
                 {
-                    ipList.Add(aa);
+                    if (aa != "")
+                    {
+                        ipList.Add(aa);
+                    }
                 }
-                for (int i = 0; i < ipList.Count - 1; i++)
+                for (int i = 1; i < ipList.Count; i++)
                 {
-                    string[] dd = Regex.Split(ipList[i], "=", RegexOptions.IgnoreCase);
+                    string[] dd = Regex.Split(ipList[i], "#", RegexOptions.IgnoreCase);
                     textBox4.Text = dd[0];
                     //ddtt.Rows.Add(dd[0],dd[1],dd[2],dd[3]);
                     iplist.Rows.Add(dd[0], dd[1], dd[2], dd[3]);
