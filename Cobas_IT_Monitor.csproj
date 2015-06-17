@@ -37,6 +37,8 @@
     <Reference Include="COM.Excel">
       <HintPath>bin\COM.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.0.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.0.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b" />
     <Reference Include="Excel">
       <HintPath>bin\Excel.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -89,6 +91,12 @@
     </Compile>
     <Compile Include="diskconfig.Designer.cs">
       <DependentUpon>diskconfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="emailtest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="emailtest.Designer.cs">
+      <DependentUpon>emailtest.cs</DependentUpon>
     </Compile>
     <Compile Include="excelout.cs">
       <SubType>Form</SubType>
@@ -189,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="diskconfig.resx">
       <DependentUpon>diskconfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="emailtest.resx">
+      <DependentUpon>emailtest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="excelout.resx">
       <DependentUpon>excelout.cs</DependentUpon>

@@ -167,7 +167,7 @@
             this.gjsj});
             this.iplist.Location = new System.Drawing.Point(30, 261);
             this.iplist.Name = "iplist";
-            this.iplist.Size = new System.Drawing.Size(442, 150);
+            this.iplist.Size = new System.Drawing.Size(443, 150);
             this.iplist.TabIndex = 12;
             this.iplist.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.iplist_CellContentClick);
             // 
@@ -212,7 +212,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 465);
+            this.ClientSize = new System.Drawing.Size(508, 465);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.iplist);
             this.Controls.Add(this.button2);
@@ -229,7 +229,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "customerconfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "customerconfig";
+            this.Text = "客户信息设置";
             this.Load += new System.EventHandler(this.customerconfig_Load);
             ((System.ComponentModel.ISupportInitialize)(this.iplist)).EndInit();
             this.ResumeLayout(false);

@@ -93,7 +93,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "excelout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "excelout";
+            this.Text = "生成服务器状态监控报告";
             this.Load += new System.EventHandler(this.excelout_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

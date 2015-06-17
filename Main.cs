@@ -34,7 +34,7 @@ namespace CobasITMonitor
                                         "select para_value,flag from Status_Now where para_name = 'disk_size'",
                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
                                         "select para_value,flag from Status_Now where para_name = 'memory_running'"};
-        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9,exec_10 = 0; 
+        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9 = 0; 
         progresser process_form = new progresser();
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
@@ -101,11 +101,11 @@ namespace CobasITMonitor
                 worker.Check_database_db_backup(false, exec_3);
                 worker.Check_database_log_err(false, exec_8);
                 worker.Check_database_table_num(false, exec_2);
-                ServerMonitor.threadDisk(false);
-                ServerMonitor.threadCpu(false);
-                ServerMonitor.threadlog(false);
-                ServerMonitor.threadMem(false);
-                ServerMonitor.threadIp(false);
+                ServerMonitor.threadDisk(false, exec_7);
+                ServerMonitor.threadCpu(false, exec_9);
+                ServerMonitor.threadlog(false, exec_5);
+                ServerMonitor.threadMem(false, exec_9);
+                ServerMonitor.threadIp(false, exec_6);
                 Thread.Sleep(10000);
             }
         }
@@ -277,24 +277,7 @@ namespace CobasITMonitor
                             break;
                     };
                     break;
-                case 9:
-                    textBox10.Clear();
-                    textBox10.Text = list_box_text;
-                    switch (flag)
-                    {
-                        case 'E':
-                            pictureBox8.Image = CobasITMonitor.Properties.Resources.red;
-                            break;
-                        case 'N':
-                            pictureBox8.Image = CobasITMonitor.Properties.Resources.green;
-                            break;
-                        case 'W':
-                            pictureBox8.Image = CobasITMonitor.Properties.Resources.yellow;
-                            break;
-                        default:
-                            break;
-                    };
-                    break;
+                
 
                 default: break;
             }
@@ -313,7 +296,6 @@ namespace CobasITMonitor
             label61.Text = "连通不通次数少于" + l61 + "次";
             label62.Text = "C>" + disk_c + "G;" + "D>" + disk_d + "G;" + "\n\r" + "E>" + disk_e + "G;" + "F>" + disk_f + "G;";
             label63.Text = "使用率低于" + cpu + "%";
-            label64.Text = "使用率低于" + memery + "%";
 
         }
 
@@ -347,11 +329,15 @@ namespace CobasITMonitor
         private void checkBox16_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox16.Checked)
+            {
                 sql_area[5] = sql_area_bak[5];
+                exec_5 = 0;
+            }
             else
             {
                 sql_area[5] = null;
                 pictureBox16.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_5 = 1;
             }
         }
 
@@ -359,11 +345,15 @@ namespace CobasITMonitor
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox10.Checked)
+            {
                 sql_area[6] = sql_area_bak[6];
+                exec_6 = 0;
+            }
             else
             {
                 sql_area[6] = null;
                 pictureBox10.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_6 = 1;
             }
 
         }
@@ -371,11 +361,15 @@ namespace CobasITMonitor
         private void checkBox12_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox12.Checked)
+            {
                 sql_area[7] = sql_area_bak[7];
+                exec_7 = 0;
+            }
             else
             {
                 sql_area[7] = null;
                 pictureBox12.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_7 = 1;
             }
 
         }
@@ -383,26 +377,19 @@ namespace CobasITMonitor
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox14.Checked)
+            {
                 sql_area[8] = sql_area_bak[8];
+                exec_9 = 0;
+            }
             else
             {
                 sql_area[8] = null;
                 pictureBox14.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_9 = 1;
             }
 
         }
 
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox5.Checked)
-                sql_area[9] = sql_area_bak[9];
-            else
-            {
-                sql_area[9] = null;
-                pictureBox8.Image = CobasITMonitor.Properties.Resources.pause_;
-            }
-
-        }
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -577,55 +564,102 @@ namespace CobasITMonitor
 
 
         Tool_Class.IO_tool tool = new IO_tool();
-        private void 客户信息设置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tool.login("customerconfig");
-        }
-
-        private void 显示状态监控界面ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Visible = true;
-        }
-
-        private void 软件设置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tool.login("softwareconfig");
-        }
-
-        private void 硬盘监控参数ToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            diskconfig ip = new diskconfig();
-            ip.ShowDialog();
-        }
-
-        private void cpu内存监控参数ToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            CPUMEM ip = new CPUMEM();
-            ip.ShowDialog();
-        }
-
-        private void 网络监控参数ToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            netconfig ip = new netconfig();
-            ip.ShowDialog();
-        }
-
-        private void 生成服务器状态报告ToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            excelout excel = new excelout();
-            excel.ShowDialog();
-        }
-
-        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tool.login("exsit");
-        }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Visible = false;
             e.Cancel = true;
-            System.Environment.Exit(0);
+            
+        }
+
+       
+
+        private void softwareToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            tool.login("softwareconfig");
+        }
+
+        private void customerToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            customerconfig cc = new customerconfig();
+            cc.ShowDialog();
+
+        }
+
+        private void diskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            diskconfig disk = new diskconfig();
+            disk.ShowDialog();
+        }
+
+        private void cpuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CPUMEM ip = new CPUMEM();
+            ip.ShowDialog();
+        }
+
+        private void netToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            netconfig ip = new netconfig();
+            ip.ShowDialog();
+        }
+
+        private void syslogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            syslogconfig syslog = new syslogconfig();
+            syslog.ShowDialog();
+        }
+
+        private void dbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sizeofdb sdb = new sizeofdb();
+            sdb.Show();
+        }
+
+        private void tableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Numoftable not = new Numoftable();
+            not.Show();
+        }
+
+        private void databackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            backup back_up = new backup();
+            back_up.Show();
+        }
+
+        private void iT3KOPTIONSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IT3KOPTION it3k_option = new IT3KOPTION();
+            it3k_option.Show();
+        }
+
+        private void iT3KlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IT3K_LOG it3k = new IT3K_LOG();
+            it3k.Show();
+        }
+
+        private void exceloutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            excelout excel = new excelout();
+            excel.ShowDialog();
+        }
+
+        private void emailtestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            emailtest dd = new emailtest();
+            dd.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            tool.login("exsit");
+        }
+
+        private void mainToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            this.Visible = true;
         }
      
     }

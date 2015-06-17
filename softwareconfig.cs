@@ -25,6 +25,8 @@ namespace CobasITMonitor
             string errorarea = tool.readconfig("sign", "errorarea");
             string warncustomer = tool.readconfig("sign", "warncustomer");
             string errorcustomer = tool.readconfig("sign", "errorcustomer");
+            textBox3.Text =tool.readconfig("email", "localad");
+            textBox4.Text =tool.readconfig("email", "localadpassword");
             if (warncentral == "true")
             {
                 checkBox1.Checked = true;
@@ -126,6 +128,8 @@ namespace CobasITMonitor
             tool.writeconfig("email", "southad", contactlist.Rows[4].Cells[1].Value.ToString());
             tool.writeconfig("email", "southps", contactlist.Rows[4].Cells[2].Value.ToString());
             tool.writeconfig("email", "southtp", contactlist.Rows[4].Cells[3].Value.ToString());
+            tool.writeconfig("email", "localad", textBox3.Text.ToString());
+            tool.writeconfig("email", "localadpassword", textBox4.Text.ToString());
             MessageBox.Show("修改成功");
 
         }

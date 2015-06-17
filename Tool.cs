@@ -350,7 +350,7 @@ namespace Tool_Class
         worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[11, 8]).WrapText = true;
         worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[11, 8]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
         //worksheet.get_Range(worksheet.Cells[1, 1], worksheet.Cells[1, 1]).BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThick, XlColorIndex.xlColorIndexAutomatic, System.Drawing.Color.Black.ToArgb());
-        for (int i = 2; i < 10; i++)
+        for (int i = 2; i < 12; i++)
         {
 
             if (dt.Rows[i-2][3].ToString() == "E")
@@ -527,20 +527,27 @@ namespace Tool_Class
         public string[] readparameter(string node)
         {
 
-            //Tool_Class.DESFileClass.DecryptFile("config.txt", "345.txt", "123");
-            FileStream fs = new FileStream(@"345.txt", FileMode.Open);
-            Tool_Class.IO_tool dd = new Tool_Class.IO_tool();
-            string w = dd.Readfile(fs);
-            string[] s = Regex.Split(w, node, RegexOptions.IgnoreCase);
-            string ee = s[1];
-            string[] ss = Regex.Split(ee, ";", RegexOptions.IgnoreCase);
-            /*string str5 = System.Windows.Forms.Application.StartupPath;
-            string sourceDir = @str5;
-            string[] txtList = Directory.GetFiles(sourceDir, "345.txt");
-            foreach (string f in txtList)
+            string iniPath = System.Windows.Forms.Application.StartupPath + "\\config.ini";
+            ini ini = new ini();
+            ini.Ini(iniPath);
+            string[] ss = new string[30];
+            for (int i = 1; i < 30; i++)
             {
-                File.Delete(f);
-            }*/
+                string l = i.ToString();
+                string value = ini.ReadValue(node, l);
+                if (value != null)
+                {
+                    ss[i] = value;
+
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+
             return ss;
         }
         public class eeeee
