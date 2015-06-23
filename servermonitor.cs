@@ -22,6 +22,8 @@ namespace CobasITMonitor
     {
         string oldsb1 = "";
         string oldsb2 = "";
+        string diskrecomond = "";
+        string cpurecomond = "";
         public servermonitor()
         {
             InitializeComponent();
@@ -60,17 +62,30 @@ namespace CobasITMonitor
 
 
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
+            string l61 = tool.readconfig("jb", "netwarn");
+            string disk_c = tool.readconfig("jb", "Cwarn");
+            string disk_d = tool.readconfig("jb", "Dwarn");
+            string disk_e = tool.readconfig("jb", "Ewarn");
+            string disk_f = tool.readconfig("jb", "Fwarn");
+            string cpu = tool.readconfig("jb", "cpuwarnvalue");
+            string memery = tool.readconfig("jb", "memwarnvalue");
+            //label61.Text = "连通不通次数少于" + l61 + "次";
+            diskrecomond = "C>" + disk_c + "G;" + "D>" + disk_d + "G;" + "\n\r" + "E>" + disk_e + "G;" + "F>" + disk_f + "G;";
+            cpurecomond = "CPU使用率低于" + cpu + "%，内存使用率低于" + memery + "%";
             tool.AccessDbclass(sql3);
             tool.AccessDbclass(sql4);
             tool.AccessDbclass(sql5);
             tool.AccessDbclass(sql111);
             tool.AccessDbclass(sql222);
+            //threadlog(true, 0);
 
         }
         Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
         List<string> ipList = new List<string>();
         monitor mm = new monitor();
         int eventlogErrorNum = 0;
+        string eventlogErrorMessage = "";
+        string eventlogWarnMessage = "";
         int eventlogWarnNum = 0;
         public string way { get; set; }
         public class DriverInfo
@@ -258,7 +273,7 @@ namespace CobasITMonitor
                 db.AccessDbClass2(a);
                 ////textBox1.Text = c;
 
-                string sql3 = "update Status_Now set details ='" + cd + "',create_date = '" + DateTime.Now + "' where para_name = 'disk_size'";
+                string sql3 = "update Status_Now set details ='" + cd + "\n\r" + "参数设置值：" + "\n\r" + diskrecomond + "',create_date = '" + DateTime.Now + "' where para_name = 'disk_size'";
 
                 bool dd = db.ExecuteSQLNonquery(sql3);
 
@@ -432,20 +447,20 @@ namespace CobasITMonitor
                     }
                     if (cpusign == "N" && memsign == "N")
                     {
-                        string sql10 = "update Status_Now set para_value='正常',flag ='N',details = '" + cpuvalue+ "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                        string sql10 = "update Status_Now set para_value='正常',flag ='N',details = '" + cpuvalue + "\n\r" + "参数设置值：" + "\n\r" + cpurecomond + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
                         tool.AccessDbclass(sql10);
                     }
                     else
                     {
                         if (cpusign == "E" || memsign == "E")
                         {
-                            string sql10 = "update Status_Now set para_value='错误',flag ='E',details = '" + cpuvalue + memvalue + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                            string sql10 = "update Status_Now set para_value='错误',flag ='E',details = '" + cpuvalue + memvalue + "\n\r" + "参数设置值：" + "\n\r" + cpurecomond + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
                             tool.AccessDbclass(sql10);
 
                         }
                         else
                         {
-                            string sql10 = "update Status_Now set para_value='警告',flag ='W',details = '" + cpuvalue + memvalue + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                            string sql10 = "update Status_Now set para_value='警告',flag ='W',details = '" + cpuvalue + memvalue + "\n\r" + "参数设置值：" + "\n\r" + cpurecomond + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
                             tool.AccessDbclass(sql10);
  
                         }
@@ -509,10 +524,16 @@ namespace CobasITMonitor
             {
 
                 eventlogErrorNum += WarningListOfErrorEventLog.Count;
+                int i = 0;
                 foreach (eventLogTypeList eventLogType in WarningListOfErrorEventLog)
                 {
+                    i++;
                     string error = eventLogType.eventLogType + "日志出现错误！";
                     string message = eventLogType.eventLogEntry.Message;
+                    if (i < 6)
+                    {
+                        eventlogErrorMessage += i+"、 " + eventLogType.eventLogEntry.Message + "\r\n";
+                    }
                     string sb = eventLogType.eventLogType + message + eventLogType.eventLogEntry.TimeGenerated;
                     string str5 = System.Windows.Forms.Application.StartupPath;
                     string a = str5 + "\\db.accdb";
@@ -585,6 +606,7 @@ namespace CobasITMonitor
 
                     string error = eventLogType.eventLogType + "日志出现警告！";
                     string message = eventLogType.eventLogEntry.Message;
+                    eventlogWarnMessage += eventLogType.eventLogEntry.Message +"\n\r";
                     string sb = eventLogType.eventLogType + message + eventLogType.eventLogEntry.TimeGenerated;
                     string str5 = System.Windows.Forms.Application.StartupPath;
                     string a = str5 + "\\db.accdb";
@@ -603,7 +625,7 @@ namespace CobasITMonitor
         public void threadlog(bool is_first, int exec)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first, exec);
+            bool begin = tool.execute_or_not("syslog_warn", db_dir, 1, is_first, exec);
             if (begin == true)
             {
                 threadWarnSyslog();
@@ -612,7 +634,7 @@ namespace CobasITMonitor
                 string str5 = System.Windows.Forms.Application.StartupPath;
                 string a = str5 + "\\db.accdb";
                 db.AccessDbClass2(a);
-                string error = "警告日志：" + eventlogWarnNum.ToString() + "个，错误日志：" + eventlogErrorNum.ToString() + "个;";
+                string error = "警告日志：" + eventlogWarnNum.ToString() + "个;" + "\n\r" + "错误日志：" + eventlogErrorNum.ToString() + "个;\r\n" + "错误日志详情(最多显示5项)：" + "\r\n" + eventlogErrorMessage;
                 string sql3 = "";
                 if (eventlogWarnNum == 0 && eventlogErrorNum == 0 && is_first== true)
                 {
@@ -635,6 +657,8 @@ namespace CobasITMonitor
 
                 eventlogErrorNum = 0;
                 eventlogWarnNum = 0;
+                eventlogErrorMessage = "";
+                eventlogWarnMessage = "";
             }
         }
         //ip监控

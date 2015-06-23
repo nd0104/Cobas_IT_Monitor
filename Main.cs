@@ -49,7 +49,7 @@ namespace CobasITMonitor
             Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
-         /*   process_form.SetProgressValue(10);
+     /*       process_form.SetProgressValue(10);
             worker.Check_database_para(true,exec_4);
             process_form.SetProgressValue(20);
             worker.Check_database_tablespace_size(true, exec_1);
@@ -60,9 +60,9 @@ namespace CobasITMonitor
             process_form.SetProgressValue(80);
             worker.Check_database_table_num(true,exec_2);
             process_form.SetProgressValue(85);
-            ServerMonitor.threadDisk(true);
-            process_form.SetProgressValue(95);
-            process_form.Close();*/
+      //      ServerMonitor.threadDisk(true);
+            process_form.SetProgressValue(95);*/
+            process_form.Close();
             threads[1].Start();
             threads[0].Start();
         }
@@ -93,7 +93,7 @@ namespace CobasITMonitor
         #endregion
         void monitor_thread()
         {
-            recommeded_value();
+            
             while (true)
             {
                 worker.Check_database_para(false, exec_4);
@@ -113,6 +113,15 @@ namespace CobasITMonitor
 
         private void Select_Light(int counter, char flag, string list_box_text)
         {
+            label10.Text = io.GetLastExeTime("db_size", db_dir);
+            label15.Text = io.GetLastExeTime("table_count", db_dir);
+            label17.Text = io.GetLastExeTime("db_backup", db_dir);
+            label24.Text = io.GetLastExeTime("para_check", db_dir);
+            label25.Text = io.GetLastExeTime("log_error", db_dir);
+            label60.Text = io.GetLastExeTime("syslog_warn", db_dir);
+            label61.Text = io.GetLastExeTime("instrument_connection", db_dir);
+            label62.Text = io.GetLastExeTime("disk_size", db_dir);
+            label63.Text = io.GetLastExeTime("cpu_running", db_dir);
             switch (counter)
             {
                 case 0:
@@ -283,7 +292,7 @@ namespace CobasITMonitor
             }
         }
         #endregion
-        void recommeded_value()
+        /*void recommeded_value()
         {
             Tool_Class.IO_tool tool = new IO_tool();
             string l61 = tool.readconfig("jb", "netwarn");
@@ -297,7 +306,7 @@ namespace CobasITMonitor
             label62.Text = "C>" + disk_c + "G;" + "D>" + disk_d + "G;" + "\n\r" + "E>" + disk_e + "G;" + "F>" + disk_f + "G;";
             label63.Text = "使用率低于" + cpu + "%";
 
-        }
+        }*/
 
         private void button2_Click(object sender, EventArgs e)
         {
