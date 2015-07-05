@@ -68,7 +68,7 @@ namespace CobasITMonitor
             string jb = textBox3.Text;
             string bj = textBox2.Text;
             
-            int t = int.Parse(iplist.Rows.Count.ToString());
+            /*int t = int.Parse(iplist.Rows.Count.ToString());
             textBox4.Text = t.ToString();
             string ip = "";
             for (int i = 0; i < t - 1; i++)
@@ -77,7 +77,7 @@ namespace CobasITMonitor
                 ip += iplist.Rows[i].Cells[0].Value.ToString() + "=" + iplist.Rows[i].Cells[1].Value.ToString() + "=" + iplist.Rows[i].Cells[2].Value.ToString() + "=" + iplist.Rows[i].Cells[3].Value.ToString() + ";\r\n";
                 writeip("ip",ip);
  
-            }
+            }*/
             monitor mm = new monitor();
             //mm.writeconfig("rff", "ppt", "4");
             tool.writeconfig("rf", "netrefresh", time);

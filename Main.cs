@@ -23,7 +23,8 @@ namespace CobasITMonitor
                                        "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
                                         "select para_value,flag from Status_Now where para_name = 'disk_size'",
                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
-                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
+                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
+                                       "select para_value,flag from Status_Now where para_name = 'check_option'"};
         public string[] sql_area = {"select para_value,flag from Status_Now where para_name = 'db_size' ",
                                        "select para_value,flag from Status_Now where para_name = 'table_count' ",
                                        "select para_value,flag from Status_Now where para_name = 'db_backup'",
@@ -33,8 +34,9 @@ namespace CobasITMonitor
                                        "select para_value,flag from Status_Now where para_name = 'instrument_connection' ",
                                         "select para_value,flag from Status_Now where para_name = 'disk_size'",
                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
-                                        "select para_value,flag from Status_Now where para_name = 'memory_running'"};
-        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9 = 0; 
+                                        "select para_value,flag from Status_Now where para_name = 'cpu_running' ",
+                                   "select para_value,flag from Status_Now where para_name = 'check_option'"};
+        int exec_1,exec_2,exec_3,exec_4,exec_5,exec_6,exec_7,exec_8,exec_9 = 0,exec_11=0; 
         progresser process_form = new progresser();
         IO_tool io = new IO_tool();
         Work.Work worker = new Work.Work();
@@ -44,12 +46,12 @@ namespace CobasITMonitor
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            
-      //      process_form.Show();
+            worker.Check_para(true,exec_11);
+      //      process_form.Show(true);
             Thread[] threads = new Thread[2];
             threads[0] = new Thread(new ThreadStart(main_thread));
             threads[1] = new Thread(new ThreadStart(monitor_thread));
-         /*   process_form.SetProgressValue(10);
+     /*       process_form.SetProgressValue(10);
             worker.Check_database_para(true,exec_4);
             process_form.SetProgressValue(20);
             worker.Check_database_tablespace_size(true, exec_1);
@@ -60,7 +62,7 @@ namespace CobasITMonitor
             process_form.SetProgressValue(80);
             worker.Check_database_table_num(true,exec_2);
             process_form.SetProgressValue(85);
-            ServerMonitor.threadDisk(true);
+      //      ServerMonitor.threadDisk(true);
             process_form.SetProgressValue(95);
             process_form.Close();*/
             threads[1].Start();
@@ -73,7 +75,7 @@ namespace CobasITMonitor
             while (true)
             {
                 
-                for (; counter < 10; counter++)
+                for (; counter < 11; counter++)
                 {
                     if (sql_area[counter] != null)
                     {
@@ -93,7 +95,7 @@ namespace CobasITMonitor
         #endregion
         void monitor_thread()
         {
-            recommeded_value();
+            //recommeded_value();
             while (true)
             {
                 worker.Check_database_para(false, exec_4);
@@ -101,6 +103,7 @@ namespace CobasITMonitor
                 worker.Check_database_db_backup(false, exec_3);
                 worker.Check_database_log_err(false, exec_8);
                 worker.Check_database_table_num(false, exec_2);
+                worker.Check_para(false, exec_11);
                 ServerMonitor.threadDisk(false, exec_7);
                 ServerMonitor.threadCpu(false, exec_9);
                 ServerMonitor.threadlog(false, exec_5);
@@ -113,6 +116,16 @@ namespace CobasITMonitor
 
         private void Select_Light(int counter, char flag, string list_box_text)
         {
+            label10.Text = io.GetLastExeTime("db_size", db_dir);
+            label15.Text = io.GetLastExeTime("table_count", db_dir);
+            label17.Text = io.GetLastExeTime("db_backup", db_dir);
+            label24.Text = io.GetLastExeTime("para_check", db_dir);
+            label25.Text = io.GetLastExeTime("log_error", db_dir);
+            label26.Text = io.GetLastExeTime("check_option", db_dir);
+            label60.Text = io.GetLastExeTime("syslog_warn", db_dir);
+            label61.Text = io.GetLastExeTime("instrument_connection", db_dir);
+            label62.Text = io.GetLastExeTime("disk_size", db_dir);
+            label63.Text = io.GetLastExeTime("cpu_running", db_dir);
             switch (counter)
             {
                 case 0:
@@ -277,13 +290,31 @@ namespace CobasITMonitor
                             break;
                     };
                     break;
+                case 10:
+                    textBox11.Clear();
+                    textBox11.Text = list_box_text;
+                    switch (flag)
+                    {
+                        case 'E':
+                            pictureBox18.Image = CobasITMonitor.Properties.Resources.red;
+                            break;
+                        case 'N':
+                            pictureBox18.Image = CobasITMonitor.Properties.Resources.green;
+                            break;
+                        case 'W':
+                            pictureBox18.Image = CobasITMonitor.Properties.Resources.yellow;
+                            break;
+                        default:
+                            break;
+                    };
+                    break;
                 
 
                 default: break;
             }
         }
         #endregion
-        void recommeded_value()
+       /* void recommeded_value()
         {
             Tool_Class.IO_tool tool = new IO_tool();
             string l61 = tool.readconfig("jb", "netwarn");
@@ -297,7 +328,7 @@ namespace CobasITMonitor
             label62.Text = "C>" + disk_c + "G;" + "D>" + disk_d + "G;" + "\n\r" + "E>" + disk_e + "G;" + "F>" + disk_f + "G;";
             label63.Text = "使用率低于" + cpu + "%";
 
-        }
+        }*/
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -660,6 +691,38 @@ namespace CobasITMonitor
         private void mainToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             this.Visible = true;
+        }
+
+        private void pictureBox18_Click(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("check_option");
+            details_windows.Show();
+        }
+
+        private void checkBox18_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox18.Checked)
+            {
+                sql_area[10] = sql_area_bak[10];
+                exec_11 = 0;
+            }
+            else
+            {
+                sql_area[10] = null;
+                pictureBox18.Image = CobasITMonitor.Properties.Resources.pause_;
+                exec_11 = 1;
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox18_Click_1(object sender, EventArgs e)
+        {
+            Show_details details_windows = new Show_details("check_option");
+            details_windows.Show();
         }
      
     }

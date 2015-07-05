@@ -778,6 +778,17 @@ namespace Tool_Class
             db.Close();
 
         }
+        public bool AccessDbclassdd(string sql)
+        {
+            string str5 = System.Windows.Forms.Application.StartupPath;
+            string a = str5 + "\\db.accdb";
+            AccessDbClass1 db = new AccessDbClass1();
+            db.AccessDbClass2(a);
+            bool dd = db.ExecuteSQLNonquery(sql);
+            return dd;
+            db.Close();
+
+        }
         public void AccessDbclass(string sql, string file_dir)
         {
             AccessDbClass1 db = new AccessDbClass1();
