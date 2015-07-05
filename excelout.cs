@@ -76,16 +76,17 @@ namespace CobasITMonitor
             StringBuilder sb8 = history("para_check");
             StringBuilder sb9 = history("log_error");
             StringBuilder sb10 = history("db_backup");
+            StringBuilder sb11 = history("check_option");
             dt.Rows[0][7] = sb1;
             dt.Rows[1][7] = sb2;
             dt.Rows[2][7] = sb3;
-            dt.Rows[3][7] = sb4;
-            dt.Rows[4][7] = sb5;
-            dt.Rows[5][7] = sb6;
-            dt.Rows[6][7] = sb7;
-            dt.Rows[7][7] = sb8;
-            dt.Rows[8][7] = sb9;
-            dt.Rows[9][7] = sb10;
+            dt.Rows[3][7] = sb4.Append(sb5);
+            dt.Rows[4][7] = sb6;
+            dt.Rows[5][7] = sb7;
+            dt.Rows[6][7] = sb8;
+            dt.Rows[7][7] = sb9;
+            dt.Rows[8][7] = sb10;
+            dt.Rows[9][7] = sb11;
             tool.DataTableToExcel(dt,savename);
 
         }
