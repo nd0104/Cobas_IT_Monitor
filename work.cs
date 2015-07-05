@@ -30,7 +30,7 @@ namespace Work
                                      "select (trunc(sysdate) - trunc(min(scan_datum))) * 24 + to_char(sysdate, 'hh24') - to_char(min(scan_datum), 'hh24') from samples where UNSOLICITED = 1",
                                      "select INHALT  from datos_ini where item = 'NUM_HOUR_KEEP_UNSOLICITED_SAMPLES'"
                                      };
-        private string SQL_stat2 = "SELECT round(bytes / (1024 * 1024 * 1024), 0) GB FROM dba_data_files where tablespace_name = 'TS_DATEN'";
+        private string SQL_stat2 = "SELECT round(bytes / (1024 * 1024 ), 0) GB FROM dba_data_files where tablespace_name = 'TS_DATEN'";
         private string SQL_stat3 = "select log_date,status,error# from dba_scheduler_job_run_details where job_name  = 'EXPORTDB' order by log_id desc";
         private string SQL_stat4 = "select count(1)  FROM SY_ERROR_LOGS where fehlerkategorie = 30 union   select count(1)  FROM SY_ERROR_LOGS where fehlerkategorie = 20";
         private string[] SQL_stat5 = { "select count(1) from LIS_RESULTS", "select count(1) from RESULTATE", "select count(1) from LIS_MESSAGE", "select count(1) from HIST_SAMPLES" 
@@ -62,8 +62,8 @@ namespace Work
                     if (Table_DataSet != null && !Table_DataSet.HasErrors && Table_DataSet.Tables.Count == 1)
                         ini_diff = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
                     if (table_diff < ini_diff)
-                        result = "正确";
-                    output += output_stat[i] + "在数据表中存在" + table_diff + "天的数据,但参数设置的是小于" + ini_diff + "天, 检测结果:" + result + ". ";
+                        result = "正常";
+                    output += output_stat[i] + "在数据表中存在" + table_diff + "天的数据,但参数设置的是小于" + ini_diff + "天, 检测结果:" + result + ".\r\n";
                     Table_DataSet.Reset();
                     result = "错误";
                     table_diff = ini_diff = 0;
@@ -71,7 +71,7 @@ namespace Work
                 conn.Close();
                 if (output.Length > 255)
                     output = output.Substring(0, 254);
-                if (result == "正确")
+                if (result == "正常")
                     show_flag = 'N';
                 else
                     show_flag = 'E';
@@ -83,7 +83,7 @@ namespace Work
                 }
                 else
                 {
-                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'para_check')";
+                    insert_sql = "insert into Status_Histroy select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'para_check')";
                     io.AccessDbclass(insert_sql, db_dir);
                     insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'para_check'";
                     io.AccessDbclass(insert_sql, db_dir);
@@ -106,14 +106,14 @@ namespace Work
                 conn.Close();
                 if (size_db < size_para)
                 {
-                    result = "正确.";
-                    output += result  + "。参数设置为:"+ size_para + "GB，实际大小为 " + size_db + "GB.";
+                    result = "正常.";
+                    output += result + "。参数设置为:" + size_para + "MB，实际大小为 " + size_db + "MB.\r\n";
                     show_flag = 'N';
                 }
                 else
                 {
                     result = "错误";
-                    output += result + "。参数设置为:" + size_para + "GB，实际大小为" + size_db + "GB.";
+                    output += result + "。参数设置为:" + size_para + "MB，实际大小为" + size_db + "MB.\r\n";
                     show_flag = 'E';
                 }
                 in_or_up = insert_or_update("db_size");
@@ -124,7 +124,7 @@ namespace Work
                 }
                 else
                 {
-                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'db_size')";
+                    insert_sql = "insert into Status_Histroy select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'db_size')";
                     io.AccessDbclass(insert_sql, db_dir);
                     insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'db_size'";
                     io.AccessDbclass(insert_sql, db_dir);
@@ -151,14 +151,14 @@ namespace Work
                 conn.Close();
                 if (db_back_para == db_back)
                 {
-                    result = "正确";
-                    output += result + "。数据备份在" + log_time +"完成备份";
+                    result = "正常";
+                    output += result + "。数据备份在" + log_time + "完成备份.\r\n";
                     show_flag = 'N';
                 }
                 else
                 {
                     result = "错误";
-                    output += result + "。检查出" + error_num + " 个错误。 executed in " + log_time;
+                    output += result + "。检查出" + error_num + " 个错误。 executed in " + log_time + "\r\n";
                     show_flag = 'E';
                 }
                 in_or_up = insert_or_update("db_backup");
@@ -169,7 +169,7 @@ namespace Work
                 }
                 else
                 {
-                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'db_backup')";
+                    insert_sql = "insert into Status_Histroy select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'db_backup')";
                     io.AccessDbclass(insert_sql, db_dir);
                     insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'db_backup'";
                     io.AccessDbclass(insert_sql, db_dir);
@@ -201,14 +201,14 @@ namespace Work
                 conn.Close();
                 if (error_num == 0 && error_num2 < diff_num)
                 {
-                    result = "正确";
-                    output += result + "。共计有" + error_num + " 个Errors； " + error_num2 + "个warnings.";
+                    result = "正常";
+                    output += result + "。共计有" + error_num + " 个Errors； " + error_num2 + "个warnings.\r\n";
                     show_flag = 'N';
                 }
                 else
                 {
                     result = "错误";
-                    output += result + "。共计有" + error_num + " 个Errors； " + error_num2 + "个warnings.";
+                    output += result + "。共计有" + error_num + " 个Errors；" + error_num2 + "个warnings.\r\n";
                     show_flag = 'E';
                 }
                 in_or_up = insert_or_update("log_error");
@@ -219,7 +219,7 @@ namespace Work
                 }
                 else
                 {
-                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'log_error')";
+                    insert_sql = "insert into Status_Histroy select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'log_error')";
                     io.AccessDbclass(insert_sql, db_dir);
                     insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'log_error'";
                     io.AccessDbclass(insert_sql, db_dir);
@@ -242,15 +242,15 @@ namespace Work
                 {
                     Table_DataSet = ROD.ReadDataToDataSet(conn, SQL_stat5[i], "");
                     num_count = Convert.ToInt32(Table_DataSet.Tables[0].Rows[0].ItemArray[0]);
-                    output += output_stat2[i] + ": " + num_count+"  ";
+                    output += output_stat2[i] + ": " + num_count + ".\r\n";
                     if (num_count < SQL5_refrence[i])
                     {
-                        result = "正确";
+                        result = "正常";
                         show_flag = 'N';
                     }
                     if (num_count > SQL5_refrence[i] && num_count < SQL5_refrence[7 + i])
                     {
-                        result = "正确";
+                        result = "正常";
                         show_flag = 'W';
                     }
                     if (num_count > SQL5_refrence[7 + i])
@@ -269,7 +269,7 @@ namespace Work
                 }
                 else
                 {
-                    insert_sql = "insert into Status_Histrory select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'table_count')";
+                    insert_sql = "insert into Status_Histroy select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'table_count')";
                     io.AccessDbclass(insert_sql, db_dir);
                     insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + output + "' where para_name = 'table_count'";
                     io.AccessDbclass(insert_sql, db_dir);
@@ -278,6 +278,98 @@ namespace Work
             
         }
         #endregion
+        #region 检查参数变化情况
+        public void Check_para(bool is_first, int exec)
+        {
+            if (io.execute_or_not("check_option", db_dir, Convert.ToInt32(io.readconfig("DATABASE", "CHECK_OPTION")), is_first, exec))
+            {
+                ReadOracleData ROD = new ReadOracleData();
+                OracleConnection conn = ROD.NewConn();
+                DataSet Table_DataSet;
+                Table_DataSet = ROD.ReadDataToDataSet(conn, "select item,inhalt,gruppe from datos_ini", "");
+                DataTable dt = io.DbToDatatable("select item,inhalt,gruppe from datos_ini", db_dir);
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dt);
+                string item_o, inhalt_o, gruppe_o, item_a, inhalt_a, gruppe_a, out_put;
+                out_put = "参数变化检测结果为：\r\n";
+                string result = "正常";
+                char show_flag = 'N';
+                int counter = 0;
+                    foreach (DataRow ini_Row_o in Table_DataSet.Tables[0].Rows)
+                    {
+                        item_o = ini_Row_o["item"].ToString();
+                        inhalt_o = ini_Row_o["inhalt"].ToString();
+                        gruppe_o = ini_Row_o["gruppe"].ToString();
+                        counter = 0;
+                        foreach  (DataRow ini_Row_a in ds.Tables[0].Rows)
+                        {
+                            item_a = ini_Row_a["item"].ToString();
+                            inhalt_a = ini_Row_a["inhalt"].ToString();
+                            gruppe_a = ini_Row_a["gruppe"].ToString();
+                            if (item_a == item_o && gruppe_a == gruppe_o)
+                            {
+                                if (inhalt_a == inhalt_o)
+                                    break;
+                                else
+                                {
+                                    show_flag = 'E';
+                                    result = "错误";
+                                    out_put += "参数" + item_o + "在上一次检测结果为" + inhalt_a + ",但现行值为：" + inhalt_o + "。请检查。\r\n";
+                                    break;
+                                }
+                            }
+                            counter++;
+                        }
+                        if (counter >= ds.Tables[0].Rows.Count)
+                        {
+                            show_flag = 'E';
+                            result = "错误";
+                            out_put += "上次检测时，并未检测到参数" + item_o + "是否新增？请检查。\r\n";
+                        }
+                    }
+                
+                
+                    foreach (DataRow ini_Row_a in ds.Tables[0].Rows)
+                    {
+                        
+                        item_a = ini_Row_a["item"].ToString();
+                        inhalt_a = ini_Row_a["inhalt"].ToString();
+                        gruppe_a = ini_Row_a["gruppe"].ToString();
+                        counter = 0;
+                        foreach (DataRow ini_Row_o in Table_DataSet.Tables[0].Rows)
+                        {
+                            item_o = ini_Row_o["item"].ToString();
+                             inhalt_o = ini_Row_o["inhalt"].ToString();
+                             gruppe_o = ini_Row_o["gruppe"].ToString();
+                            if (item_a == item_o && gruppe_a == gruppe_o)
+                                    break;
+                            counter++;
+                        }
+                        if (counter >= Table_DataSet.Tables[0].Rows.Count)
+                            {
+                                show_flag = 'E';
+                                result = "错误";
+                                out_put += "上次检测时，检测到参数" + item_a + "现行参数是否删除了？请检查。\r\n";
+                            }
+                    }
+                    conn.Close();
+                    in_or_up = insert_or_update("check_option");
+                    if (in_or_up)
+                    {
+                        insert_sql = "insert into Status_Now(para_name,para_value,para_group,flag,description,create_date,para_title,details) values ('check_option','" + result + "','IT3K','" + show_flag + "','','" + DateTime.Now.ToString() + "','IT3K','" + out_put + "')";
+                        io.AccessDbclass(insert_sql, db_dir);
+                    }
+                    else
+                    {
+                        insert_sql = "insert into Status_Histroy select * from (select para_name,para_value,para_group,flag,description,create_date,para_title,details from Status_Now where para_name = 'check_option')";
+                        io.AccessDbclass(insert_sql, db_dir);
+                        insert_sql = "update Status_Now set para_value='" + result + "',flag = '" + show_flag + "',create_date = '" + DateTime.Now.ToString() + "',details = '" + out_put + "' where para_name = 'check_option'";
+                        io.AccessDbclass(insert_sql, db_dir);
+                    }
+                ReadData2Access();
+            }
+        }
+#endregion
 
 
         public bool insert_or_update(string key)
@@ -291,6 +383,26 @@ namespace Work
                 return true;
             else
                 return false;
+        }
+        public void ReadData2Access()
+        {
+            ReadOracleData ROD = new ReadOracleData();
+            OracleConnection conn = ROD.NewConn();
+            DataSet Table_DataSet;
+            Table_DataSet = ROD.ReadDataToDataSet(conn, "select item,inhalt,gruppe from datos_ini", "");
+            string item, inhalt, gruppe;
+            io.AccessDbclass("delete from datos_ini", db_dir);
+            foreach (DataRow ini_Row in Table_DataSet.Tables[0].Rows)
+            {
+                item = ini_Row["item"].ToString();
+                inhalt = ini_Row["inhalt"].ToString();
+                gruppe = ini_Row["gruppe"].ToString();
+
+                insert_sql = "insert into datos_ini(item,inhalt,gruppe) values ('" + item + "',\""+inhalt+"\",'"+gruppe+"')";
+                io.AccessDbclass(insert_sql, db_dir);
+            }
+            Table_DataSet.Dispose();
+            conn.Close();
         }
     } 
    

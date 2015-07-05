@@ -49,46 +49,47 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cwran
             // 
-            this.cwran.Location = new System.Drawing.Point(126, 129);
+            this.cwran.Location = new System.Drawing.Point(168, 129);
             this.cwran.Name = "cwran";
             this.cwran.Size = new System.Drawing.Size(100, 20);
             this.cwran.TabIndex = 0;
             // 
             // cerror
             // 
-            this.cerror.Location = new System.Drawing.Point(232, 129);
+            this.cerror.Location = new System.Drawing.Point(392, 129);
             this.cerror.Name = "cerror";
             this.cerror.Size = new System.Drawing.Size(100, 20);
             this.cerror.TabIndex = 1;
             // 
             // derror
             // 
-            this.derror.Location = new System.Drawing.Point(232, 161);
+            this.derror.Location = new System.Drawing.Point(392, 161);
             this.derror.Name = "derror";
             this.derror.Size = new System.Drawing.Size(100, 20);
             this.derror.TabIndex = 3;
             // 
             // dwran
             // 
-            this.dwran.Location = new System.Drawing.Point(126, 161);
+            this.dwran.Location = new System.Drawing.Point(168, 161);
             this.dwran.Name = "dwran";
             this.dwran.Size = new System.Drawing.Size(100, 20);
             this.dwran.TabIndex = 2;
             // 
             // eerror
             // 
-            this.eerror.Location = new System.Drawing.Point(232, 192);
+            this.eerror.Location = new System.Drawing.Point(392, 192);
             this.eerror.Name = "eerror";
             this.eerror.Size = new System.Drawing.Size(100, 20);
             this.eerror.TabIndex = 5;
             // 
             // ewran
             // 
-            this.ewran.Location = new System.Drawing.Point(126, 192);
+            this.ewran.Location = new System.Drawing.Point(168, 192);
             this.ewran.Name = "ewran";
             this.ewran.Size = new System.Drawing.Size(100, 20);
             this.ewran.TabIndex = 4;
@@ -96,7 +97,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(81, 129);
+            this.label1.Location = new System.Drawing.Point(79, 132);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 6;
@@ -105,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(80, 164);
+            this.label2.Location = new System.Drawing.Point(78, 165);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 7;
@@ -114,7 +115,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(80, 195);
+            this.label3.Location = new System.Drawing.Point(78, 196);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 8;
@@ -123,7 +124,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(80, 226);
+            this.label4.Location = new System.Drawing.Point(78, 227);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 13);
             this.label4.TabIndex = 11;
@@ -131,14 +132,14 @@
             // 
             // ferror
             // 
-            this.ferror.Location = new System.Drawing.Point(232, 223);
+            this.ferror.Location = new System.Drawing.Point(392, 223);
             this.ferror.Name = "ferror";
             this.ferror.Size = new System.Drawing.Size(100, 20);
             this.ferror.TabIndex = 10;
             // 
             // fwran
             // 
-            this.fwran.Location = new System.Drawing.Point(126, 223);
+            this.fwran.Location = new System.Drawing.Point(168, 223);
             this.fwran.Name = "fwran";
             this.fwran.Size = new System.Drawing.Size(100, 20);
             this.fwran.TabIndex = 9;
@@ -146,24 +147,24 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(156, 103);
+            this.label5.Location = new System.Drawing.Point(137, 104);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.Size = new System.Drawing.Size(183, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "警告值";
+            this.label5.Text = "可用空间低于下列值时发出“警告”";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(267, 103);
+            this.label6.Location = new System.Drawing.Point(347, 104);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.Size = new System.Drawing.Size(183, 13);
             this.label6.TabIndex = 13;
-            this.label6.Text = "错误值";
+            this.label6.Text = "可用空间低于下列值时发出“错误”";
             // 
             // time
             // 
-            this.time.Location = new System.Drawing.Point(126, 48);
+            this.time.Location = new System.Drawing.Point(168, 47);
             this.time.Name = "time";
             this.time.Size = new System.Drawing.Size(100, 20);
             this.time.TabIndex = 14;
@@ -171,7 +172,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(81, 51);
+            this.label7.Location = new System.Drawing.Point(123, 50);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 13);
             this.label7.TabIndex = 15;
@@ -180,15 +181,15 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(232, 51);
+            this.label8.Location = new System.Drawing.Point(274, 50);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 13);
+            this.label8.Size = new System.Drawing.Size(79, 13);
             this.label8.TabIndex = 16;
-            this.label8.Text = "多少分钟检查一次";
+            this.label8.Text = "分钟检查一次";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(138, 267);
+            this.button1.Location = new System.Drawing.Point(231, 267);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 17;
@@ -198,7 +199,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(247, 267);
+            this.button2.Location = new System.Drawing.Point(347, 267);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 18;
@@ -210,11 +211,21 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(379, 51);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(137, 13);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "（磁盘可用空间，单位：G）";
+            // 
             // diskconfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 318);
+            this.ClientSize = new System.Drawing.Size(613, 318);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
@@ -236,7 +247,7 @@
             this.Controls.Add(this.cwran);
             this.Name = "diskconfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "硬盘监控参数配置";
+            this.Text = "监控参数设置：磁盘空间";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.diskconfig_FormClosing);
             this.Load += new System.EventHandler(this.diskconfig_Load);
             this.ResumeLayout(false);
@@ -266,6 +277,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label9;
 
     }
 }

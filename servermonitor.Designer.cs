@@ -53,7 +53,6 @@
             this.Text = "IT3000保养监控";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.主界面_FormClosed);
             this.Load += new System.EventHandler(this.主界面_Load);
             this.ResumeLayout(false);
 

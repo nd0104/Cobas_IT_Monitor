@@ -20,6 +20,8 @@ namespace CobasITMonitor
 {
     public partial class servermonitor : Form
     {
+        string oldsb1 = "";
+        string oldsb2 = "";
         public servermonitor()
         {
             InitializeComponent();
@@ -50,15 +52,19 @@ namespace CobasITMonitor
         public void start()
         {
             string sql3 = "update Status_Histroy set sign = '1'";
-            string sql4 = "update Status_Now set flag = 'N',details = 'normal' where para_name = 'disk_size'";
-            string value = "net normal";
-            string sql5 = "update Status_Now set para_value='true',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'instrument_connection'";
+            string sql4 = "update Status_Now set flag = 'N',details = '正常' where para_name = 'disk_size'";
+            string value = "正常";
+            string sql5 = "update Status_Now set para_value='正常',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'instrument_connection'";
+            string sql111 = "update Status_Now set para_value='正常',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'cpu_running'";
+            string sql222 = "update Status_Now set para_value='正常',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'memory_running'";
 
 
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
             tool.AccessDbclass(sql3);
             tool.AccessDbclass(sql4);
             tool.AccessDbclass(sql5);
+            tool.AccessDbclass(sql111);
+            tool.AccessDbclass(sql222);
 
         }
         Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
@@ -178,6 +184,8 @@ namespace CobasITMonitor
             this.Hide();
             this.timer2.Enabled = true;
             this.timer1.Enabled = true;
+            oldsb1 = "";
+            oldsb2 = "";
             //this.notifyIcon1.Visible = true;
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
             disk = int.Parse(tool.readconfig("rf", "diskrefresh")) * 60;
@@ -199,24 +207,13 @@ namespace CobasITMonitor
 
         }
         
-        private void 显示状态监控界面ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
-           
-            
-            
-        }
-
-        private void 软件设置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
         //硬盘监控
 
-        public void threadDisk(bool is_first)
+        public void threadDisk(bool is_first, int exec)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("disk_size", db_dir, disk, is_first,0);
+            bool begin = tool.execute_or_not("disk_size", db_dir, disk, is_first, exec);
             if (begin == true)
             {
                 monitor mtt = new monitor();
@@ -270,21 +267,21 @@ namespace CobasITMonitor
                 if (WarningListWarnOfDisk.Count == 0 && WarningListErrorOfDisk.Count == 0) //正常
                 {
                     fgg = "N";
-                    string sql4 = "update Status_Now set para_value='true',flag ='N' where para_name = 'disk_size'";
+                    string sql4 = "update Status_Now set para_value='正常',flag ='N' where para_name = 'disk_size'";
                     bool cc = db.ExecuteSQLNonquery(sql4);
                     //////textBox3.Text = cc.ToString();
                 }
                 if (WarningListWarnOfDisk.Count > 0) //大于设置警告值
                 {
                     fgg = "W";
-                    string sql4 = "update Status_Now set para_value='false',flag ='W' where para_name = 'disk_size'";
+                    string sql4 = "update Status_Now set para_value='警告',flag ='W' where para_name = 'disk_size'";
                     bool cc = db.ExecuteSQLNonquery(sql4);
                     //////textBox3.Text = cc.ToString();
                 }
                 if (WarningListErrorOfDisk.Count > 0) //大于设置错误值
                 {
                     fgg = "E";
-                    string sql4 = "update Status_Now set para_value='false',flag ='E' where para_name = 'disk_size'";
+                    string sql4 = "update Status_Now set para_value='错误',flag ='E' where para_name = 'disk_size'";
                     bool cc = db.ExecuteSQLNonquery(sql4);
                     //////textBox3.Text = cc.ToString();
                 }
@@ -298,10 +295,10 @@ namespace CobasITMonitor
 
         }
         //cpu监控
-        public void threadCpu(bool is_first)
+        public void threadCpu(bool is_first, int exec)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem, is_first,1);
+            bool begin = tool.execute_or_not("cpu_running", db_dir, cpumem, is_first, exec);
             if (begin == true)
             {
                 monitor cpu = new monitor();
@@ -310,10 +307,7 @@ namespace CobasITMonitor
                 RamCpuInfo ramCpuInfo = new RamCpuInfo();
                 ramCpuInfo.WarningDateTime = DateTime.Now;
                 ramCpuInfo.WarningValue = perOfCpu;
-                int cpuerrorvalue = int.Parse(tool.readconfig("bj", "cpuerrorvalue"));
-                int cpuerrortime = int.Parse(tool.readconfig("bj", "cpuerrortime"));
                 int cpuwarnvalue = int.Parse(tool.readconfig("jb", "cpuwarnvalue"));
-                int cpuwarntime = int.Parse(tool.readconfig("jb", "cpuwarntime"));
                 if (perOfCpu >= cpuwarnvalue)
                 {
                     string str5 = System.Windows.Forms.Application.StartupPath;
@@ -324,52 +318,20 @@ namespace CobasITMonitor
                     bool ee = db.ExecuteSQLNonquery(sql11);
                     ////textBox3.Text = ee.ToString();
 
-                    string sql5 = "select details from Status_Histroy where para_name = 'cpu_running' and sign is null";
-                    DataTable cpuerrorcount = tool.DbToDatatable(sql5);
-                    int numcpu = 0;
-                    int errornumcpu = 0;
-                    for (int i = 0; i < cpuerrorcount.Rows.Count; i++)
-                    {
-                        int numm = int.Parse(cpuerrorcount.Rows[i][0].ToString());
-                        if (numm > cpuwarnvalue)
-                        {
-                            numcpu++;//达到警告值的次数
-                        }
-                        if (numm > cpuerrorvalue)
-                        {
-                            errornumcpu++;//达到错误值的次数
-                        }
-                    }
-                    if (numcpu < cpuwarntime)
-                    {
-                        string value = "normal";
-                        string sql4 = "update Status_Now set para_value='true',flag ='N',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
-                        tool.AccessDbclass(sql4);
-
-                    }
-                    if (numcpu > cpuwarntime)
-                    {
-                        string value = "CPU>" + cpuwarnvalue + "% count:" + numcpu + ";";
-                        string sql4 = "update Status_Now set para_value='false',flag ='W',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
-                        tool.AccessDbclass(sql4);
-
-                    }
-                    if (errornumcpu > cpuerrortime)
-                    {
-                        string value = "CPU>" + cpuerrorvalue + "% count:" + errornumcpu + ";";
-                        string sql4 = "update Status_Now set para_value='false',flag ='E',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
-                        tool.AccessDbclass(sql4);
-
-                    }
+                   
 
                 }
             }
         }
         //内存监控
-        public void threadMem(bool is_first)
+        public void threadMem(bool is_first, int exec)
         {
+            string memvalue = "内存正常;\n\r";
+            string memsign = "N";
+            string cpuvalue = "CPU正常;\n\r";
+            string cpusign = "N";
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("memory_running", db_dir, cpumem, is_first,1);
+            bool begin = tool.execute_or_not("memory_running", db_dir, cpumem, is_first, exec);
             if (begin == true)
             {
                 monitor mem = new monitor();
@@ -391,6 +353,7 @@ namespace CobasITMonitor
                     db.AccessDbClass2(a);
                     string sql11 = "insert into Status_Histroy (para_name,details,create_date) values ('memory_running','" + perOfRam + "','" + DateTime.Now + "')";
                     bool ee = db.ExecuteSQLNonquery(sql11);
+                }
                     ////textBox3.Text = ee.ToString();
                     string sql5 = "select details from Status_Histroy where para_name = 'memory_running' and sign is null";
                     DataTable memerrorcount = tool.DbToDatatable(sql5);
@@ -410,26 +373,86 @@ namespace CobasITMonitor
                     }
                     if (num < memwarntime)
                     {
-                        string value = "normal";
-                        string sql4 = "update Status_Now set para_value='true',flag ='N',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
-                        tool.AccessDbclass(sql4);
+                        memvalue = "内存正常;\n\r";
+                        memsign = "N";
+                        
 
                     }
                     if (num > memwarntime)
                     {
-                        string value = "memory>" + memwarnvalue + "% count:" + num + ";";
-                        string sql4 = "update Status_Now set para_value='false',flag ='W',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
-                        tool.AccessDbclass(sql4);
+                        memvalue = "内存>" + memwarnvalue + "% 共:" + num + "次;\n\r";
+                        memsign = "W";
+                        
 
                     }
                     if (errornum > memerrortime)
                     {
-                        string value = "memory>" + memerrorvalue + "% count:" + errornum + ";";
-                        string sql4 = "update Status_Now set para_value='false',flag ='E',details = '" + value + "',create_date = '" + DateTime.Now + "' where para_name = 'memory_running'";
-                        tool.AccessDbclass(sql4);
+                        memvalue = "内存>" + memerrorvalue + "% 共:" + errornum + "次;\n\r";
+                        memsign = "E";
 
                     }
-                }
+                    string sql6 = "select details from Status_Histroy where para_name = 'cpu_running' and sign is null";
+                    DataTable cpuerrorcount = tool.DbToDatatable(sql6);
+                    int numcpu = 0;
+                    int errornumcpu = 0;
+                    int cpuerrorvalue = int.Parse(tool.readconfig("bj", "cpuerrorvalue"));
+                    int cpuerrortime = int.Parse(tool.readconfig("bj", "cpuerrortime"));
+                    int cpuwarnvalue = int.Parse(tool.readconfig("jb", "cpuwarnvalue"));
+                    int cpuwarntime = int.Parse(tool.readconfig("jb", "cpuwarntime"));
+                    for (int i = 0; i < cpuerrorcount.Rows.Count; i++)
+                    {
+                        int numm = int.Parse(cpuerrorcount.Rows[i][0].ToString());
+                        if (numm > cpuwarnvalue)
+                        {
+                            numcpu++;//达到警告值的次数
+                        }
+                        if (numm > cpuerrorvalue)
+                        {
+                            errornumcpu++;//达到错误值的次数
+                        }
+                    }
+                    if (numcpu < cpuwarntime)
+                    {
+                        cpuvalue = "正常;\n\r";
+                        cpusign = "N";
+                        
+
+                    }
+                    if (numcpu > cpuwarntime)
+                    {
+                        cpuvalue = "CPU>" + cpuwarnvalue + "% 共:" + numcpu + "次;\n\r";
+                        cpusign = "W";
+
+                    }
+                    if (errornumcpu > cpuerrortime)
+                    {
+                        cpuvalue = "CPU>" + cpuerrorvalue + "% 共:" + errornumcpu + "次;\n\r";
+                        cpusign = "E";
+
+                    }
+                    if (cpusign == "N" && memsign == "N")
+                    {
+                        string sql10 = "update Status_Now set para_value='正常',flag ='N',details = '" + cpuvalue+ "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                        tool.AccessDbclass(sql10);
+                    }
+                    else
+                    {
+                        if (cpusign == "E" || memsign == "E")
+                        {
+                            string sql10 = "update Status_Now set para_value='错误',flag ='E',details = '" + cpuvalue + memvalue + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                            tool.AccessDbclass(sql10);
+
+                        }
+                        else
+                        {
+                            string sql10 = "update Status_Now set para_value='警告',flag ='W',details = '" + cpuvalue + memvalue + "',create_date = '" + DateTime.Now + "' where para_name = 'cpu_running'";
+                            tool.AccessDbclass(sql10);
+ 
+                        }
+ 
+                    }
+                
+                
             }
         }
         public void threadErrorSyslog()
@@ -577,10 +600,10 @@ namespace CobasITMonitor
 
         }
         //日志监控
-        public void threadlog(bool is_first)
+        public void threadlog(bool is_first, int exec)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first,1);
+            bool begin = tool.execute_or_not("log_error", db_dir, syslog, is_first, exec);
             if (begin == true)
             {
                 threadWarnSyslog();
@@ -589,23 +612,23 @@ namespace CobasITMonitor
                 string str5 = System.Windows.Forms.Application.StartupPath;
                 string a = str5 + "\\db.accdb";
                 db.AccessDbClass2(a);
-                string error = "warn_log：" + eventlogWarnNum.ToString() + "，error_log：" + eventlogErrorNum.ToString() + ";";
+                string error = "警告日志：" + eventlogWarnNum.ToString() + "个，错误日志：" + eventlogErrorNum.ToString() + "个;";
                 string sql3 = "";
                 if (eventlogWarnNum == 0 && eventlogErrorNum == 0 && is_first== true)
                 {
-                    sql3 = "update Status_Now set para_value='true',details ='normal',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'syslog_warn'";
+                    sql3 = "update Status_Now set para_value='正常',details ='正常',create_date = '" + DateTime.Now + "',flag = 'N' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
 
                 }
                 if (eventlogWarnNum > 0)
                 {
-                    sql3 = "update Status_Now set para_value='false',details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'syslog_warn'";
+                    sql3 = "update Status_Now set para_value='警告',details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
 
                 }
                 if (eventlogErrorNum > 0)
                 {
-                    sql3 = "update Status_Now set para_value='false',details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'syslog_warn'";
+                    sql3 = "update Status_Now set para_value='错误',details ='" + error + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'syslog_warn'";
                     bool dd = db.ExecuteSQLNonquery(sql3);
 
                 }
@@ -615,23 +638,27 @@ namespace CobasITMonitor
             }
         }
         //ip监控
-        public void threadIp(bool is_first)
+        public void threadIp(bool is_first, int exec)
         {
             string db_dir = System.Windows.Forms.Application.StartupPath + "\\db.accdb";
-            bool begin = tool.execute_or_not("instrument_connection", db_dir, ip,is_first,1);
+            bool begin = tool.execute_or_not("instrument_connection", db_dir, ip, is_first, exec);
             if (begin == true)
             {
                 monitor read = new monitor();
                 string[] ss = tool.readconfig("ip");
                 foreach (string aa in ss)
                 {
-                    ipList.Add(aa);
+                    if (aa != "")
+                    {
+                        ipList.Add(aa);
+                    }
                 }
-                for (int i = 0; i < ipList.Count - 1; i++)
+                string ip_detail = "";
+                for (int i = 1; i < ipList.Count; i++)
                 {
                     if (ipList[i] != "\r\n")
                     {
-                        string[] dd = Regex.Split(ipList[i], "=", RegexOptions.IgnoreCase);
+                        string[] dd = Regex.Split(ipList[i], "#", RegexOptions.IgnoreCase);
                         int start = int.Parse(dd[2]);
                         int end = int.Parse(dd[3]);
                         int crrunt = int.Parse(DateTime.Now.Hour.ToString("00") + DateTime.Now.Minute.ToString("00"));
@@ -653,38 +680,49 @@ namespace CobasITMonitor
                                 Tool_Class.AccessDbClass1 db = new Tool_Class.AccessDbClass1();
                                 db.AccessDbClass2(a);
                                 string egg = "E";
-                                string value = dd[0] + "的ip" + dd[1] + "连接不通";
+                                string value = dd[0] + "的ip：" + dd[1] + "连接不通";
                                 string sql11 = "insert into Status_Histroy (para_name,details,flag,create_date) values ('instrument_connection','" + value + "','" + egg + "','" + DateTime.Now + "')";
                                 bool ee = db.ExecuteSQLNonquery(sql11);
 
                             }
-                            string value3 = dd[0] + "的ip" + dd[1] + "连接不通";
+                            string value3 = dd[0] + "的ip：" + dd[1] + "连接不通";
                             string sql4 = "select count(*) from Status_Histroy where details = '" + value3 + "' and sign is null";
                             DataTable count = tool.DbToDatatable(sql4);
                             int num = int.Parse(count.Rows[0][0].ToString());
                             int warntime = int.Parse(tool.readconfig("jb", "netwarn"));
                             int errortime = int.Parse(tool.readconfig("bj", "neterror"));
+                            string value11="";
                             if (num > warntime)
                             {
-                                string value = dd[0] + "的ip" + dd[1] + "有" + num + "次连接不通";
-                                string sql3 = "update Status_Now set para_value='false',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'instrument_connection'";
+                                value11 = dd[0] + "的ip：" + dd[1] + "有" + num + "次连接不通；\n\r";
+                                string sql3 = "update Status_Now set para_value='警告',create_date = '" + DateTime.Now + "',flag = 'W' where para_name = 'instrument_connection'";
                                 tool.AccessDbclass(sql3);
 
                             }
                             if (num > errortime)
                             {
-                                string value = dd[0] + "的ip" + dd[1] + "有" + num + "次连接不通";
-                                string sql3 = "update Status_Now set para_value='false',details ='" + value + "',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'instrument_connection'";
+                                value11 = dd[0] + "的ip：" + dd[1] + "有" + num + "次连接不通；\n\r";
+                                string sql3 = "update Status_Now set para_value='错误',create_date = '" + DateTime.Now + "',flag = 'E' where para_name = 'instrument_connection'";
                                 tool.AccessDbclass(sql3);
 
                             }
+                            ip_detail += value11;
+                            
                         }
+                        
                     }
                 }
+                if (ip_detail =="")
+                {
+                    ip_detail = "网络正常";
+                }
+                string sql12 = "update Status_Now set details ='" + ip_detail + "' where para_name = 'instrument_connection'";
+                tool.AccessDbclass(sql12);
             }
+            
+            ipList.Clear();
         }
-        string oldsb1 = "";
-        string oldsb2 = "";
+        
         private void sendemail(string mailfrom, string frompassword, string mailto, string flag, string hospitalname)
         {
             StringBuilder sb1 = new StringBuilder();
@@ -704,16 +742,16 @@ namespace CobasITMonitor
                 if (dt.Rows[i][4].ToString() == "E")
                 {
                     needSend2 = true;
-                    sb1.Append(dt.Rows[i][6].ToString() + " || " + dt.Rows[i][1].ToString() + " || " + dt.Rows[i][7].ToString() + "<br>");
-                    sb11.Append(dt.Rows[i][1].ToString() + " || " + dt.Rows[i][2].ToString() + "<br>");
+                    sb1.Append(dt.Rows[i][6].ToString() + " || " + dt.Rows[i][7].ToString() + " || " + dt.Rows[i][8].ToString() + "<br>");
+                    sb11.Append(dt.Rows[i][7].ToString() + " || " + dt.Rows[i][8].ToString() + "<br>");
 
 
                 }
                 if (dt.Rows[i][4].ToString() == "W")
                 {
                     needSend = true;
-                    sb2.Append(dt.Rows[i][6].ToString() + " || " + dt.Rows[i][1].ToString() + " || " + dt.Rows[i][7].ToString() + "<br>");
-                    sb22.Append(dt.Rows[i][1].ToString() + " || " + dt.Rows[i][2].ToString() + "<br>");
+                    sb2.Append(dt.Rows[i][6].ToString() + " || " + dt.Rows[i][7].ToString() + " || " + dt.Rows[i][8].ToString() + "<br>");
+                    sb22.Append(dt.Rows[i][7].ToString() + " || " + dt.Rows[i][8].ToString() + "<br>");
 
                 }
 
@@ -729,7 +767,7 @@ namespace CobasITMonitor
                 sendMail.subject = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " IT3000警告信息";
                 sendMail.mailBody = mailBody;
                 sendMail.send();
-
+                oldsb2 = sb22.ToString();
             }
             if (flag == "error" && needSend2 == true && oldsb1 != sb11.ToString())
             {
@@ -741,10 +779,10 @@ namespace CobasITMonitor
                 sendMail.subject = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "IT3000错误信息";
                 sendMail.mailBody = mailBody;
                 sendMail.send();
-
+                oldsb1 = sb11.ToString();
             }
-            oldsb1 = sb11.ToString();
-            oldsb2 = sb22.ToString();
+            
+            
 
 
         }
@@ -895,20 +933,6 @@ namespace CobasITMonitor
 
        
 
-        
-
-        
-
-
-
-        private void 监控参数设置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
-     
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -935,21 +959,9 @@ namespace CobasITMonitor
 
         }
 
-        private void 主界面_FormClosed(object sender, FormClosedEventArgs e)
-        {
 
-        }
 
-        private void 客户信息设置ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void 显示状态监控界面ToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-
-        }
+   
 
     }
 }

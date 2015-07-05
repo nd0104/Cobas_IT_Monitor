@@ -103,28 +103,28 @@
             // 
             // memerrorvalue
             // 
-            this.memerrorvalue.Location = new System.Drawing.Point(308, 198);
+            this.memerrorvalue.Location = new System.Drawing.Point(308, 200);
             this.memerrorvalue.Name = "memerrorvalue";
             this.memerrorvalue.Size = new System.Drawing.Size(100, 20);
             this.memerrorvalue.TabIndex = 9;
             // 
             // memwarnvalue
             // 
-            this.memwarnvalue.Location = new System.Drawing.Point(308, 161);
+            this.memwarnvalue.Location = new System.Drawing.Point(308, 163);
             this.memwarnvalue.Name = "memwarnvalue";
             this.memwarnvalue.Size = new System.Drawing.Size(100, 20);
             this.memwarnvalue.TabIndex = 8;
             // 
             // cpuerrorvalue
             // 
-            this.cpuerrorvalue.Location = new System.Drawing.Point(308, 124);
+            this.cpuerrorvalue.Location = new System.Drawing.Point(308, 126);
             this.cpuerrorvalue.Name = "cpuerrorvalue";
             this.cpuerrorvalue.Size = new System.Drawing.Size(100, 20);
             this.cpuerrorvalue.TabIndex = 7;
             // 
             // cpuwarnvalue
             // 
-            this.cpuwarnvalue.Location = new System.Drawing.Point(308, 86);
+            this.cpuwarnvalue.Location = new System.Drawing.Point(308, 88);
             this.cpuwarnvalue.Name = "cpuwarnvalue";
             this.cpuwarnvalue.Size = new System.Drawing.Size(100, 20);
             this.cpuwarnvalue.TabIndex = 6;
@@ -134,9 +134,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(175, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.Size = new System.Drawing.Size(79, 13);
             this.label2.TabIndex = 10;
-            this.label2.Text = "多少分钟监测一次";
+            this.label2.Text = "分钟监测一次";
             // 
             // label3
             // 
@@ -213,38 +213,38 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(414, 89);
+            this.label11.Location = new System.Drawing.Point(412, 91);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(97, 13);
+            this.label11.Size = new System.Drawing.Size(108, 13);
             this.label11.TabIndex = 19;
-            this.label11.Text = "%触发\"警告\"警报";
+            this.label11.Text = "% ，触发\"警告\"警报";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(414, 127);
+            this.label12.Location = new System.Drawing.Point(412, 129);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(97, 13);
+            this.label12.Size = new System.Drawing.Size(108, 13);
             this.label12.TabIndex = 20;
-            this.label12.Text = "%触发\"错误\"警报";
+            this.label12.Text = "% ，触发\"错误\"警报";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(414, 168);
+            this.label13.Location = new System.Drawing.Point(412, 170);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(97, 13);
+            this.label13.Size = new System.Drawing.Size(111, 13);
             this.label13.TabIndex = 21;
-            this.label13.Text = "%触发\"警告\"警报";
+            this.label13.Text = "% ， 触发\"警告\"警报";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(414, 205);
+            this.label14.Location = new System.Drawing.Point(412, 207);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(97, 13);
+            this.label14.Size = new System.Drawing.Size(111, 13);
             this.label14.TabIndex = 22;
-            this.label14.Text = "%触发\"错误\"警报";
+            this.label14.Text = "%  ，触发\"错误\"警报";
             // 
             // button1
             // 
@@ -302,7 +302,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CPUMEM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "cpu和内存监控参数设置";
+            this.Text = "监控参数设置：cpu和内存占有率";
             this.Load += new System.EventHandler(this.CPUMEM_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

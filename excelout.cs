@@ -40,7 +40,7 @@ namespace CobasITMonitor
         private StringBuilder history(string name)
         {
             StringBuilder sb1 = new StringBuilder();
-            string sql = "select * from Status_Histroy where para_name = '" + name + "'";
+            string sql = "select * from Status_Histroy where para_name = '" + name + "' and sign is null";
             Tool_Class.IO_tool tool = new Tool_Class.IO_tool();
             DataTable dt = tool.DbToDatatable(sql);
             int dtr;
