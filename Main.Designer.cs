@@ -40,25 +40,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -67,6 +67,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.button4 = new System.Windows.Forms.Button();
@@ -75,6 +76,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.listBox7 = new System.Windows.Forms.ListBox();
@@ -303,13 +305,13 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(255, 26);
+            this.label3.Location = new System.Drawing.Point(237, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 28);
+            this.label3.Size = new System.Drawing.Size(126, 25);
             this.label3.TabIndex = 2;
-            this.label3.Text = "推荐阀值";
+            this.label3.Text = "上次检测时间";
             // 
             // label2
             // 
@@ -335,19 +337,28 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.label9);
             this.panel2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.Location = new System.Drawing.Point(10, 101);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(950, 93);
             this.panel2.TabIndex = 9;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(263, 44);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(0, 13);
+            this.label10.TabIndex = 17;
             // 
             // textBox1
             // 
@@ -367,6 +378,8 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(850, 31);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 25);
@@ -411,17 +424,6 @@
             this.label11.TabIndex = 11;
             this.label11.Text = "Oracle";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(254, 35);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 21);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "<32G";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -436,20 +438,28 @@
             // panel3
             // 
             this.panel3.AutoScroll = true;
+            this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.textBox2);
-            this.panel3.Controls.Add(this.label17);
             this.panel3.Controls.Add(this.pictureBox2);
             this.panel3.Controls.Add(this.button2);
             this.panel3.Controls.Add(this.checkBox2);
             this.panel3.Controls.Add(this.label13);
             this.panel3.Controls.Add(this.label14);
-            this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.label16);
             this.panel3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel3.Location = new System.Drawing.Point(10, 200);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(950, 89);
             this.panel3.TabIndex = 16;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(263, 42);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(0, 13);
+            this.label15.TabIndex = 18;
             // 
             // textBox2
             // 
@@ -459,17 +469,6 @@
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox2.Size = new System.Drawing.Size(100, 22);
             this.textBox2.TabIndex = 17;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(284, 54);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(85, 21);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "<1000000";
             // 
             // pictureBox2
             // 
@@ -482,6 +481,8 @@
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Location = new System.Drawing.Point(851, 29);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 25);
@@ -526,17 +527,6 @@
             this.label14.TabIndex = 11;
             this.label14.Text = "Oracle";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label15.ForeColor = System.Drawing.Color.Black;
-            this.label15.Location = new System.Drawing.Point(255, 27);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(114, 21);
-            this.label15.TabIndex = 10;
-            this.label15.Text = "LIS_MESSAGE";
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -551,6 +541,7 @@
             // panel4
             // 
             this.panel4.AutoScroll = true;
+            this.panel4.Controls.Add(this.label17);
             this.panel4.Controls.Add(this.textBox3);
             this.panel4.Controls.Add(this.pictureBox3);
             this.panel4.Controls.Add(this.button3);
@@ -563,6 +554,15 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(950, 96);
             this.panel4.TabIndex = 18;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(263, 44);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(0, 13);
+            this.label17.TabIndex = 19;
             // 
             // textBox3
             // 
@@ -584,6 +584,8 @@
             // 
             // button3
             // 
+            this.button3.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button3.ForeColor = System.Drawing.Color.Black;
             this.button3.Location = new System.Drawing.Point(850, 31);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 25);
@@ -642,6 +644,7 @@
             // panel5
             // 
             this.panel5.AutoScroll = true;
+            this.panel5.Controls.Add(this.label24);
             this.panel5.Controls.Add(this.textBox4);
             this.panel5.Controls.Add(this.pictureBox4);
             this.panel5.Controls.Add(this.button4);
@@ -654,6 +657,15 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(950, 99);
             this.panel5.TabIndex = 19;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.ForeColor = System.Drawing.Color.Black;
+            this.label24.Location = new System.Drawing.Point(261, 44);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(0, 13);
+            this.label24.TabIndex = 20;
             // 
             // textBox4
             // 
@@ -675,6 +687,8 @@
             // 
             // button4
             // 
+            this.button4.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.Location = new System.Drawing.Point(848, 30);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 25);
@@ -733,6 +747,7 @@
             // panel8
             // 
             this.panel8.AutoScroll = true;
+            this.panel8.Controls.Add(this.label25);
             this.panel8.Controls.Add(this.textBox5);
             this.panel8.Controls.Add(this.panel9);
             this.panel8.Controls.Add(this.pictureBox5);
@@ -746,6 +761,15 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(950, 90);
             this.panel8.TabIndex = 22;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.ForeColor = System.Drawing.Color.Black;
+            this.label25.Location = new System.Drawing.Point(263, 40);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(0, 13);
+            this.label25.TabIndex = 21;
             // 
             // textBox5
             // 
@@ -851,6 +875,8 @@
             // 
             // button8
             // 
+            this.button8.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button8.ForeColor = System.Drawing.Color.Black;
             this.button8.Location = new System.Drawing.Point(850, 33);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 25);
@@ -936,13 +962,11 @@
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label61.ForeColor = System.Drawing.Color.Black;
-            this.label61.Location = new System.Drawing.Point(250, 31);
+            this.label61.Location = new System.Drawing.Point(263, 44);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(134, 19);
-            this.label61.TabIndex = 22;
-            this.label61.Text = "连接不通次数少于3次";
+            this.label61.Size = new System.Drawing.Size(0, 13);
+            this.label61.TabIndex = 17;
             // 
             // panel11
             // 
@@ -1039,6 +1063,8 @@
             // 
             // button10
             // 
+            this.button10.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button10.ForeColor = System.Drawing.Color.Black;
             this.button10.Location = new System.Drawing.Point(852, 29);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(75, 25);
@@ -1124,13 +1150,11 @@
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label62.ForeColor = System.Drawing.Color.Black;
-            this.label62.Location = new System.Drawing.Point(247, 30);
+            this.label62.Location = new System.Drawing.Point(263, 44);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(105, 19);
-            this.label62.TabIndex = 23;
-            this.label62.Text = "可用空间大于5G";
+            this.label62.Size = new System.Drawing.Size(0, 13);
+            this.label62.TabIndex = 17;
             // 
             // panel13
             // 
@@ -1227,6 +1251,7 @@
             // 
             // button12
             // 
+            this.button12.ForeColor = System.Drawing.Color.Black;
             this.button12.Location = new System.Drawing.Point(850, 28);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(75, 25);
@@ -1312,13 +1337,11 @@
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label63.ForeColor = System.Drawing.Color.Black;
-            this.label63.Location = new System.Drawing.Point(264, 37);
+            this.label63.Location = new System.Drawing.Point(263, 44);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(102, 19);
-            this.label63.TabIndex = 24;
-            this.label63.Text = "使用率低于80%";
+            this.label63.Size = new System.Drawing.Size(0, 13);
+            this.label63.TabIndex = 17;
             // 
             // panel15
             // 
@@ -1415,6 +1438,7 @@
             // 
             // button14
             // 
+            this.button14.ForeColor = System.Drawing.Color.Black;
             this.button14.Location = new System.Drawing.Point(850, 29);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(75, 25);
@@ -1500,13 +1524,11 @@
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label60.ForeColor = System.Drawing.Color.Black;
-            this.label60.Location = new System.Drawing.Point(266, 36);
+            this.label60.Location = new System.Drawing.Point(263, 44);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(90, 21);
+            this.label60.Size = new System.Drawing.Size(0, 13);
             this.label60.TabIndex = 17;
-            this.label60.Text = "无错误日志";
             // 
             // panel17
             // 
@@ -1603,6 +1625,8 @@
             // 
             // button16
             // 
+            this.button16.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button16.ForeColor = System.Drawing.Color.Black;
             this.button16.Location = new System.Drawing.Point(850, 28);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(75, 25);
@@ -1789,6 +1813,8 @@
             // 
             // button18
             // 
+            this.button18.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.button18.ForeColor = System.Drawing.Color.Black;
             this.button18.Location = new System.Drawing.Point(850, 34);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(75, 25);
@@ -2074,7 +2100,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -2087,9 +2112,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button button3;
@@ -2227,6 +2250,11 @@
         private System.Windows.Forms.ToolStripMenuItem 邮件功能测试ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
 
     }
 }
